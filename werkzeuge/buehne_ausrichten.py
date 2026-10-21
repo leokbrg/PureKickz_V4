@@ -2,7 +2,7 @@ import sys
 sys.path.insert(0, '/home/user/material/werkzeuge')
 import numpy as np
 import studio_stage as st
-S = '/tmp/claude-0/-home-user-PureKickz-V4/4b0a9872-7063-56f9-9150-0e6c54a37316/scratchpad'
+S = sys.argv[1] if len(sys.argv) > 1 else '.'  # Ordner mit cut/src_N.png und cut/cut_N.png (Freisteller per rembg)
 # Griffmitte (x) und Geräteoberkante (y) im 1536×1024-Foto
 LM = {12: (686, 200), 6: (712, 77), 7: (754, 147)}
 NAMES = {12: 'weich', 6: 'hart', 7: 'schwamm'}
@@ -19,6 +19,6 @@ def place(a, fg, bgm, cw, ch, hx, top, n, anchor, out_w, out):
 for n in (12, 6, 7):
     a, fg, bgm = st.load(f'{S}/cut/src_{n}.png', f'{S}/cut/cut_{n}.png', target)
     # Desktop: 3000×1150, Griff bei x 420, Gerät oben bei y 326
-    print(n, 'D', place(a, fg, bgm, 3000, 1150, 420, 326, n, ('left', 'bottom'), 2400, f'{S}/stage3/buehne-{NAMES[n]}.jpg'))
+    print(n, 'D', place(a, fg, bgm, 3000, 1150, 420, 326, n, ('left', 'bottom'), 2400, f'{S}/buehne-{NAMES[n]}.jpg'))
     # Handy: 1800×1300, Griff bei x 770, Gerät oben bei y 476
-    print(n, 'M', place(a, fg, bgm, 1800, 1300, 770, 476, n, ('bottom',), 1200, f'{S}/stage3/buehne-{NAMES[n]}-hoch.jpg'))
+    print(n, 'M', place(a, fg, bgm, 1800, 1300, 770, 476, n, ('bottom',), 1200, f'{S}/buehne-{NAMES[n]}-hoch.jpg'))

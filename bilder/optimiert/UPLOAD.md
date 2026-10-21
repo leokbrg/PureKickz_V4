@@ -56,6 +56,9 @@ Welche Section welches Bild nutzt, sage ich dir beim Bau jeder Section noch einm
 | `hero-mobil.jpg` | 3:4 | Hero (Handy) | PUREKICKZ ONE Sneaker Cleaner vor zwei hellen Sneakern |
 | `aufsatz-buehne-buerste.jpg` | 4:5 | Aufsatz-Bühne, Bürste | PUREKICKZ ONE mit Bürstenaufsatz in der Hand |
 | `aufsatz-buehne-schwamm.jpg` | 4:5 | Aufsatz-Bühne, Schwamm | PUREKICKZ ONE mit Schwammaufsatz in der Hand |
+| `buehne-weich.jpg` / `buehne-weich-hoch.jpg` | 3000×1150 / 1800×1300 | Aufsatz-Bühne, Weiche Bürste (Desktop / Handy) | PUREKICKZ ONE mit weichem Bürstenaufsatz in der Hand, Seitenansicht |
+| `buehne-hart.jpg` / `buehne-hart-hoch.jpg` | 3000×1150 / 1800×1300 | Aufsatz-Bühne, Harte Bürste (Desktop / Handy) | PUREKICKZ ONE mit hartem Bürstenaufsatz in der Hand |
+| `buehne-schwamm.jpg` / `buehne-schwamm-hoch.jpg` | 3000×1150 / 1800×1300 | Aufsatz-Bühne, Schwamm (Desktop / Handy) | PUREKICKZ ONE mit Schwammaufsatz in der Hand |
 | `schwarze-buehne-frontal.jpg` | 2:3 | Schwarze Bühne „Das Gerät“ | PUREKICKZ ONE von vorne mit Ein-/Aus-Taste |
 | `so-gehts-1-aufsatz.jpg` | 3:2 | So funktioniert's, Schritt 1 | Bürstenaufsatz am PUREKICKZ ONE |
 | `so-gehts-2-einschalten.jpg` | 3:2 | So funktioniert's, Schritt 2 | PUREKICKZ ONE einsatzbereit in der Hand |
