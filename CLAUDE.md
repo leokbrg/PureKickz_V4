@@ -101,6 +101,13 @@ Keine neuen Farben ohne Rückfrage.
 | `bilder/Produktbilder/` | alle eigenen Produktfotos (Originale) |
 | `bilder/Logos/` | Logo-Varianten |
 
+**Bildeinbettung (feste Regel):** Produktbilder nie als Kasten mit harter Kante auf Weiß – das wirkt
+eingefügt und leer. Stattdessen immer eine dieser drei Formen:
+1. **freigestellt** – das Produkt steht direkt auf der Fläche (mit weichem Schatten),
+2. **randlos** – das Bild füllt die ganze Breite der Section,
+3. **weiche Übergänge** – der Bildhintergrund läuft nahtlos in die Section-Fläche aus.
+Harte Kanten nur zum Trennen von Sections. Ausnahme: die Produktgalerie (Fotos mit Hintergrund sind dort erwartet).
+
 Die Originale in `bilder/` sind Rohmaterial und werden **nicht verändert und nicht gelöscht**.
 Sie gehören nicht ins Theme selbst (keine Original-Fotos nach `assets/` kopieren).
 
