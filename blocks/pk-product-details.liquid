@@ -1,0 +1,218 @@
+{%- comment -%}
+  PUREKICKZ Produkt-Details als Akkordeon. Lieferumfang und Technik kommen aus den
+  Produkt-Metafeldern (custom.*), damit jedes Produkt seine eigenen Daten mitbringt.
+  Leere Zeilen werden ausgeblendet.
+{%- endcomment -%}
+
+{%- liquid
+  assign product = closest.product
+  assign mf = product.metafields.custom
+
+  assign specs = ''
+  if mf.akku != blank
+    assign specs = specs | append: '<dt>Akku</dt><dd>' | append: mf.akku | append: '</dd>'
+  endif
+  if mf.laden != blank
+    assign specs = specs | append: '<dt>Laden</dt><dd>' | append: mf.laden | append: '</dd>'
+  endif
+  if mf.leistung != blank
+    assign specs = specs | append: '<dt>Leistung</dt><dd>' | append: mf.leistung | append: '</dd>'
+  endif
+  if mf.masse != blank
+    assign specs = specs | append: '<dt>Maße</dt><dd>' | append: mf.masse | append: '</dd>'
+  endif
+  if mf.material != blank
+    assign specs = specs | append: '<dt>Material</dt><dd>' | append: mf.material | append: '</dd>'
+  endif
+-%}
+
+<div class="pk-details" {{ block.shopify_attributes }}>
+  {%- if block.settings.show_description and product.description != blank -%}
+    <details class="pk-details__row">
+      <summary>{{ block.settings.description_title }}</summary>
+      <div class="pk-details__body rte">{{ product.description }}</div>
+    </details>
+  {%- endif -%}
+
+  {%- if mf.lieferumfang != blank -%}
+    <details class="pk-details__row"{% if block.settings.open_first %} open{% endif %}>
+      <summary>{{ block.settings.box_title }}</summary>
+      <div class="pk-details__body">
+        <ul class="pk-details__box">
+          {%- for part in mf.lieferumfang.value -%}
+            <li>{{ part }}</li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    </details>
+  {%- endif -%}
+
+  {%- if specs != blank -%}
+    <details class="pk-details__row">
+      <summary>{{ block.settings.specs_title }}</summary>
+      <div class="pk-details__body">
+        <dl class="pk-details__specs">{{ specs }}</dl>
+      </div>
+    </details>
+  {%- endif -%}
+
+  {%- if block.settings.shipping_text != blank -%}
+    <details class="pk-details__row">
+      <summary>{{ block.settings.shipping_title }}</summary>
+      <div class="pk-details__body rte">{{ block.settings.shipping_text }}</div>
+    </details>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .pk-details {
+    border-top: 1px solid var(--pk-line);
+  }
+
+  .pk-details__row {
+    border-bottom: 1px solid var(--pk-line);
+    interpolate-size: allow-keywords;
+  }
+
+  .pk-details__row summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    min-height: 52px;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+
+  .pk-details__row summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .pk-details__row summary::after {
+    content: '';
+    flex: none;
+    width: 10px;
+    height: 10px;
+    border-right: 1.6px solid currentColor;
+    border-bottom: 1.6px solid currentColor;
+    transform: translateY(-3px) rotate(45deg);
+    transition: transform 0.3s var(--pk-ease);
+  }
+
+  .pk-details__row[open] summary::after {
+    transform: translateY(2px) rotate(-135deg);
+  }
+
+  /* Weiches Auf- und Zuklappen, wo der Browser es kann; sonst sofort */
+  @media (prefers-reduced-motion: no-preference) {
+    .pk-details__row::details-content {
+      block-size: 0;
+      overflow: hidden;
+      transition:
+        block-size 0.35s var(--pk-ease),
+        content-visibility 0.35s allow-discrete;
+    }
+
+    .pk-details__row[open]::details-content {
+      block-size: auto;
+    }
+  }
+
+  .pk-details__body {
+    padding-bottom: 18px;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: #55554f;
+  }
+
+  .pk-details__body > :first-child {
+    margin-top: 0;
+  }
+
+  .pk-details__box {
+    margin: 0;
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .pk-details__specs {
+    margin: 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 24px;
+  }
+
+  .pk-details__specs dt {
+    color: var(--pk-muted);
+  }
+
+  .pk-details__specs dd {
+    margin: 0;
+    color: var(--pk-ink);
+    font-variant-numeric: tabular-nums;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Produkt-Details",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Lieferumfang und Technische Daten kommen aus den Produktfeldern (Metafelder: Akku, Laden, Leistung, Maße, Material, Lieferumfang). Leere Felder werden ausgeblendet."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Beschreibung als erste Zeile",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "description_title",
+      "label": "Titel Beschreibung",
+      "default": "Beschreibung"
+    },
+    {
+      "type": "text",
+      "id": "box_title",
+      "label": "Titel Lieferumfang",
+      "default": "Lieferumfang"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first",
+      "label": "Lieferumfang geöffnet zeigen",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "specs_title",
+      "label": "Titel Technische Daten",
+      "default": "Technische Daten"
+    },
+    {
+      "type": "text",
+      "id": "shipping_title",
+      "label": "Titel Versand & Rückgabe",
+      "default": "Versand & Rückgabe"
+    },
+    {
+      "type": "richtext",
+      "id": "shipping_text",
+      "label": "Text Versand & Rückgabe",
+      "default": "<p>Versand aus Deutschland, meist innerhalb von 1 Werktag. Lieferung innerhalb Deutschlands in 2–4 Werktagen nach Versand.</p><p>14 Tage Widerrufsrecht, die Rücksendung ist für dich kostenlos.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Produkt-Details"
+    }
+  ]
+}
+{% endschema %}

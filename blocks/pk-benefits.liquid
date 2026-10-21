@@ -1,0 +1,65 @@
+{%- comment -%}
+  PUREKICKZ Vorteils-Häkchen im Kaufbereich. Eine Zeile pro Vorteil, nur belegbare Aussagen.
+{%- endcomment -%}
+
+{%- assign lines = block.settings.items | newline_to_br | split: '<br />' -%}
+
+<ul class="pk-benefits" {{ block.shopify_attributes }}>
+  {%- for line in lines -%}
+    {%- assign item = line | strip -%}
+    {%- if item != blank -%}
+      <li class="pk-benefits__item">
+        {%- render 'pk-icon', name: 'check', class: 'pk-benefits__icon' -%}
+        <span>{{ item }}</span>
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+</ul>
+
+{% stylesheet %}
+  .pk-benefits {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+  }
+
+  .pk-benefits__item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .pk-benefits__icon {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
+    color: var(--pk-magenta);
+    stroke-width: 2.4;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Vorteile",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "items",
+      "label": "Vorteile",
+      "info": "Ein Vorteil pro Zeile. Nur Aussagen, die stimmen.",
+      "default": "Motor übernimmt die Schrubbbewegung\n3 Aufsätze: harte Bürste, weiche Bürste, Schwamm\n1200-mAh-Akku, im Einsatz kabellos\nLaden über USB-C"
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Vorteile"
+    }
+  ]
+}
+{% endschema %}
