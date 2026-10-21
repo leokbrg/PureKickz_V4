@@ -1,0 +1,394 @@
+{%- comment -%}
+  PUREKICKZ Footer: Marke + Kontakt, drei Menü-Spalten (Shop, Hilfe, Rechtliches),
+  Zahlungsarten automatisch aus Shopify, Social-Links nur wenn eingetragen.
+  Newsletter-Feld ist gebaut, aber standardmäßig ausgeblendet.
+{%- endcomment -%}
+
+{%- assign logo = section.settings.logo | default: settings.logo -%}
+
+<footer
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-footer"
+  style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: 32px;"
+>
+  <div class="pk-sec__inner">
+    <div class="pk-footer__top">
+      <div class="pk-footer__brand">
+        <a class="pk-footer__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+          {%- if logo != blank -%}
+            {{ logo | image_url: width: 480 | image_tag: widths: '240, 360, 480', sizes: '220px', alt: shop.name, loading: 'lazy' }}
+          {%- else -%}
+            {{ shop.name }}
+          {%- endif -%}
+        </a>
+        {%- if section.settings.text != blank -%}
+          <div class="pk-footer__text">{{ section.settings.text }}</div>
+        {%- endif -%}
+        {%- if section.settings.email != blank -%}
+          <a class="pk-footer__mail" href="mailto:{{ section.settings.email }}">
+            {%- render 'pk-icon', name: 'mail', class: 'pk-footer__mail-icon' -%}
+            {{ section.settings.email }}
+          </a>
+        {%- endif -%}
+
+        {%- liquid
+          assign socials = ''
+          if section.settings.instagram != blank
+            assign socials = socials | append: 'x'
+          endif
+          if section.settings.tiktok != blank
+            assign socials = socials | append: 'x'
+          endif
+          if section.settings.youtube != blank
+            assign socials = socials | append: 'x'
+          endif
+        -%}
+        {%- if socials != '' -%}
+          <ul class="pk-footer__social">
+            {%- if section.settings.instagram != blank -%}
+              <li><a href="{{ section.settings.instagram }}" target="_blank" rel="noopener">Instagram</a></li>
+            {%- endif -%}
+            {%- if section.settings.tiktok != blank -%}
+              <li><a href="{{ section.settings.tiktok }}" target="_blank" rel="noopener">TikTok</a></li>
+            {%- endif -%}
+            {%- if section.settings.youtube != blank -%}
+              <li><a href="{{ section.settings.youtube }}" target="_blank" rel="noopener">YouTube</a></li>
+            {%- endif -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      <nav class="pk-footer__cols" aria-label="Fußzeile">
+        {%- for i in (1..3) -%}
+          {%- liquid
+            assign key = 'menu_' | append: i
+            assign title_key = 'menu_' | append: i | append: '_title'
+            assign menu = section.settings[key]
+          -%}
+          {%- if menu.links.size > 0 -%}
+            <div class="pk-footer__col">
+              <p class="pk-footer__head">{{ section.settings[title_key] | default: menu.title }}</p>
+              <ul>
+                {%- for link in menu.links -%}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </nav>
+    </div>
+
+    {%- if section.settings.show_newsletter -%}
+      <div class="pk-footer__news">
+        <p class="pk-footer__head">{{ section.settings.newsletter_title }}</p>
+        {%- form 'customer', id: 'pk-footer-newsletter', class: 'pk-footer__form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <label class="visually-hidden" for="pk-footer-email">E-Mail</label>
+          <input id="pk-footer-email" type="email" name="contact[email]" placeholder="Deine E-Mail" required autocomplete="email">
+          <button class="button" type="submit">Anmelden</button>
+          {%- if form.posted_successfully? -%}
+            <p class="pk-footer__ok">Danke! Du bist angemeldet.</p>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+    {%- endif -%}
+
+    <div class="pk-footer__bottom">
+      <p class="pk-footer__copy">© {{ 'now' | date: '%Y' }} {{ shop.name }}</p>
+      {%- if section.settings.show_payment and shop.enabled_payment_types.size > 0 -%}
+        <ul class="pk-footer__payments" aria-label="Zahlungsarten">
+          {%- for type in shop.enabled_payment_types -%}
+            <li>{{ type | payment_type_svg_tag: class: 'pk-footer__pay-icon' }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% stylesheet %}
+  .pk-footer__top {
+    display: grid;
+    gap: 40px;
+  }
+
+  .pk-footer__brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    max-width: 340px;
+  }
+
+  .pk-footer__logo {
+    display: block;
+    color: var(--pk-s-fg);
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-decoration: none;
+  }
+
+  .pk-footer__logo img {
+    display: block;
+    width: 200px;
+    height: auto;
+  }
+
+  .pk-footer__text {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--pk-s-soft);
+  }
+
+  .pk-footer__text p {
+    margin: 0;
+  }
+
+  .pk-footer__mail {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    font-family: var(--font-heading--family);
+    font-weight: 600;
+    color: var(--pk-s-fg);
+    text-decoration: none;
+  }
+
+  .pk-footer__mail:hover {
+    color: var(--pk-s-accent);
+  }
+
+  .pk-footer__mail-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--pk-s-accent);
+  }
+
+  .pk-footer__social {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 16px;
+  }
+
+  .pk-footer__social a {
+    font-size: 0.875rem;
+    color: var(--pk-s-soft);
+  }
+
+  .pk-footer__cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 24px;
+  }
+
+  .pk-footer__head {
+    margin: 0 0 14px;
+    font-family: var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pk-s-fg);
+  }
+
+  .pk-footer__col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 2px;
+  }
+
+  .pk-footer__col a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    font-size: 0.9375rem;
+    color: var(--pk-s-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .pk-footer__col a:hover {
+    color: var(--pk-s-fg);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .pk-footer__news {
+    margin-top: 48px;
+    max-width: 480px;
+  }
+
+  .pk-footer__form {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .pk-footer__form input[type='email'] {
+    flex: 1 1 220px;
+    min-height: 48px;
+    padding: 0 16px;
+    border: 1px solid var(--pk-s-line);
+    border-radius: 4px;
+    background: var(--pk-white);
+    font: inherit;
+  }
+
+  .pk-footer__ok {
+    flex-basis: 100%;
+    margin: 4px 0 0;
+    font-size: 0.875rem;
+  }
+
+  .pk-footer__bottom {
+    margin-top: clamp(40px, 6vw, 72px);
+    padding-top: 24px;
+    border-top: 1px solid var(--pk-s-line);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .pk-footer__copy {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--pk-s-soft);
+  }
+
+  .pk-footer__payments {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pk-footer__pay-icon {
+    display: block;
+    width: 38px;
+    height: 24px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .pk-footer__cols {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .pk-footer__top {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+      gap: clamp(40px, 6vw, 96px);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Footer",
+  "tag": "div",
+  "class": "pk-section pk-section--footer",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Fläche",
+      "info": "Abwechselnd zur letzten Section der Seite wählen.",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "grey", "label": "Hellgrau" },
+        { "value": "dark", "label": "Schwarz" }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo",
+      "info": "Leer = Logo aus den Theme-Einstellungen"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Kurztext",
+      "default": "<p>Junge deutsche Marke für Sneaker- und Schuhpflege.</p>"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "E-Mail",
+      "default": "info@purekickz.de"
+    },
+    {
+      "type": "header",
+      "content": "Menüs"
+    },
+    { "type": "link_list", "id": "menu_1", "label": "Spalte 1" },
+    { "type": "text", "id": "menu_1_title", "label": "Titel Spalte 1", "default": "Shop" },
+    { "type": "link_list", "id": "menu_2", "label": "Spalte 2" },
+    { "type": "text", "id": "menu_2_title", "label": "Titel Spalte 2", "default": "Hilfe" },
+    { "type": "link_list", "id": "menu_3", "label": "Spalte 3" },
+    { "type": "text", "id": "menu_3_title", "label": "Titel Spalte 3", "default": "Rechtliches" },
+    {
+      "type": "header",
+      "content": "Social Media"
+    },
+    {
+      "type": "paragraph",
+      "content": "Nur eintragen, wenn das Profil existiert – leere Felder werden nicht angezeigt."
+    },
+    { "type": "url", "id": "instagram", "label": "Instagram" },
+    { "type": "url", "id": "tiktok", "label": "TikTok" },
+    { "type": "url", "id": "youtube", "label": "YouTube" },
+    {
+      "type": "header",
+      "content": "Newsletter & Zahlungsarten"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Newsletter-Feld anzeigen",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter-Titel",
+      "default": "Neues von PUREKICKZ"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment",
+      "label": "Zahlungsarten anzeigen",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 32,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Footer"
+    }
+  ]
+}
+{% endschema %}
