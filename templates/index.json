@@ -24,8 +24,9 @@
         "background_color": "#FFFFFF",
         "padding_top": 72,
         "padding_bottom": 72,
-        "image_desktop": "shopify://shop_images/hero-desktop.jpg",
-        "image_mobile": "shopify://shop_images/hero-mobil.jpg"
+        "image_desktop": "shopify://shop_images/sneaker-cleaner-mit-sneakern.webp",
+        "image_mobile": "",
+        "image_style": "cutout"
       }
     },
     "pk_trust": {
