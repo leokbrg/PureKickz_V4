@@ -1,1 +1,147 @@
-{"sections": {"pk_hero": {"type": "pk-hero", "settings": {"product": "purekickz-one-elektrischer-sneaker-cleaner", "show_price": true, "eyebrow": "PUREKICKZ ONE", "heading": "Du führst. Der Rest <em>dreht sich.</em>", "text": "<p>Der elektrische Sneaker Cleaner mit Motor und drei Aufsätzen. Du setzt ihn auf, die Bewegung macht das Gerät.</p>", "button_label": "Jetzt kaufen", "button_link": "", "button2_label": "So funktioniert's", "button2_link": "", "image_position": "right", "background_color": "#E8E8E6", "padding_top": 72, "padding_bottom": 72, "image_desktop": "shopify://shop_images/hero-studio-weit.jpg", "image_mobile": "shopify://shop_images/hero-studio-hoch.jpg", "image_tablet": "shopify://shop_images/hero-studio-tablet.jpg", "image_style": "photo", "mobile_text_start": 70}, "blocks": {"t1": {"type": "trust", "settings": {"icon": "truck", "title": "Versand aus Deutschland", "text": "Meist innerhalb von 1 Werktag verschickt", "link": "/policies/shipping-policy"}}, "t2": {"type": "trust", "settings": {"icon": "return", "title": "14 Tage Widerrufsrecht", "text": "Rücksendung für dich kostenlos", "link": "/policies/refund-policy"}}, "t3": {"type": "trust", "settings": {"icon": "lock", "title": "Sichere Bezahlung", "text": "Verschlüsselt über Shopify", "link": ""}}, "t4": {"type": "trust", "settings": {"icon": "clock", "title": "2–4 Werktage Lieferzeit", "text": "Nach Versand, innerhalb Deutschlands", "link": "/policies/shipping-policy"}}}, "block_order": ["t1", "t2", "t3", "t4"]}, "pk_stage": {"type": "pk-attachment-stage", "settings": {"eyebrow": "Die Aufsätze", "heading": "Ein Gerät. Drei Aufsätze.", "background_color": "#BEBEBD"}, "blocks": {"hart": {"type": "attachment", "settings": {"title": "Harte Bürste", "text": "Für Sohle und Sohlenrand.", "head_image": "shopify://shop_images/aufsatz-harte-buerste.webp", "image_desktop": "shopify://shop_images/buehne-hart.jpg", "image_mobile": "shopify://shop_images/buehne-hart-hoch.jpg", "ring_dx": 19, "ring_dy": 39, "ring_dd": 9, "ring_mx": 52, "ring_my": 46, "ring_md": 16}}, "weich": {"type": "attachment", "settings": {"title": "Weiche Bürste", "text": "Für Obermaterial wie Leder und Mesh.", "head_image": "shopify://shop_images/aufsatz-weiche-buerste.webp", "image_desktop": "shopify://shop_images/buehne-weich.jpg", "image_mobile": "shopify://shop_images/buehne-weich-hoch.jpg", "ring_dx": 23, "ring_dy": 38, "ring_dd": 8, "ring_mx": 59, "ring_my": 45, "ring_md": 13}}, "schwamm": {"type": "attachment", "settings": {"title": "Schwamm", "text": "Zum Auftragen von Reinigungsmittel und zum Abwischen.", "head_image": "shopify://shop_images/aufsatz-schwamm.webp", "image_desktop": "shopify://shop_images/buehne-schwamm.jpg", "image_mobile": "shopify://shop_images/buehne-schwamm-hoch.jpg", "ring_dx": 21, "ring_dy": 39, "ring_dd": 9, "ring_mx": 55, "ring_my": 46, "ring_md": 16}}}, "block_order": ["weich", "hart", "schwamm"]}}, "order": ["pk_hero", "pk_stage"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "pk_hero": {
+      "type": "pk-hero",
+      "settings": {
+        "product": "purekickz-one-elektrischer-sneaker-cleaner",
+        "show_price": true,
+        "eyebrow": "PUREKICKZ ONE",
+        "heading": "Du führst. Der Rest <em>dreht sich.</em>",
+        "text": "<p>Der elektrische Sneaker Cleaner mit Motor und drei Aufsätzen. Du setzt ihn auf, die Bewegung macht das Gerät.</p>",
+        "button_label": "Jetzt kaufen",
+        "button_link": "",
+        "button2_label": "So funktioniert's",
+        "button2_link": "",
+        "image_position": "right",
+        "background_color": "#E8E8E6",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "image_desktop": "shopify://shop_images/hero-studio-weit.jpg",
+        "image_mobile": "shopify://shop_images/hero-studio-hoch.jpg",
+        "image_tablet": "shopify://shop_images/hero-studio-tablet.jpg",
+        "image_style": "photo",
+        "mobile_text_start": 70
+      },
+      "blocks": {
+        "t1": {
+          "type": "trust",
+          "settings": {
+            "icon": "truck",
+            "title": "Versand aus Deutschland",
+            "text": "Meist innerhalb von 1 Werktag verschickt",
+            "link": "/policies/shipping-policy"
+          }
+        },
+        "t2": {
+          "type": "trust",
+          "settings": {
+            "icon": "return",
+            "title": "14 Tage Widerrufsrecht",
+            "text": "Rücksendung für dich kostenlos",
+            "link": "/policies/refund-policy"
+          }
+        },
+        "t3": {
+          "type": "trust",
+          "settings": {
+            "icon": "lock",
+            "title": "Sichere Bezahlung",
+            "text": "Verschlüsselt über Shopify",
+            "link": ""
+          }
+        },
+        "t4": {
+          "type": "trust",
+          "settings": {
+            "icon": "clock",
+            "title": "2–4 Werktage Lieferzeit",
+            "text": "Nach Versand, innerhalb Deutschlands",
+            "link": "/policies/shipping-policy"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ]
+    },
+    "pk_stage": {
+      "type": "pk-attachment-stage",
+      "settings": {
+        "eyebrow": "Die Aufsätze",
+        "heading": "Ein Gerät. Drei Aufsätze.",
+        "background_color": "#BEBEBD"
+      },
+      "blocks": {
+        "hart": {
+          "type": "attachment",
+          "settings": {
+            "title": "Harte Bürste",
+            "text": "Für Sohle und Sohlenrand.",
+            "head_image": "shopify://shop_images/aufsatz-harte-buerste.webp",
+            "image_desktop": "shopify://shop_images/buehne-hart.jpg",
+            "image_mobile": "shopify://shop_images/buehne-hart-hoch.jpg",
+            "ring_dx": 19,
+            "ring_dy": 39,
+            "ring_dd": 9,
+            "ring_mx": 52,
+            "ring_my": 46,
+            "ring_md": 16
+          }
+        },
+        "weich": {
+          "type": "attachment",
+          "settings": {
+            "title": "Weiche Bürste",
+            "text": "Für Obermaterial wie Leder und Mesh.",
+            "head_image": "shopify://shop_images/aufsatz-weiche-buerste.webp",
+            "image_desktop": "shopify://shop_images/buehne-weich.jpg",
+            "image_mobile": "shopify://shop_images/buehne-weich-hoch.jpg",
+            "ring_dx": 23,
+            "ring_dy": 38,
+            "ring_dd": 8,
+            "ring_mx": 59,
+            "ring_my": 45,
+            "ring_md": 13
+          }
+        },
+        "schwamm": {
+          "type": "attachment",
+          "settings": {
+            "title": "Schwamm",
+            "text": "Zum Auftragen von Reinigungsmittel und zum Abwischen.",
+            "head_image": "shopify://shop_images/aufsatz-schwamm.webp",
+            "image_desktop": "shopify://shop_images/buehne-schwamm.jpg",
+            "image_mobile": "shopify://shop_images/buehne-schwamm-hoch.jpg",
+            "ring_dx": 21,
+            "ring_dy": 39,
+            "ring_dd": 9,
+            "ring_mx": 55,
+            "ring_my": 46,
+            "ring_md": 16
+          }
+        }
+      },
+      "block_order": [
+        "weich",
+        "hart",
+        "schwamm"
+      ]
+    }
+  },
+  "order": [
+    "pk_hero",
+    "pk_stage"
+  ]
+}
