@@ -1,0 +1,287 @@
+{%- comment -%}
+  PUREKICKZ Lieferumfang & technische Daten.
+  Das Foto hat denselben Hintergrund wie die Fläche (#E8E8E6) und läuft an den Rändern weich aus.
+  Lieferumfang und Daten als Blöcke; offene Angaben als [[PLATZHALTER]] eintragen oder Block entfernen.
+{%- endcomment -%}
+
+<div
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-specs"
+  style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="pk-sec__inner pk-specs__inner">
+    <div class="pk-specs__visual" data-pk-reveal>
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 1200
+          | image_tag:
+            widths: '500, 800, 1000, 1200',
+            sizes: '(min-width: 990px) 45vw, 90vw',
+            loading: 'lazy',
+            class: 'pk-specs__img'
+        }}
+      {%- endif -%}
+    </div>
+
+    <div class="pk-specs__body">
+      <div class="pk-sec__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="pk-eyebrow" data-pk-reveal>{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="pk-h2" data-pk-reveal>{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+
+      <div class="pk-specs__groups">
+        {%- assign items = section.blocks | where: 'type', 'item' -%}
+        {%- if items.size > 0 -%}
+          <div class="pk-specs__group" data-pk-reveal>
+            <h3 class="pk-specs__label">{{ section.settings.items_title }}</h3>
+            <ul class="pk-specs__box">
+              {%- for block in items -%}
+                <li {{ block.shopify_attributes }}>
+                  <span class="pk-specs__qty">{{ block.settings.qty }}</span>
+                  <span>{{ block.settings.name }}</span>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+        {%- assign specs = section.blocks | where: 'type', 'spec' -%}
+        {%- if specs.size > 0 -%}
+          <div class="pk-specs__group" data-pk-reveal>
+            <h3 class="pk-specs__label">{{ section.settings.specs_title }}</h3>
+            <dl class="pk-specs__list">
+              {%- for block in specs -%}
+                <div class="pk-specs__row" {{ block.shopify_attributes }}>
+                  <dt>{{ block.settings.label }}</dt>
+                  <dd>{{ block.settings.value }}</dd>
+                </div>
+              {%- endfor -%}
+            </dl>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .pk-specs__inner {
+    display: grid;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .pk-specs__visual {
+    width: min(80%, 380px);
+    margin-inline: auto;
+  }
+
+  /* Das Foto hat denselben Hintergrund wie die Fläche – es steht ohne sichtbare Kante darauf */
+  .pk-specs__img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .pk-specs__body .pk-sec__head {
+    margin-bottom: clamp(28px, 4vw, 44px);
+  }
+
+  .pk-specs__groups {
+    display: grid;
+    gap: 36px;
+  }
+
+  .pk-specs__label {
+    margin: 0 0 12px;
+    font-family: var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pk-s-soft);
+  }
+
+  .pk-specs__box {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+  }
+
+  .pk-specs__box li,
+  .pk-specs__row {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding-block: 13px;
+    border-bottom: 1px solid var(--pk-s-line);
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .pk-specs__box li:first-child,
+  .pk-specs__row:first-child {
+    border-top: 1px solid var(--pk-s-line);
+  }
+
+  .pk-specs__qty {
+    flex: none;
+    min-width: 2.2em;
+    font-family: var(--font-heading--family);
+    font-weight: 600;
+    color: var(--pk-s-accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pk-specs__list {
+    margin: 0;
+  }
+
+  .pk-specs__row {
+    justify-content: space-between;
+  }
+
+  .pk-specs__row dt {
+    color: var(--pk-s-soft);
+  }
+
+  .pk-specs__row dd {
+    margin: 0;
+    font-family: var(--font-heading--family);
+    font-weight: 600;
+    text-align: right;
+  }
+
+  @media screen and (min-width: 750px) {
+    .pk-specs__groups {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 40px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .pk-specs__inner {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: clamp(40px, 6vw, 96px);
+    }
+
+    .pk-specs__visual {
+      width: 100%;
+      max-width: 440px;
+    }
+  }
+
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Lieferumfang & Daten",
+  "tag": "section",
+  "class": "pk-section pk-section--specs",
+  "max_blocks": 16,
+  "settings": [
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Fläche",
+      "info": "Immer abwechselnd zur Section davor und danach wählen. Das Bild sollte denselben Hintergrund haben.",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "grey", "label": "Hellgrau" },
+        { "value": "dark", "label": "Schwarz" }
+      ],
+      "default": "grey"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Bild Lieferumfang"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Überzeile",
+      "default": "Lieferumfang & Daten"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Alles drin. <em>Alles klar.</em>"
+    },
+    {
+      "type": "text",
+      "id": "items_title",
+      "label": "Titel Lieferumfang",
+      "default": "Im Karton"
+    },
+    {
+      "type": "text",
+      "id": "specs_title",
+      "label": "Titel technische Daten",
+      "default": "Technische Daten"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Im Karton",
+      "settings": [
+        { "type": "text", "id": "qty", "label": "Menge", "default": "1×" },
+        { "type": "text", "id": "name", "label": "Teil", "default": "Teil" }
+      ]
+    },
+    {
+      "type": "spec",
+      "name": "Technische Angabe",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Merkmal", "default": "Merkmal" },
+        { "type": "text", "id": "value", "label": "Wert", "default": "Wert" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Lieferumfang & Daten",
+      "blocks": [
+        { "type": "item", "settings": { "qty": "1×", "name": "PUREKICKZ ONE" } },
+        { "type": "item", "settings": { "qty": "1×", "name": "Harte Bürste" } },
+        { "type": "item", "settings": { "qty": "1×", "name": "Weiche Bürste" } },
+        { "type": "item", "settings": { "qty": "1×", "name": "Schwamm" } },
+        { "type": "item", "settings": { "qty": "", "name": "USB-C-Kabel: [[KABEL_IM_LIEFERUMFANG]]" } },
+        { "type": "spec", "settings": { "label": "Maße", "value": "163 × 96 × 45 mm" } },
+        { "type": "spec", "settings": { "label": "Akku", "value": "1200 mAh" } },
+        { "type": "spec", "settings": { "label": "Laden", "value": "USB-C" } },
+        { "type": "spec", "settings": { "label": "Aufsätze", "value": "3" } },
+        { "type": "spec", "settings": { "label": "Akkulaufzeit", "value": "[[AKKULAUFZEIT]]" } },
+        { "type": "spec", "settings": { "label": "Ladedauer", "value": "[[LADEDAUER]]" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
