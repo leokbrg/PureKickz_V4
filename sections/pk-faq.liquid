@@ -1,0 +1,372 @@
+{%- comment -%}
+  PUREKICKZ FAQ & Service: Akkordeon mit den häufigsten Fragen, daneben der Kontakt.
+  Funktioniert ohne JavaScript (details/summary); weiches Aufklappen, wo der Browser es kann.
+  Offene Fakten als [[PLATZHALTER]] eintragen oder Frage entfernen – nie raten.
+{%- endcomment -%}
+
+<div
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-faq"
+  style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="pk-sec__inner pk-faq__inner">
+    <div class="pk-faq__aside">
+      <div class="pk-sec__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="pk-eyebrow" data-pk-reveal>{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="pk-h2" data-pk-reveal>{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.show_service -%}
+        <div class="pk-faq__service" data-pk-reveal>
+          <p class="pk-faq__service-title">{{ section.settings.service_title }}</p>
+          {%- if section.settings.service_text != blank -%}
+            <div class="pk-faq__service-text">{{ section.settings.service_text }}</div>
+          {%- endif -%}
+          {%- if section.settings.email != blank -%}
+            <a class="pk-faq__mail" href="mailto:{{ section.settings.email }}">
+              {%- render 'pk-icon', name: 'mail', class: 'pk-faq__mail-icon' -%}
+              <span>{{ section.settings.email }}</span>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.response_time != blank -%}
+            <p class="pk-faq__response">{{ section.settings.response_time }}</p>
+          {%- endif -%}
+          {%- if section.settings.link_label != blank and section.settings.link != blank -%}
+            <a class="pk-faq__more" href="{{ section.settings.link }}">{{ section.settings.link_label }} →</a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="pk-faq__list" data-pk-stagger>
+      {%- for block in section.blocks -%}
+        <details class="pk-faq__item" data-pk-reveal {{ block.shopify_attributes }}>
+          <summary class="pk-faq__q">
+            <span>{{ block.settings.question }}</span>
+            <span class="pk-faq__plus" aria-hidden="true"></span>
+          </summary>
+          <div class="pk-faq__a">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .pk-faq__inner {
+    display: grid;
+    gap: 40px;
+  }
+
+  .pk-faq__aside .pk-sec__head {
+    margin-bottom: 28px;
+  }
+
+  .pk-faq__service {
+    display: grid;
+    gap: 10px;
+    justify-items: start;
+    padding: 24px;
+    border-radius: 16px;
+    background: var(--pk-s-card);
+  }
+
+  .pk-faq__service-title {
+    margin: 0;
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    font-size: 1.125rem;
+  }
+
+  .pk-faq__service-text {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--pk-s-soft);
+  }
+
+  .pk-faq__service-text p {
+    margin: 0;
+  }
+
+  .pk-faq__mail {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    font-family: var(--font-heading--family);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--pk-s-fg);
+    text-decoration: none;
+  }
+
+  .pk-faq__mail-icon {
+    width: 22px;
+    height: 22px;
+    color: var(--pk-s-accent);
+  }
+
+  .pk-faq__mail span {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
+    transition: background-size 0.3s var(--pk-ease);
+  }
+
+  .pk-faq__mail:hover span {
+    background-size: 0 1px;
+  }
+
+  .pk-faq__response {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--pk-s-soft);
+  }
+
+  .pk-faq__more {
+    margin-top: 4px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--pk-s-accent);
+    text-decoration: none;
+  }
+
+  .pk-faq__more:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .pk-faq__list {
+    border-top: 1px solid var(--pk-s-line);
+  }
+
+  .pk-faq__item {
+    border-bottom: 1px solid var(--pk-s-line);
+    interpolate-size: allow-keywords;
+  }
+
+  .pk-faq__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 64px;
+    padding-block: 18px;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-heading--family);
+    font-weight: 600;
+    font-size: clamp(1rem, 1.5vw, 1.1875rem);
+    line-height: 1.35;
+  }
+
+  .pk-faq__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .pk-faq__q:hover {
+    color: var(--pk-s-accent);
+  }
+
+  /* Plus wird beim Öffnen zum Minus */
+  .pk-faq__plus {
+    position: relative;
+    flex: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid currentColor;
+    transition: transform 0.4s var(--pk-ease), background-color 0.25s;
+  }
+
+  .pk-faq__plus::before,
+  .pk-faq__plus::after {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 11px;
+    height: 1.5px;
+    background: currentColor;
+    transform: translate(-50%, -50%);
+    transition: transform 0.4s var(--pk-ease);
+  }
+
+  .pk-faq__plus::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .pk-faq__item[open] .pk-faq__plus {
+    transform: rotate(180deg);
+  }
+
+  .pk-faq__item[open] .pk-faq__plus::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  .pk-faq__a {
+    padding: 0 48px 22px 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--pk-s-soft);
+  }
+
+  .pk-faq__a p {
+    margin: 0;
+  }
+
+  .pk-faq__a p + p {
+    margin-top: 0.7em;
+  }
+
+  .pk-faq__a a {
+    color: inherit;
+    text-underline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .pk-faq__item::details-content {
+      block-size: 0;
+      overflow: clip;
+      transition:
+        block-size 0.45s var(--pk-ease),
+        content-visibility 0.45s allow-discrete;
+    }
+
+    .pk-faq__item[open]::details-content {
+      block-size: auto;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .pk-faq__inner {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: clamp(40px, 6vw, 96px);
+      align-items: start;
+    }
+
+    .pk-faq__aside {
+      position: sticky;
+      top: calc(var(--header-height, 64px) + 32px);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK FAQ & Service",
+  "tag": "section",
+  "class": "pk-section pk-section--faq",
+  "max_blocks": 16,
+  "settings": [
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Fläche",
+      "info": "Immer abwechselnd zur Section davor und danach wählen.",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "grey", "label": "Hellgrau" },
+        { "value": "dark", "label": "Schwarz" }
+      ],
+      "default": "grey"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Überzeile",
+      "default": "FAQ"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Fragen? <em>Antworten.</em>"
+    },
+    {
+      "type": "header",
+      "content": "Service-Kontakt"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_service",
+      "label": "Kontakt anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "service_title",
+      "label": "Titel",
+      "default": "Noch Fragen?"
+    },
+    {
+      "type": "richtext",
+      "id": "service_text",
+      "label": "Text",
+      "default": "<p>Schreib uns – wir helfen dir gern weiter.</p>"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "E-Mail",
+      "default": "info@purekickz.de"
+    },
+    {
+      "type": "text",
+      "id": "response_time",
+      "label": "Antwortzeit",
+      "default": "Antwort: [[ANTWORTZEIT]]"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link-Text",
+      "default": "Alle Fragen ansehen"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Frage",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Frage", "default": "Frage" },
+        { "type": "richtext", "id": "answer", "label": "Antwort", "default": "<p>Antwort</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK FAQ & Service",
+      "blocks": [
+        { "type": "question", "settings": { "question": "Welche Aufsätze sind dabei?", "answer": "<p>Drei: eine harte Bürste, eine weiche Bürste und ein Schwamm.</p>" } },
+        { "type": "question", "settings": { "question": "Wie lade ich das Gerät?", "answer": "<p>Über USB-C.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
