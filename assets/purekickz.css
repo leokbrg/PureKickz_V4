@@ -57,6 +57,18 @@ shopify-accelerated-checkout {
   transform: scale(0.985);
 }
 
+/* Steuer-/Versandhinweis unter dem Preis: klein und ruhig, egal wie groß der Preis gesetzt ist */
+.tax-note {
+  margin-top: 4px;
+  font-family: var(--font-body--family);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--pk-muted);
+}
+
 /* Preise und Zahlen sauber untereinander */
 .price,
 product-price,
