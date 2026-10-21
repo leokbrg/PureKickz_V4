@@ -23,6 +23,8 @@
     {%- render 'scripts' -%}
     {%- render 'theme-styles-variables' -%}
     {%- render 'color-palette' -%}
+    {{ 'purekickz.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'purekickz-motion.js' | asset_url }}" defer></script>
 
     {% if request.design_mode %}
       {%- render 'theme-editor' -%}

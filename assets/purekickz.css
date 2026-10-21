@@ -1,0 +1,92 @@
+/*
+ * PUREKICKZ – Marken-Ebene über Horizon.
+ * Wird nach den Horizon-Farbvariablen geladen und überschreibt nur, was die Theme-Einstellungen
+ * nicht abbilden können. Farben und Schriften: siehe CLAUDE.md §1.
+ */
+
+:root {
+  --pk-ink: #191917;
+  --pk-white: #ffffff;
+  --pk-magenta: #b42998;
+  --pk-magenta-light: #d24fb6;
+  --pk-grey: #e8e8e6;
+  --pk-line: #e3e3df;
+  --pk-muted: #8a8a84;
+
+  --pk-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --pk-reveal-distance: 18px;
+  --pk-reveal-duration: 640ms;
+
+  /* Kaufbutton: Hover auf Magenta hell statt der automatisch berechneten Abdunklung */
+  --color-primary-button-hover-background: var(--pk-magenta-light);
+  --color-primary-button-hover-border: var(--pk-magenta-light);
+  --color-primary-button-hover-text: var(--pk-white);
+}
+
+::selection {
+  background: var(--pk-magenta);
+  color: var(--pk-white);
+}
+
+/* Fokus gut sichtbar, auch auf grauen und schwarzen Flächen */
+*:focus-visible {
+  outline-color: var(--pk-magenta);
+}
+
+/* Buttons: mindestens 44 px hoch, fühlbarer Druck */
+.button,
+.button-secondary,
+.add-to-cart-button,
+shopify-accelerated-checkout {
+  min-height: 44px;
+}
+
+.button,
+.button-secondary,
+.add-to-cart-button {
+  transition:
+    background-color 180ms var(--pk-ease),
+    border-color 180ms var(--pk-ease),
+    color 180ms var(--pk-ease),
+    transform 120ms var(--pk-ease);
+}
+
+.button:active,
+.button-secondary:active,
+.add-to-cart-button:active {
+  transform: scale(0.985);
+}
+
+/* Preise und Zahlen sauber untereinander */
+.price,
+product-price,
+.cart-items__price {
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Einblenden beim Scrollen.
+ * Inhalte sind ohne JavaScript und mit reduzierter Bewegung immer sichtbar:
+ * versteckt wird nur, wenn purekickz-motion.js die Klasse .pk-motion gesetzt hat.
+ */
+.pk-motion [data-pk-reveal] {
+  opacity: 0;
+  transform: translate3d(0, var(--pk-reveal-distance), 0);
+  transition:
+    opacity var(--pk-reveal-duration) var(--pk-ease),
+    transform var(--pk-reveal-duration) var(--pk-ease);
+  transition-delay: var(--pk-delay, 0ms);
+}
+
+.pk-motion [data-pk-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pk-motion [data-pk-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
