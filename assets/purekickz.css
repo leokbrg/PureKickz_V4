@@ -102,3 +102,113 @@ product-price,
     transition: none;
   }
 }
+
+/*
+ * Gemeinsames Gerüst der PUREKICKZ-Sections: Flächen, Abstände, Überzeile, Überschrift.
+ * Flächen wechseln auf jeder Seite ab (Weiß ↔ Grau ↔ Schwarz), siehe CLAUDE.md.
+ */
+.pk-sec {
+  --pk-s-bg: var(--pk-white);
+  --pk-s-fg: var(--pk-ink);
+  --pk-s-soft: rgba(25, 25, 23, 0.72);
+  --pk-s-line: var(--pk-line);
+  --pk-s-card: var(--pk-grey);
+  --pk-s-accent: var(--pk-magenta);
+  background: var(--pk-s-bg);
+  color: var(--pk-s-fg);
+  padding-block: calc(var(--pk-pad-top, 112px) * 0.6) calc(var(--pk-pad-bottom, 112px) * 0.6);
+}
+
+.pk-sec--grey {
+  --pk-s-bg: var(--pk-grey);
+  --pk-s-line: rgba(25, 25, 23, 0.12);
+  --pk-s-card: var(--pk-white);
+}
+
+.pk-sec--dark {
+  --pk-s-bg: var(--pk-ink);
+  --pk-s-fg: var(--pk-white);
+  --pk-s-soft: rgba(255, 255, 255, 0.7);
+  --pk-s-line: rgba(255, 255, 255, 0.14);
+  --pk-s-card: rgba(255, 255, 255, 0.06);
+  --pk-s-accent: var(--pk-magenta-light);
+}
+
+@media screen and (min-width: 990px) {
+  .pk-sec {
+    padding-block: var(--pk-pad-top, 112px) var(--pk-pad-bottom, 112px);
+  }
+}
+
+.pk-sec__inner {
+  max-width: var(--page-width);
+  margin-inline: auto;
+  padding-inline: var(--page-margin);
+}
+
+.pk-sec__head {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: clamp(36px, 5vw, 72px);
+}
+
+.pk-sec__head--center {
+  align-items: center;
+  text-align: center;
+}
+
+.pk-eyebrow {
+  margin: 0;
+  font-family: var(--font-subheading--family);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--pk-s-accent, var(--pk-magenta));
+}
+
+.pk-h2 {
+  margin: 0;
+  font-family: var(--font-heading--family);
+  font-weight: 700;
+  font-size: clamp(2.1rem, 5.6vw, 4.25rem);
+  line-height: 1.03;
+  letter-spacing: -0.032em;
+  text-wrap: balance;
+  color: inherit;
+}
+
+.pk-h2 em {
+  font-style: normal;
+  color: var(--pk-s-accent, var(--pk-magenta));
+}
+
+.pk-lead {
+  max-width: 52ch;
+  margin: 0;
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.55;
+  color: var(--pk-s-soft);
+}
+
+.pk-lead p {
+  margin: 0;
+}
+
+.pk-lead p + p {
+  margin-top: 0.8em;
+}
+
+/* Buttons auf Schwarz: Sekundär-Button hell */
+.pk-sec--dark .button-secondary {
+  --button-color: var(--pk-white);
+  --button-border-color: rgba(255, 255, 255, 0.5);
+  color: var(--pk-white);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Zahlen, die beim Erscheinen hochzählen, behalten ihre Breite */
+[data-pk-count] {
+  font-variant-numeric: tabular-nums;
+}

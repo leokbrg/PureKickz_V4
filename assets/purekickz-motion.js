@@ -38,8 +38,35 @@
     });
   };
 
+  /* Zahlen hochzählen, sobald sie ins Bild kommen (der Endwert steht ohne JavaScript schon da) */
+  const countUp = (el) => {
+    const target = Number(el.dataset.pkCount);
+    if (!target) return;
+    const duration = 1400;
+    const start = performance.now();
+    const step = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      el.textContent = String(Math.round(target * (1 - Math.pow(1 - t, 3))));
+      if (t < 1) requestAnimationFrame(step);
+    };
+    el.textContent = '0';
+    requestAnimationFrame(step);
+  };
+
+  const counter = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        counter.unobserve(entry.target);
+        countUp(entry.target);
+      }
+    },
+    { threshold: 0.6 }
+  );
+
   root.classList.add('pk-motion');
   watch(document);
+  document.querySelectorAll('[data-pk-count]').forEach((el) => counter.observe(el));
 
   // Theme-Editor: neu geladene Sections ebenfalls beobachten, dort aber sofort zeigen
   document.addEventListener('shopify:section:load', (event) => {
