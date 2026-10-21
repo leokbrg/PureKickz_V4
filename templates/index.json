@@ -23,7 +23,9 @@
         "image_position": "right",
         "background_color": "#FFFFFF",
         "padding_top": 72,
-        "padding_bottom": 72
+        "padding_bottom": 72,
+        "image_desktop": "shopify://shop_images/hero-desktop.jpg",
+        "image_mobile": "shopify://shop_images/hero-mobil.jpg"
       }
     },
     "product_list_fa6P9H": {
