@@ -85,6 +85,7 @@
   class="pk-hero pk-hero--{{ style }} pk-hero--image-{{ section.settings.image_position }}{% if tablet_srcset != blank %} pk-hero--has-tablet{% endif %}"
   style="--pk-hero-bg: {{ section.settings.background_color }}; --pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px; --pk-hero-text-start: {{ section.settings.mobile_text_start }};"
 >
+  <div class="pk-hero__stage">
   {%- if style == 'photo' -%}
     <div class="pk-hero__bg">{{ picture }}</div>
   {%- endif -%}
@@ -140,6 +141,30 @@
       </div>
     {%- endunless -%}
   </div>
+  </div>
+
+  {%- if section.blocks.size > 0 -%}
+    <ul class="pk-hero__trust" data-pk-stagger>
+      {%- for block in section.blocks -%}
+        <li class="pk-hero__trust-item" data-pk-reveal {{ block.shopify_attributes }}>
+          {%- capture trust_inner -%}
+            {%- render 'pk-icon', name: block.settings.icon, class: 'pk-hero__trust-icon' -%}
+            <span class="pk-hero__trust-text">
+              <span class="pk-hero__trust-title">{{ block.settings.title }}</span>
+              {%- if block.settings.text != blank -%}
+                <span class="pk-hero__trust-sub">{{ block.settings.text }}</span>
+              {%- endif -%}
+            </span>
+          {%- endcapture -%}
+          {%- if block.settings.link != blank -%}
+            <a class="pk-hero__trust-link" href="{{ block.settings.link }}">{{ trust_inner }}</a>
+          {%- else -%}
+            <div class="pk-hero__trust-link">{{ trust_inner }}</div>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
 </div>
 
 {% stylesheet %}
@@ -248,7 +273,7 @@
 
   .pk-hero__price-note {
     font-size: 0.8125rem;
-    color: #6b6b66;
+    color: rgba(25, 25, 23, 0.72);
   }
 
   .pk-hero__price-note a {
@@ -352,10 +377,6 @@
       bottom: 0;
     }
 
-    .pk-hero--photo .pk-hero__bg::after {
-      display: none;
-    }
-
     .pk-hero--photo .pk-hero__img {
       height: 100%;
       object-position: right bottom;
@@ -402,6 +423,107 @@
 
     .pk-hero--photo .pk-hero__lead {
       max-width: 30ch;
+    }
+  }
+
+  /* ——— Versprechen im Hero: auf dem verlängerten Studioboden, nicht über dem Produkt ——— */
+  .pk-hero__stage {
+    position: relative;
+  }
+
+  .pk-hero__trust {
+    position: relative;
+    list-style: none;
+    margin: 0 auto;
+    max-width: var(--page-width);
+    padding: 4px var(--page-margin) 28px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 16px;
+  }
+
+  .pk-hero__trust-item {
+    min-width: 0;
+    display: flex;
+  }
+
+  .pk-hero__trust-link {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    color: var(--pk-ink);
+    text-decoration: none;
+  }
+
+  .pk-hero__trust-icon {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    margin-top: 1px;
+    transition: transform 0.4s var(--pk-ease), color 0.2s;
+  }
+
+  a.pk-hero__trust-link:hover .pk-hero__trust-icon {
+    color: var(--pk-magenta);
+    transform: translateY(-2px);
+  }
+
+  .pk-hero__trust-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .pk-hero__trust-title {
+    font-family: var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    line-height: 1.25;
+  }
+
+  .pk-hero__trust-sub {
+    font-size: 0.75rem;
+    line-height: 1.35;
+    color: rgba(25, 25, 23, 0.72);
+  }
+
+  @media screen and (min-width: 990px) {
+    .pk-hero__trust {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      padding-block: 22px 30px;
+    }
+
+    .pk-hero__trust-item + .pk-hero__trust-item .pk-hero__trust-link {
+      padding-left: 24px;
+      border-left: 1px solid rgba(25, 25, 23, 0.12);
+    }
+
+    .pk-hero__trust-link {
+      align-items: center;
+      gap: 14px;
+      padding-right: 16px;
+    }
+
+    .pk-hero__trust-icon {
+      width: 24px;
+      height: 24px;
+      margin-top: 0;
+    }
+
+    .pk-hero__trust-title {
+      font-size: 0.875rem;
+    }
+
+    .pk-hero__trust-sub {
+      font-size: 0.78rem;
+    }
+
+    /* Foto läuft unten weich in den Studioboden aus, auf dem die Versprechen stehen */
+    .pk-hero--photo .pk-hero__bg::after {
+      display: block;
+      height: 8%;
     }
   }
 
@@ -523,7 +645,6 @@
     /* Tiefe beim Scrollen: das Bild bewegt sich etwas langsamer als die Seite */
     @supports (animation-timeline: view()) {
       @media screen and (min-width: 990px) {
-        .pk-hero--photo .pk-hero__bg,
         .pk-hero--cutout .pk-hero__media,
         .pk-hero--framed .pk-hero__frame {
           animation: pk-hero-drift linear both;
@@ -699,9 +820,55 @@
       "default": 72
     }
   ],
+  "blocks": [
+    {
+      "type": "trust",
+      "name": "Versprechen",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "truck", "label": "Versand" },
+            { "value": "return", "label": "Rückgabe" },
+            { "value": "lock", "label": "Sicher bezahlen" },
+            { "value": "clock", "label": "Zeit" },
+            { "value": "mail", "label": "E-Mail" },
+            { "value": "box", "label": "Paket" },
+            { "value": "check", "label": "Haken" }
+          ],
+          "default": "check"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel",
+          "default": "Versprechen"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Unterzeile"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (optional)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
   "presets": [
     {
-      "name": "PK Hero"
+      "name": "PK Hero",
+      "blocks": [
+        { "type": "trust", "settings": { "icon": "truck", "title": "Versand aus Deutschland", "text": "Meist innerhalb von 1 Werktag verschickt" } },
+        { "type": "trust", "settings": { "icon": "return", "title": "14 Tage Widerrufsrecht", "text": "Rücksendung für dich kostenlos" } },
+        { "type": "trust", "settings": { "icon": "lock", "title": "Sichere Bezahlung", "text": "Verschlüsselt über Shopify" } },
+        { "type": "trust", "settings": { "icon": "clock", "title": "2–4 Werktage Lieferzeit", "text": "Nach Versand, innerhalb Deutschlands" } }
+      ]
     }
   ]
 }
