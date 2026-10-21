@@ -28,192 +28,6 @@
         "image_mobile": "shopify://shop_images/hero-mobil.jpg"
       }
     },
-    "product_list_fa6P9H": {
-      "type": "product-list",
-      "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_list_button_MWeP9V": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "View all",
-                "open_in_new_tab": false,
-                "style_class": "link",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
-          ]
-        },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 4,
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_677WP3": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_YXxMTj": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
-          ]
-        }
-      },
-      "name": "t:names.product_list",
-      "settings": {
-        "collection": "all",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 8,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 48,
-        "padding-block-end": 48
-      }
-    },
     "pk_trust": {
       "type": "pk-trust-bar",
       "settings": {
@@ -264,11 +78,161 @@
         "t3",
         "t4"
       ]
+    },
+    "pk_buy": {
+      "type": "featured-product-information",
+      "settings": {
+        "product": "purekickz-one-elektrischer-sneaker-cleaner",
+        "content_width": "content-center-aligned",
+        "desktop_media_position": "left",
+        "equal_columns": false,
+        "limit_details_width": true,
+        "gap": 48,
+        "background_color": "#FFFFFF",
+        "padding-block-start": 72,
+        "padding-block-end": 72
+      },
+      "blocks": {
+        "media-gallery": {
+          "type": "_featured-product-information-carousel",
+          "static": true,
+          "settings": {
+            "aspect_ratio": "1/1.25",
+            "constrain_to_viewport": false,
+            "media_fit": "cover",
+            "media_radius": 4,
+            "extend_media": false,
+            "zoom": true,
+            "hide_variants": true,
+            "icons_style": "arrow",
+            "slideshow_controls_style": "thumbnails",
+            "slideshow_mobile_controls_style": "dots",
+            "thumbnail_position": "bottom",
+            "thumbnail_width": 64,
+            "thumbnail_radius": 4
+          }
+        },
+        "product-details": {
+          "type": "_product-details",
+          "static": true,
+          "settings": {
+            "gap": 22,
+            "sticky_details_desktop": true,
+            "padding-block-start": 8,
+            "padding-block-end": 8
+          },
+          "blocks": {
+            "header": {
+              "type": "group",
+              "name": "Kopf",
+              "settings": {
+                "content_direction": "column",
+                "gap": 8
+              },
+              "blocks": {
+                "title": {
+                  "type": "product-title",
+                  "name": "Titel",
+                  "settings": {
+                    "type_preset": "h3",
+                    "width": "100%",
+                    "wrap": "balance"
+                  }
+                },
+                "subtitle": {
+                  "type": "text",
+                  "name": "Untertitel",
+                  "settings": {
+                    "text": "<p>{{ closest.product.metafields.custom.untertitel }}</p>",
+                    "type_preset": "paragraph",
+                    "text_color": "#8A8A84"
+                  }
+                },
+                "price": {
+                  "type": "price",
+                  "name": "Preis",
+                  "settings": {
+                    "show_tax_info": true,
+                    "show_installments": false,
+                    "type_preset": "h4",
+                    "padding-block-start": 8
+                  }
+                }
+              },
+              "block_order": [
+                "title",
+                "subtitle",
+                "price"
+              ]
+            },
+            "benefits": {
+              "type": "pk-benefits",
+              "settings": {
+                "items": "Motor übernimmt die Schrubbbewegung\n3 Aufsätze: harte Bürste, weiche Bürste, Schwamm\n1200-mAh-Akku, im Einsatz kabellos\nLaden über USB-C"
+              }
+            },
+            "variant_picker": {
+              "type": "variant-picker",
+              "name": "Varianten"
+            },
+            "buy_buttons": {
+              "type": "buy-buttons",
+              "name": "Kaufbuttons",
+              "settings": {
+                "stacking": true,
+                "show_pickup_availability": false
+              },
+              "blocks": {
+                "quantity": {
+                  "type": "quantity",
+                  "static": true
+                },
+                "add-to-cart": {
+                  "type": "add-to-cart",
+                  "static": true
+                },
+                "accelerated-checkout": {
+                  "type": "accelerated-checkout",
+                  "static": true
+                }
+              }
+            },
+            "trust": {
+              "type": "pk-trust-row",
+              "settings": {}
+            },
+            "details": {
+              "type": "pk-product-details",
+              "settings": {
+                "open_first": false
+              }
+            },
+            "more": {
+              "type": "text",
+              "name": "Link Produktseite",
+              "settings": {
+                "text": "<p><a href=\"{{ closest.product.url }}\">Alle Details zum Produkt →</a></p>",
+                "type_preset": "paragraph",
+                "font_size": "0.875rem"
+              }
+            }
+          },
+          "block_order": [
+            "header",
+            "benefits",
+            "variant_picker",
+            "buy_buttons",
+            "trust",
+            "details",
+            "more"
+          ]
+        }
+      }
     }
   },
   "order": [
     "pk_hero",
     "pk_trust",
-    "product_list_fa6P9H"
+    "pk_buy"
   ]
 }
