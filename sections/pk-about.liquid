@@ -1,0 +1,216 @@
+{%- comment -%}
+  PUREKICKZ Über uns: kurze, ehrliche Markengeschichte mit Bild.
+  Das Foto läuft weich in die Fläche aus (keine Bildkante); Text und Bild bauen sich gestaffelt auf.
+{%- endcomment -%}
+
+<div
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-about"
+  style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="pk-sec__inner pk-about__inner">
+    <div class="pk-about__text">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="pk-eyebrow" data-pk-reveal>{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pk-h2" data-pk-reveal>{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <div class="pk-lead" data-pk-reveal>{{ section.settings.text }}</div>
+      {%- endif -%}
+      {%- if section.settings.signature != blank -%}
+        <p class="pk-about__signature" data-pk-reveal>{{ section.settings.signature }}</p>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+        <a class="button-secondary pk-about__button" href="{{ section.settings.button_link }}" data-pk-reveal>
+          {{- section.settings.button_label -}}
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.image != blank -%}
+      <div class="pk-about__visual" data-pk-reveal>
+        {{
+          section.settings.image
+          | image_url: width: 1400
+          | image_tag:
+            widths: '500, 800, 1100, 1400',
+            sizes: '(min-width: 990px) 50vw, 100vw',
+            loading: 'lazy',
+            class: 'pk-about__img'
+        }}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .pk-about {
+    overflow: clip;
+  }
+
+  .pk-about__inner {
+    display: grid;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .pk-about__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .pk-about__signature {
+    margin: 4px 0 0;
+    font-family: var(--font-heading--family);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--pk-s-fg);
+  }
+
+  .pk-about__signature::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 2px;
+    margin-right: 12px;
+    vertical-align: middle;
+    background: var(--pk-s-accent);
+  }
+
+  .pk-about__button {
+    min-height: 50px;
+    margin-top: 8px;
+    padding-inline: 28px;
+  }
+
+  .pk-about__visual {
+    order: -1;
+  }
+
+  /* Foto läuft zu allen Seiten weich in die Fläche aus */
+  .pk-about__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    -webkit-mask-image:
+      linear-gradient(to right, transparent, #000 16%, #000 84%, transparent),
+      linear-gradient(to bottom, transparent, #000 14%, #000 82%, transparent);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, transparent, #000 16%, #000 84%, transparent),
+      linear-gradient(to bottom, transparent, #000 14%, #000 82%, transparent);
+    mask-composite: intersect;
+  }
+
+  @media screen and (max-width: 749px) {
+    .pk-about__img {
+      aspect-ratio: 1;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .pk-about__inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(40px, 6vw, 96px);
+    }
+
+    .pk-about__visual {
+      order: 0;
+    }
+
+    .pk-about__text .pk-lead {
+      max-width: 46ch;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Über uns",
+  "tag": "section",
+  "class": "pk-section pk-section--about",
+  "settings": [
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Fläche",
+      "info": "Immer abwechselnd zur Section davor und danach wählen.",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "grey", "label": "Hellgrau" },
+        { "value": "dark", "label": "Schwarz" }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Bild"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Überzeile",
+      "default": "Über PUREKICKZ"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Schuhpflege, <em>einfacher gemacht.</em>"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>PUREKICKZ ist eine junge Marke aus Deutschland. Wir wollen Schuhpflege einfacher machen – mit Werkzeug, das die Arbeit übernimmt, und Angaben, die stimmen.</p>"
+    },
+    {
+      "type": "text",
+      "id": "signature",
+      "label": "Unterschrift",
+      "default": "Dein PUREKICKZ-Team"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button-Text (optional)"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button-Link"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Über uns"
+    }
+  ]
+}
+{% endschema %}
