@@ -1,0 +1,316 @@
+{%- comment -%}
+  PUREKICKZ Vergleich: Gerät gegen Handbürste als ehrliche Tabelle.
+  Auf Schwarz leuchtet das freigestellte Gerät; Foto mit Hand läuft unten in die Fläche aus.
+  Nur echte Unterschiede eintragen – auch, wo die Handbürste im Vorteil ist.
+{%- endcomment -%}
+
+<div
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-compare"
+  style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="pk-sec__inner pk-compare__inner">
+    <div class="pk-compare__visual" aria-hidden="true">
+      <span class="pk-compare__glow"></span>
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 1000
+          | image_tag:
+            widths: '400, 600, 800, 1000',
+            sizes: '(min-width: 990px) 40vw, 70vw',
+            loading: 'lazy',
+            class: 'pk-compare__img',
+            alt: ''
+        }}
+      {%- endif -%}
+    </div>
+
+    <div class="pk-compare__body">
+      <div class="pk-sec__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="pk-eyebrow" data-pk-reveal>{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="pk-h2" data-pk-reveal>{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+
+      {%- if section.blocks.size > 0 -%}
+        <table class="pk-compare__table">
+          <thead>
+            <tr>
+              <td></td>
+              <th scope="col" class="pk-compare__us">{{ section.settings.label_us }}</th>
+              <th scope="col">{{ section.settings.label_them }}</th>
+            </tr>
+          </thead>
+          <tbody data-pk-stagger>
+            {%- for block in section.blocks -%}
+              <tr class="pk-compare__row" data-pk-reveal {{ block.shopify_attributes }}>
+                <th scope="row">{{ block.settings.label }}</th>
+                <td class="pk-compare__us">{{ block.settings.us }}</td>
+                <td>{{ block.settings.them }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+        <a class="button pk-compare__button" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .pk-compare {
+    overflow: clip;
+  }
+
+  .pk-compare__inner {
+    display: grid;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .pk-compare__visual {
+    position: relative;
+    width: min(72%, 360px);
+    margin-inline: auto;
+    aspect-ratio: 4 / 5;
+  }
+
+  /* Magenta als Licht hinter dem Gerät */
+  .pk-compare__glow {
+    position: absolute;
+    inset: 8% -10% 18%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(180, 41, 152, 0.34), rgba(180, 41, 152, 0.08) 60%, transparent);
+    filter: blur(8px);
+  }
+
+  .pk-compare__img {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+    -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent 96%);
+    mask-image: linear-gradient(to bottom, #000 60%, transparent 96%);
+  }
+
+  .pk-compare__body .pk-sec__head {
+    margin-bottom: clamp(28px, 4vw, 48px);
+  }
+
+  .pk-compare__table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  .pk-compare__table th,
+  .pk-compare__table td {
+    padding: 16px 10px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--pk-s-line);
+  }
+
+  .pk-compare__table thead th {
+    padding-block: 14px;
+    font-family: var(--font-heading--family);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--pk-s-soft);
+    border-bottom-color: var(--pk-s-line);
+  }
+
+  .pk-compare__table tbody th {
+    width: 28%;
+    font-family: var(--font-heading--family);
+    font-weight: 600;
+    color: var(--pk-s-fg);
+  }
+
+  .pk-compare__table tbody td {
+    color: var(--pk-s-soft);
+  }
+
+  /* Unsere Spalte hervorgehoben: hellere Fläche, Magenta-Kante oben */
+  .pk-compare__table .pk-compare__us {
+    background: var(--pk-s-card);
+    color: var(--pk-s-fg);
+  }
+
+  .pk-compare__table thead .pk-compare__us {
+    color: var(--pk-s-fg);
+    border-radius: 12px 12px 0 0;
+    box-shadow: inset 0 3px 0 var(--pk-magenta);
+  }
+
+  .pk-compare__table tbody tr:last-child .pk-compare__us {
+    border-radius: 0 0 12px 12px;
+  }
+
+  .pk-compare__table tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+
+  .pk-compare__button {
+    margin-top: 32px;
+    min-height: 54px;
+    padding-inline: 32px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .pk-compare__table {
+      font-size: 1rem;
+    }
+
+    .pk-compare__table th,
+    .pk-compare__table td {
+      padding: 20px 18px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .pk-compare__inner {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: clamp(40px, 6vw, 96px);
+    }
+
+    .pk-compare__visual {
+      width: 100%;
+      max-width: 460px;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .pk-motion .pk-compare__glow {
+      animation: pk-compare-breathe 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes pk-compare-breathe {
+      from {
+        opacity: 0.75;
+        transform: scale(0.94);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1.04);
+      }
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Vergleich",
+  "tag": "section",
+  "class": "pk-section pk-section--compare",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Fläche",
+      "info": "Immer abwechselnd zur Section davor und danach wählen.",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "grey", "label": "Hellgrau" },
+        { "value": "dark", "label": "Schwarz" }
+      ],
+      "default": "dark"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Bild (freigestellt, PNG/WebP)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Überzeile",
+      "default": "Der Vergleich"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Motor oder <em>Muskelkraft?</em>"
+    },
+    {
+      "type": "text",
+      "id": "label_us",
+      "label": "Spalte: unser Produkt",
+      "default": "PUREKICKZ ONE"
+    },
+    {
+      "type": "text",
+      "id": "label_them",
+      "label": "Spalte: Vergleich",
+      "default": "Handbürste"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button-Text (optional)"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button-Link"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Zeile",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Merkmal", "default": "Merkmal" },
+        { "type": "text", "id": "us", "label": "Unser Produkt" },
+        { "type": "text", "id": "them", "label": "Vergleich" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Vergleich",
+      "blocks": [
+        { "type": "row", "settings": { "label": "Bewegung", "us": "Der Motor dreht den Aufsatz", "them": "Du schrubbst von Hand" } },
+        { "type": "row", "settings": { "label": "Aufsätze", "us": "3 – harte Bürste, weiche Bürste, Schwamm", "them": "Eine Bürste" } },
+        { "type": "row", "settings": { "label": "Im Einsatz", "us": "Kabellos mit 1200-mAh-Akku", "them": "Ohne Strom" } },
+        { "type": "row", "settings": { "label": "Laden", "us": "Per USB-C", "them": "Nicht nötig" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
