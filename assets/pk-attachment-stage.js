@@ -39,7 +39,8 @@
       };
       this.onResize = () => this.placeRing();
 
-      window.addEventListener('scroll', this.onScroll, { passive: true });
+      // Horizon scrollt am Desktop in .page-wrapper, am Handy im Dokument: Scrollen überall mithören
+      document.addEventListener('scroll', this.onScroll, { passive: true, capture: true });
       window.addEventListener('resize', this.onResize, { passive: true });
       DESKTOP.addEventListener('change', this.onResize);
 
@@ -63,18 +64,36 @@
     }
 
     disconnectedCallback() {
-      window.removeEventListener('scroll', this.onScroll);
+      document.removeEventListener('scroll', this.onScroll, { capture: true });
       window.removeEventListener('resize', this.onResize);
       DESKTOP.removeEventListener('change', this.onResize);
       document.removeEventListener('shopify:block:select', this.onBlockSelect);
     }
 
+    /** Das Element, das tatsächlich scrollt (Horizon: .page-wrapper ab 990 px, sonst das Dokument) */
+    scroller() {
+      for (let el = this.parentElement; el && el !== document.body; el = el.parentElement) {
+        const { overflowY } = getComputedStyle(el);
+        if ((overflowY === 'auto' || overflowY === 'scroll') && el.scrollHeight > el.clientHeight) return el;
+      }
+      return document.scrollingElement || document.documentElement;
+    }
+
+
+    /** Wie weit die Bühne „stehen bleibt“: Spur minus Bühnenhöhe; Startpunkt = Sticky-Abstand (unter dem Header) */
+    stickyMetrics() {
+      const sticky = this.querySelector('.pk-stage__sticky');
+      const top = parseFloat(getComputedStyle(sticky).top) || 0;
+      const distance = this.track.offsetHeight - sticky.offsetHeight;
+      return { top, distance };
+    }
+
     /** Fortschritt durch die Section (0…1) → aktiver Aufsatz */
     progress() {
-      const rect = this.track.getBoundingClientRect();
-      const distance = rect.height - window.innerHeight;
+      const { top, distance } = this.stickyMetrics();
       if (distance <= 0) return 0;
-      return Math.min(Math.max(-rect.top / distance, 0), 1);
+      const rect = this.track.getBoundingClientRect();
+      return Math.min(Math.max((top - rect.top) / distance, 0), 1);
     }
 
     update() {
@@ -128,11 +147,12 @@
 
     /** Zu einem Aufsatz springen: an die passende Stelle der Section scrollen */
     goTo(index) {
+      const scroller = this.scroller();
       const rect = this.track.getBoundingClientRect();
-      const distance = rect.height - window.innerHeight;
-      const target = window.scrollY + rect.top + distance * ((index + 0.5) / this.count);
+      const { top, distance } = this.stickyMetrics();
+      const target = scroller.scrollTop + (rect.top - top) + distance * ((index + 0.5) / this.count);
       this.setActive(index);
-      window.scrollTo({ top: target, behavior: 'smooth' });
+      scroller.scrollTo({ top: target, behavior: 'smooth' });
     }
 
     onKey(event, index) {
