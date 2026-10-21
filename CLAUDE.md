@@ -108,6 +108,11 @@ eingefügt und leer. Stattdessen immer eine dieser drei Formen:
 3. **weiche Übergänge** – der Bildhintergrund läuft nahtlos in die Section-Fläche aus.
 Harte Kanten nur zum Trennen von Sections. Ausnahme: die Produktgalerie (Fotos mit Hintergrund sind dort erwartet).
 
+**Section-Rhythmus (feste Regel):** Aufeinanderfolgende Sections haben immer abwechselnde Flächen –
+nie zwei graue (oder zwei gleiche) Hintergründe direkt hintereinander. Jede Section ist klar von der
+nächsten getrennt (Weiß ↔ Grau/Bild ↔ Schwarz). Trust-Hinweise nicht als eigene dünne Leiste mit
+Icon-Kacheln, sondern dort einbetten, wo gekauft wird (z. B. Häkchen-Zeile unter dem Kaufbutton).
+
 Die Originale in `bilder/` sind Rohmaterial und werden **nicht verändert und nicht gelöscht**.
 Sie gehören nicht ins Theme selbst (keine Original-Fotos nach `assets/` kopieren).
 
