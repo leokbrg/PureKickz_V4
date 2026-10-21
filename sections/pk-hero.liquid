@@ -17,6 +17,7 @@
     assign image_desktop = product.featured_media.preview_image
   endif
   assign image_mobile = section.settings.image_mobile | default: image_desktop
+  assign image_tablet = section.settings.image_tablet
 
   assign button_link = section.settings.button_link
   if button_link == blank and product != blank
@@ -35,10 +36,24 @@
     assign desktop_srcset = desktop_srcset | strip | remove_last: ','
   endif
 
+  assign tablet_srcset = ''
+  if style == 'photo' and image_tablet != blank
+    for w in (8..22)
+      assign px = w | times: 100
+      if px <= image_tablet.width
+        assign entry = image_tablet | image_url: width: px | append: ' ' | append: px | append: 'w, '
+        assign tablet_srcset = tablet_srcset | append: entry
+      endif
+    endfor
+    assign tablet_srcset = tablet_srcset | strip | remove_last: ','
+  endif
+
   if style == 'photo'
     assign desktop_sizes = '100vw'
+    assign desktop_media = '(min-width: 990px)'
   else
     assign desktop_sizes = '(min-width: 990px) 58vw, 100vw'
+    assign desktop_media = '(min-width: 750px)'
   endif
 -%}
 
@@ -46,12 +61,15 @@
   {%- if image_desktop != blank -%}
     {%- comment -%} Ein <picture>: das Handy lädt nur das Hochformat, der Desktop nur das Querformat {%- endcomment -%}
     <picture>
-      <source media="(min-width: 750px)" srcset="{{ desktop_srcset }}" sizes="{{ desktop_sizes }}">
+      <source media="{{ desktop_media }}" srcset="{{ desktop_srcset }}" sizes="{{ desktop_sizes }}">
+      {%- if tablet_srcset != blank -%}
+        <source media="(min-width: 750px)" srcset="{{ tablet_srcset }}" sizes="100vw">
+      {%- endif -%}
       {{
         image_mobile
-        | image_url: width: 1100
+        | image_url: width: 1440
         | image_tag:
-          widths: '400, 600, 800, 1100',
+          widths: '400, 600, 800, 1100, 1440',
           sizes: '100vw',
           loading: 'eager',
           fetchpriority: 'high',
@@ -64,7 +82,7 @@
 {%- endcapture -%}
 
 <div
-  class="pk-hero pk-hero--{{ style }} pk-hero--image-{{ section.settings.image_position }}"
+  class="pk-hero pk-hero--{{ style }} pk-hero--image-{{ section.settings.image_position }}{% if tablet_srcset != blank %} pk-hero--has-tablet{% endif %}"
   style="--pk-hero-bg: {{ section.settings.background_color }}; --pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px; --pk-hero-text-start: {{ section.settings.mobile_text_start }};"
 >
   {%- if style == 'photo' -%}
@@ -301,13 +319,35 @@
     pointer-events: none;
   }
 
-  /* Handy: Text beginnt unter dem Produkt, auf dem hellen Boden des Fotos */
+  /* Handy/Tablet: Text beginnt unter dem Produkt, auf dem hellen Boden des Fotos */
   .pk-hero--photo .pk-hero__inner {
+    grid-template-columns: minmax(0, 1fr);
     padding-top: calc(var(--pk-hero-text-start) * 1vw);
     padding-bottom: 40px;
   }
 
-  @media screen and (min-width: 750px) {
+  /* Tablet: Produkt mittig oben (breite Studiofassung), Text zentriert darunter */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .pk-hero--photo.pk-hero--has-tablet .pk-hero__inner {
+      padding-top: calc(var(--pk-hero-text-start) * 0.62vw);
+      padding-bottom: 64px;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .pk-hero--photo.pk-hero--has-tablet .pk-hero__text,
+    .pk-hero--photo.pk-hero--has-tablet .pk-hero__price,
+    .pk-hero--photo.pk-hero--has-tablet .pk-hero__buttons {
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pk-hero--photo.pk-hero--has-tablet .pk-hero__heading {
+      max-width: 14ch;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
     .pk-hero--photo .pk-hero__bg {
       bottom: 0;
     }
@@ -329,6 +369,39 @@
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       min-height: clamp(540px, 42vw, 820px);
       padding-block: var(--pk-pad-top) var(--pk-pad-bottom);
+    }
+  }
+
+  /*
+   * Ab 990 px: Schrift und Abstände wachsen stufenlos mit der Breite. Dadurch bleibt die Section so niedrig,
+   * dass das Foto nicht vergrößert wird und das Produkt immer rechts neben dem Text steht.
+   */
+  @media screen and (min-width: 990px) {
+    .pk-hero--photo .pk-hero__heading {
+      font-size: clamp(3rem, 4.4vw, 4.8rem);
+    }
+
+    .pk-hero--photo .pk-hero__lead {
+      max-width: 34ch;
+      font-size: clamp(1rem, 1.15vw, 1.125rem);
+    }
+
+    .pk-hero--photo .pk-hero__text {
+      gap: clamp(14px, 1.4vw, 20px);
+    }
+
+    .pk-hero--photo .pk-hero__inner {
+      padding-block: clamp(48px, 5vw, 80px);
+    }
+  }
+
+  @media screen and (min-width: 990px) and (max-width: 1199px) {
+    .pk-hero--photo .pk-hero__inner {
+      min-height: 0;
+    }
+
+    .pk-hero--photo .pk-hero__lead {
+      max-width: 30ch;
     }
   }
 
@@ -566,6 +639,12 @@
       "id": "image_mobile",
       "label": "Bild Handy",
       "info": "Foto als Hintergrund: hero-studio-hoch.jpg (Produkt oben, Boden unten)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_tablet",
+      "label": "Bild Tablet (nur Foto als Hintergrund)",
+      "info": "hero-studio-tablet.jpg: Produkt mittig oben, viel Studioraum. Leer lassen: Handy-Bild."
     },
     {
       "type": "range",
