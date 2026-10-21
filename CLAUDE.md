@@ -134,6 +134,20 @@ Was „Wow“ hier bedeuten kann (Ideen, keine Pflicht – finde eigene, bessere
 - **Art Direction statt Bildergalerie:** Bilder bewusst inszeniert – angeschnitten, groß, im Wechsel mit viel Weiß.
 - **Magenta als Licht:** sparsam, aber gezielt – ein Akzent, der das Auge zum Kaufen führt.
 - **Feine Mikrointeraktionen:** Hover-Zustände, weiche Übergänge, ein Kaufbutton, der sich gut anfühlt.
+
+### Animationen – ausdrücklich erwünscht
+Ich mag Animationen. Der Shop soll **lebendig** wirken und sich hochwertig bewegen – deutlich mehr als ein
+Standard-Shop. Bewegung ist ein zentrales Gestaltungsmittel, kein Nachgedanke.
+- Scroll-Animationen: Inhalte, die beim Scrollen elegant erscheinen, gestaffelt, mit Gefühl für Timing.
+- Produkt-Inszenierung: das Gerät, das sich beim Scrollen dreht, heranzoomt, in Teile zerfällt
+  (Aufsätze lösen sich) oder Schritt für Schritt erklärt wird.
+- Parallax und Tiefe bei großen Bildflächen, Text, der sich Zeile für Zeile aufbaut.
+- Animierte Zahlen/Fakten (z. B. 1200 mAh, 3 Aufsätze) – nur mit echten Werten.
+- Weiche Übergänge bei Galerie, Akkordeons, Warenkorb-Drawer und Hover.
+
+Grenzen: Animationen dürfen nie den Kaufbutton verstecken oder verzögern, nie den Text unlesbar machen
+und nie das Handy ruckeln lassen. Lieber eine perfekte Animation als fünf mittelmäßige.
+Ohne JavaScript bzw. mit `prefers-reduced-motion` muss jede Seite vollständig und gut aussehen.
 - **Schwarze Bühnen-Momente:** einzelne dunkle Flächen (`#191917`), auf denen das Produkt leuchtet –
   als Kontrast zum sonst hellen Shop.
 
@@ -265,7 +279,12 @@ Welche Form das jeweils hat, ist deine Entscheidung.
 - **Bilder:** einheitliche Seitenverhältnisse pro Kontext (z. B. Galerie durchgehend 4:5),
   `image_url` mit passenden Breiten + `srcset`, Lazy Loading unterhalb des ersten Bildschirms,
   keine riesigen PNGs. Nie Bilder verzerren; Zuschnitt per `object-fit`.
-- **Performance:** keine schweren Animationsbibliotheken, Animationen dezent und mit `prefers-reduced-motion`.
+- **Animationen:** Bevorzugt CSS, Scroll-Driven Animations und `IntersectionObserver`. Wenn eine Idee mehr braucht,
+  ist **GSAP + ScrollTrigger** erlaubt (als Datei in `assets/`, nur auf Seiten laden, die es nutzen).
+  Keine weiteren Animationsbibliotheken ohne Rückfrage.
+- **Performance:** nur `transform` und `opacity` animieren, keine Layout-Sprünge, Bilder nicht wegen
+  Animationen verzögern, auf Mittelklasse-Handys flüssig (60 fps). `prefers-reduced-motion` respektieren:
+  dann ruhige Version ohne Bewegung, Inhalt vollständig sichtbar.
 - **Barrierefreiheit:** ausreichende Kontraste, Alt-Texte, Fokus-Zustände, Buttons mind. 44 px hoch.
 - **Rechtsseiten** (Impressum, Datenschutz, AGB, Widerruf, Versand) existieren bereits als Shopify-Seiten –
   nur verlinken, Inhalte nicht ändern.
