@@ -95,7 +95,7 @@ Keine neuen Farben ohne Rückfrage.
 - Logo (PK-Monogramm + PUREKICKZ-Wortmarke) unverändert verwenden.
 - Nur eigene Produktfotos verwenden, keine Lieferanten-Renderings, keine Stockfotos von anderen Produkten.
 
-**Wo die Dateien liegen:**
+**Wo die Dateien liegen** (auf dem Branch **`material`**, nicht auf `neubau` – siehe Abschnitt 5):
 | Ordner | Inhalt |
 |---|---|
 | `bilder/Produktbilder/` | alle eigenen Produktfotos (Originale) |
@@ -314,6 +314,9 @@ Welche Form das jeweils hat, ist deine Entscheidung.
 - Es läuft **kein** `shopify theme dev` und kein `shopify theme push`. Nichts veröffentlichen.
 - Vor jedem Commit prüfen, dass das Theme gültig bleibt (gültiges JSON in `templates/` und `config/`,
   gültige Section-Schemas) – ein kaputter Commit bricht die Synchronisierung.
+- **Shopify lädt den ganzen Branch und erlaubt höchstens 50 MB.** Deshalb liegen `bilder/` (Originale,
+  `optimiert/`, `UPLOAD.md`) und `referenzen/` auf dem eigenen Branch **`material`**, nie auf `neubau`.
+  Zum Arbeiten damit: `git worktree add ../material material`; Änderungen dort committen und auf `material` pushen.
 
 ---
 
