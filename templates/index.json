@@ -82,10 +82,74 @@
         "t3",
         "t4"
       ]
+    },
+    "pk_stage": {
+      "type": "pk-attachment-stage",
+      "settings": {
+        "eyebrow": "Die Aufsätze",
+        "heading": "Ein Gerät. Drei Aufsätze.",
+        "background_color": "#BEBEBD"
+      },
+      "blocks": {
+        "hart": {
+          "type": "attachment",
+          "settings": {
+            "title": "Harte Bürste",
+            "text": "Für Sohle und Sohlenrand.",
+            "head_image": "shopify://shop_images/aufsatz-harte-buerste.webp",
+            "image_desktop": "shopify://shop_images/buehne-buerste.jpg",
+            "image_mobile": "shopify://shop_images/buehne-buerste-hoch.jpg",
+            "ring_dx": 26,
+            "ring_dy": 41,
+            "ring_dd": 8,
+            "ring_mx": 50,
+            "ring_my": 45,
+            "ring_md": 15
+          }
+        },
+        "weich": {
+          "type": "attachment",
+          "settings": {
+            "title": "Weiche Bürste",
+            "text": "Für Obermaterial wie Leder und Mesh.",
+            "head_image": "shopify://shop_images/aufsatz-weiche-buerste.webp",
+            "image_desktop": "shopify://shop_images/buehne-buerste.jpg",
+            "image_mobile": "shopify://shop_images/buehne-buerste-hoch.jpg",
+            "ring_dx": 26,
+            "ring_dy": 41,
+            "ring_dd": 8,
+            "ring_mx": 50,
+            "ring_my": 45,
+            "ring_md": 15
+          }
+        },
+        "schwamm": {
+          "type": "attachment",
+          "settings": {
+            "title": "Schwamm",
+            "text": "Zum Auftragen von Reinigungsmittel und zum Abwischen.",
+            "head_image": "shopify://shop_images/aufsatz-schwamm.webp",
+            "image_desktop": "shopify://shop_images/buehne-schwamm.jpg",
+            "image_mobile": "shopify://shop_images/buehne-schwamm-hoch.jpg",
+            "ring_dx": 28,
+            "ring_dy": 46,
+            "ring_dd": 8,
+            "ring_mx": 55,
+            "ring_my": 50,
+            "ring_md": 15
+          }
+        }
+      },
+      "block_order": [
+        "hart",
+        "weich",
+        "schwamm"
+      ]
     }
   },
   "order": [
     "pk_hero",
-    "pk_trust"
+    "pk_trust",
+    "pk_stage"
   ]
 }
