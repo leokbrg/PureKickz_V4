@@ -13,8 +13,9 @@ Die Studiofotos sind im Original maximal 1536 px groß. Größer geht ohne Quali
 | Datei (`logos/`) | Feld | Hinweis |
 |---|---|---|
 | `logo-header-wortmarke.png` | Logo | Wortmarke für den Header. Logo-Höhe: 20 px Desktop, 16 px Handy |
+| `logo-header-wortmarke-hell.png` | Inverses Logo | Gleiche Wortmarke in Weiß/Magenta für dunkle Flächen |
 | `favicon.png` | Favicon | PK-Monogramm |
-| `logo-footer-hell.png` | (später im Footer) | Helle Variante für den schwarzen Footer |
+| `logo-footer-hell.png` | (später im Footer) | Helle Variante mit Monogramm, für den schwarzen Footer |
 
 ---
 
