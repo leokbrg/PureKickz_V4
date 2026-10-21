@@ -211,10 +211,62 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "pk_trust": {
+      "type": "pk-trust-bar",
+      "settings": {
+        "style": "light",
+        "padding": 20
+      },
+      "blocks": {
+        "t1": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "title": "Versand aus Deutschland",
+            "text": "Meist innerhalb von 1 Werktag verschickt",
+            "link": "/policies/shipping-policy"
+          }
+        },
+        "t2": {
+          "type": "item",
+          "settings": {
+            "icon": "return",
+            "title": "14 Tage Widerrufsrecht",
+            "text": "Rücksendung für dich kostenlos",
+            "link": "/policies/refund-policy"
+          }
+        },
+        "t3": {
+          "type": "item",
+          "settings": {
+            "icon": "lock",
+            "title": "Sichere Bezahlung",
+            "text": "Verschlüsselt über Shopify",
+            "link": ""
+          }
+        },
+        "t4": {
+          "type": "item",
+          "settings": {
+            "icon": "clock",
+            "title": "2–4 Werktage Lieferzeit",
+            "text": "Nach Versand, innerhalb Deutschlands",
+            "link": "/policies/shipping-policy"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ]
     }
   },
   "order": [
     "pk_hero",
+    "pk_trust",
     "product_list_fa6P9H"
   ]
 }

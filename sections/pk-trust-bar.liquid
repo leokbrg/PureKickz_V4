@@ -1,0 +1,245 @@
+{%- comment -%}
+  PUREKICKZ Trust-Leiste: 2–4 Versprechen mit Icon. Nur Aussagen, die stimmen.
+{%- endcomment -%}
+
+<div
+  class="pk-trust pk-trust--{{ section.settings.style }}"
+  style="--pk-trust-pad: {{ section.settings.padding }}px;"
+>
+  <ul class="pk-trust__list pk-trust__list--{{ section.blocks.size }}" data-pk-stagger>
+    {%- for block in section.blocks -%}
+      <li class="pk-trust__item" data-pk-reveal {{ block.shopify_attributes }}>
+        {%- capture item_inner -%}
+          {%- render 'pk-icon', name: block.settings.icon, class: 'pk-trust__icon' -%}
+          <span class="pk-trust__text">
+            <span class="pk-trust__title">{{ block.settings.title }}</span>
+            {%- if block.settings.text != blank -%}
+              <span class="pk-trust__sub">{{ block.settings.text }}</span>
+            {%- endif -%}
+          </span>
+        {%- endcapture -%}
+
+        {%- if block.settings.link != blank -%}
+          <a class="pk-trust__link" href="{{ block.settings.link }}">{{ item_inner }}</a>
+        {%- else -%}
+          <div class="pk-trust__link">{{ item_inner }}</div>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+{% stylesheet %}
+  .pk-trust {
+    background: #fff;
+    border-block: 1px solid var(--pk-line);
+  }
+
+  .pk-trust--grey {
+    background: var(--pk-grey);
+    border-color: transparent;
+  }
+
+  .pk-trust--dark {
+    background: var(--pk-ink);
+    border-color: transparent;
+    color: #fff;
+  }
+
+  .pk-trust__list {
+    list-style: none;
+    margin: 0 auto;
+    max-width: var(--page-width);
+    padding: 0 var(--page-margin);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media screen and (min-width: 990px) {
+    .pk-trust__list--3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .pk-trust__list--4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .pk-trust__item {
+    min-width: 0;
+    display: flex;
+  }
+
+  .pk-trust__link {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-block: var(--pk-trust-pad);
+    padding-inline: 0 12px;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Trennlinien: Handy als 2×2-Raster, Desktop als eine Reihe */
+  .pk-trust__item:nth-child(even) .pk-trust__link {
+    padding-left: 16px;
+    border-left: 1px solid var(--pk-line);
+  }
+
+  .pk-trust__item:nth-child(n + 3) {
+    border-top: 1px solid var(--pk-line);
+  }
+
+  @media screen and (min-width: 990px) {
+    .pk-trust__item:nth-child(n + 3) {
+      border-top: 0;
+    }
+
+    .pk-trust__item + .pk-trust__item .pk-trust__link {
+      padding-left: 24px;
+      border-left: 1px solid var(--pk-line);
+    }
+  }
+
+  .pk-trust--dark .pk-trust__item,
+  .pk-trust--dark .pk-trust__link {
+    border-color: rgba(255, 255, 255, 0.14);
+  }
+
+  .pk-trust__icon {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    transition: transform 0.4s var(--pk-ease), color 0.2s;
+  }
+
+  a.pk-trust__link:hover .pk-trust__icon {
+    color: var(--pk-magenta);
+    transform: translateY(-2px);
+  }
+
+  .pk-trust__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .pk-trust__title {
+    font-family: var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 1.25;
+  }
+
+  .pk-trust__sub {
+    font-size: 0.78rem;
+    line-height: 1.35;
+    color: var(--pk-muted);
+  }
+
+  .pk-trust--dark .pk-trust__sub {
+    color: #a9a9a3;
+  }
+
+  @media screen and (max-width: 749px) {
+    .pk-trust__link {
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .pk-trust__icon {
+      width: 20px;
+      height: 20px;
+      margin-top: 1px;
+    }
+
+    .pk-trust__title {
+      font-size: 0.8125rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Trust-Leiste",
+  "tag": "section",
+  "class": "pk-section pk-section--trust",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Stil",
+      "options": [
+        { "value": "light", "label": "Weiß mit Linien" },
+        { "value": "grey", "label": "Hellgrau" },
+        { "value": "dark", "label": "Schwarz" }
+      ],
+      "default": "light"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Innenabstand",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Versprechen",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "truck", "label": "Versand" },
+            { "value": "return", "label": "Rückgabe" },
+            { "value": "lock", "label": "Sicher bezahlen" },
+            { "value": "clock", "label": "Zeit" },
+            { "value": "mail", "label": "E-Mail" },
+            { "value": "box", "label": "Paket" },
+            { "value": "card", "label": "Zahlung" },
+            { "value": "check", "label": "Haken" }
+          ],
+          "default": "check"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel",
+          "default": "Versprechen"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Unterzeile"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Trust-Leiste",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "truck", "title": "Versand aus Deutschland", "text": "Meist innerhalb von 1 Werktag verschickt" } },
+        { "type": "item", "settings": { "icon": "return", "title": "14 Tage Widerrufsrecht", "text": "Rücksendung für dich kostenlos" } },
+        { "type": "item", "settings": { "icon": "lock", "title": "Sichere Bezahlung", "text": "Verschlüsselt über Shopify" } },
+        { "type": "item", "settings": { "icon": "clock", "title": "2–4 Werktage Lieferzeit", "text": "Nach Versand, innerhalb Deutschlands" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
