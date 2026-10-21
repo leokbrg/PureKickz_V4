@@ -1,0 +1,320 @@
+{%- comment -%}
+  PUREKICKZ Statement: große Aussage und 2–4 echte Fakten.
+  Zahlen (z. B. 1200) zählen beim Erscheinen hoch, die Headline steigt aus einer Maske auf,
+  die Linie über jedem Fakt füllt sich in Magenta. Ohne JavaScript oder mit reduzierter Bewegung
+  steht alles sofort vollständig da. Nur echte Werte eintragen.
+{%- endcomment -%}
+
+<div
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-statement"
+  style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="pk-sec__inner pk-statement__inner">
+    <div class="pk-statement__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="pk-eyebrow" data-pk-reveal>{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pk-statement__heading" data-pk-reveal>
+          <span class="pk-statement__mask"><span class="pk-statement__line">{{ section.settings.heading }}</span></span>
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <div class="pk-statement__text" data-pk-reveal>{{ section.settings.text }}</div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="pk-statement__facts pk-statement__facts--{{ section.blocks.size }}" data-pk-stagger>
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign value = block.settings.value | strip
+            assign number = value | plus: 0
+            assign number_text = number | append: ''
+          -%}
+          <li class="pk-statement__fact" data-pk-reveal {{ block.shopify_attributes }}>
+            <span class="pk-statement__rule" aria-hidden="true"></span>
+            <p class="pk-statement__value">
+              {%- if number_text == value and number > 0 -%}
+                <span data-pk-count="{{ number }}">{{ value }}</span>
+              {%- else -%}
+                <span>{{ value }}</span>
+              {%- endif -%}
+              {%- if block.settings.unit != blank -%}
+                <span class="pk-statement__unit">{{ block.settings.unit }}</span>
+              {%- endif -%}
+            </p>
+            {%- if block.settings.label != blank -%}
+              <p class="pk-statement__label">{{ block.settings.label }}</p>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .pk-statement__inner {
+    display: grid;
+    gap: clamp(40px, 6vw, 88px);
+  }
+
+  .pk-statement__head {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .pk-statement__heading {
+    margin: 0;
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    font-size: clamp(2.6rem, 9vw, 6.5rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+    color: inherit;
+  }
+
+  .pk-statement__heading em {
+    font-style: normal;
+    color: var(--pk-s-accent);
+  }
+
+  .pk-statement__mask {
+    display: block;
+    overflow: clip;
+    overflow-clip-margin: 0.12em;
+    padding-bottom: 0.06em;
+  }
+
+  .pk-statement__line {
+    display: block;
+  }
+
+  .pk-statement__text {
+    max-width: 52ch;
+    font-size: clamp(1rem, 1.3vw, 1.125rem);
+    line-height: 1.55;
+    color: var(--pk-s-soft);
+  }
+
+  .pk-statement__text p {
+    margin: 0;
+  }
+
+  .pk-statement__facts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .pk-statement__facts--2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pk-statement__facts--3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .pk-statement__facts--4 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pk-statement__facts {
+      gap: 48px clamp(24px, 4vw, 64px);
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .pk-statement__facts--4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .pk-statement__fact {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Linie über jedem Fakt, das erste Stück in Magenta */
+  .pk-statement__rule {
+    position: relative;
+    display: block;
+    height: 1px;
+    margin-bottom: clamp(18px, 2.4vw, 28px);
+    background: var(--pk-s-line);
+  }
+
+  .pk-statement__rule::after {
+    content: '';
+    position: absolute;
+    inset: -1px auto -1px 0;
+    width: 56px;
+    background: var(--pk-magenta);
+    transform-origin: left center;
+  }
+
+  .pk-statement__value {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.18em;
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    font-size: clamp(3rem, 6.4vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .pk-statement__unit {
+    font-size: 0.36em;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  .pk-statement__label {
+    margin: 14px 0 0;
+    max-width: 26ch;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--pk-s-soft);
+  }
+
+  /*
+   * Bewegung: Headline steigt aus der Maske, Fakten erscheinen gestaffelt,
+   * die Magenta-Linie füllt sich. Nur transform/opacity.
+   */
+  @media (prefers-reduced-motion: no-preference) {
+    .pk-motion .pk-statement__heading[data-pk-reveal] {
+      opacity: 1;
+      transform: none;
+    }
+
+    .pk-motion .pk-statement__heading .pk-statement__line {
+      transform: translateY(105%);
+      transition: transform 1s var(--pk-ease);
+    }
+
+    .pk-motion .pk-statement__heading.is-visible .pk-statement__line {
+      transform: none;
+    }
+
+    .pk-motion .pk-statement__rule::after {
+      transform: scaleX(0);
+      transition: transform 1.1s var(--pk-ease) calc(var(--pk-delay, 0ms) + 250ms);
+    }
+
+    .pk-motion .pk-statement__fact.is-visible .pk-statement__rule::after {
+      transform: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Statement & Fakten",
+  "tag": "section",
+  "class": "pk-section pk-section--statement",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Fläche",
+      "info": "Immer abwechselnd zur Section davor und danach wählen.",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "grey", "label": "Hellgrau" },
+        { "value": "dark", "label": "Schwarz" }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Überzeile",
+      "default": "Warum elektrisch"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Aussage",
+      "info": "Kursiv gesetzter Text erscheint in Magenta.",
+      "default": "Schluss mit <em>Schrubben.</em>"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text (optional)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 128
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 128
+    }
+  ],
+  "blocks": [
+    {
+      "type": "fact",
+      "name": "Fakt",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Wert",
+          "info": "Reine Zahl (z. B. 1200) zählt beim Erscheinen hoch. Nur echte Werte.",
+          "default": "1200"
+        },
+        {
+          "type": "text",
+          "id": "unit",
+          "label": "Einheit (optional)",
+          "default": "mAh"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Beschreibung",
+          "default": "Akku – im Einsatz kabellos."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Statement & Fakten",
+      "blocks": [
+        { "type": "fact", "settings": { "value": "Motor", "unit": "", "label": "übernimmt die Bewegung, nicht dein Arm." } },
+        { "type": "fact", "settings": { "value": "1200", "unit": "mAh", "label": "Akku – im Einsatz kabellos." } },
+        { "type": "fact", "settings": { "value": "USB-C", "unit": "", "label": "zum Aufladen." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
