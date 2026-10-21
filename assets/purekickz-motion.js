@@ -28,7 +28,14 @@
         el.style.setProperty('--pk-delay', `${i * STAGGER_MS}ms`);
       });
     });
-    scope.querySelectorAll('[data-pk-reveal]:not(.is-visible)').forEach((el) => observer.observe(el));
+    scope.querySelectorAll('[data-pk-reveal]:not(.is-visible)').forEach((el) => {
+      // Was beim Laden schon im Bild ist, bleibt einfach stehen statt kurz zu verschwinden
+      if (el.getBoundingClientRect().top < window.innerHeight) {
+        el.classList.add('is-visible');
+        return;
+      }
+      observer.observe(el);
+    });
   };
 
   root.classList.add('pk-motion');
