@@ -1,0 +1,250 @@
+{%- comment -%}
+  PUREKICKZ Vorher/Nachher-Schieberegler auf einem echten Sneaker.
+  Beide Bilder im selben Format und Ausschnitt hochladen. Ohne JavaScript: Regler funktioniert
+  nicht, beide Hälften bleiben aber sichtbar. Erst einblenden, wenn echte Fotos da sind ([[VORHER_NACHHER]]).
+{%- endcomment -%}
+
+<div
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-ba"
+  style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="pk-sec__inner">
+    <div class="pk-sec__head pk-sec__head--center">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="pk-eyebrow" data-pk-reveal>{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pk-h2" data-pk-reveal>{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    <pk-before-after class="pk-ba__frame" style="--pk-ba: 50%;">
+      <div class="pk-ba__layer pk-ba__layer--after">
+        {%- if section.settings.image_after != blank -%}
+          {{ section.settings.image_after | image_url: width: 1800 | image_tag: widths: '600, 1000, 1400, 1800', sizes: '(min-width: 990px) 1100px, 100vw', loading: 'lazy', class: 'pk-ba__img' }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'pk-ba__img pk-ba__img--placeholder' }}
+        {%- endif -%}
+        <span class="pk-ba__tag pk-ba__tag--after">{{ section.settings.label_after }}</span>
+      </div>
+      <div class="pk-ba__layer pk-ba__layer--before">
+        {%- if section.settings.image_before != blank -%}
+          {{ section.settings.image_before | image_url: width: 1800 | image_tag: widths: '600, 1000, 1400, 1800', sizes: '(min-width: 990px) 1100px, 100vw', loading: 'lazy', class: 'pk-ba__img' }}
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'pk-ba__img pk-ba__img--placeholder' }}
+        {%- endif -%}
+        <span class="pk-ba__tag pk-ba__tag--before">{{ section.settings.label_before }}</span>
+      </div>
+      <span class="pk-ba__handle" aria-hidden="true"></span>
+      <input
+        class="pk-ba__range"
+        type="range"
+        min="0"
+        max="100"
+        value="50"
+        aria-label="{{ section.settings.label_before }} / {{ section.settings.label_after }} vergleichen"
+      >
+    </pk-before-after>
+  </div>
+</div>
+
+<script>
+  if (!customElements.get('pk-before-after')) {
+    customElements.define(
+      'pk-before-after',
+      class extends HTMLElement {
+        connectedCallback() {
+          const range = this.querySelector('.pk-ba__range');
+          range?.addEventListener('input', () => this.style.setProperty('--pk-ba', `${range.value}%`));
+        }
+      }
+    );
+  }
+</script>
+
+{% stylesheet %}
+  .pk-ba__frame {
+    position: relative;
+    display: block;
+    max-width: 1100px;
+    margin-inline: auto;
+    aspect-ratio: 3 / 2;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--pk-s-card);
+    touch-action: pan-y;
+  }
+
+  .pk-ba__layer {
+    position: absolute;
+    inset: 0;
+  }
+
+  .pk-ba__layer--before {
+    clip-path: inset(0 calc(100% - var(--pk-ba)) 0 0);
+  }
+
+  .pk-ba__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .pk-ba__img--placeholder {
+    fill: var(--pk-muted);
+    opacity: 0.35;
+  }
+
+  .pk-ba__tag {
+    position: absolute;
+    top: 16px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(25, 25, 23, 0.72);
+    color: var(--pk-white);
+    font-family: var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .pk-ba__tag--before {
+    left: 16px;
+  }
+
+  .pk-ba__tag--after {
+    right: 16px;
+    background: var(--pk-magenta);
+  }
+
+  .pk-ba__handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pk-ba);
+    width: 2px;
+    margin-left: -1px;
+    background: var(--pk-white);
+    pointer-events: none;
+  }
+
+  .pk-ba__handle::after {
+    content: '‹ ›';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--pk-white);
+    color: var(--pk-ink);
+    font-weight: 700;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 6px 20px rgba(25, 25, 23, 0.2);
+  }
+
+  .pk-ba__range {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: ew-resize;
+  }
+
+  .pk-ba__range:focus-visible + .pk-ba__handle,
+  .pk-ba__frame:focus-within .pk-ba__handle::after {
+    outline: 2px solid var(--pk-magenta);
+    outline-offset: 2px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Vorher/Nachher",
+  "tag": "section",
+  "class": "pk-section pk-section--before-after",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Nur mit echten Fotos desselben Sneakers einblenden ([[VORHER_NACHHER]])."
+    },
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Fläche",
+      "info": "Immer abwechselnd zur Section davor und danach wählen.",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "grey", "label": "Hellgrau" },
+        { "value": "dark", "label": "Schwarz" }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Überzeile",
+      "default": "Vorher / Nachher"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Sieh selbst."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_before",
+      "label": "Vorher-Bild"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_after",
+      "label": "Nachher-Bild"
+    },
+    {
+      "type": "text",
+      "id": "label_before",
+      "label": "Beschriftung vorher",
+      "default": "Vorher"
+    },
+    {
+      "type": "text",
+      "id": "label_after",
+      "label": "Beschriftung nachher",
+      "default": "Nachher"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Vorher/Nachher"
+    }
+  ]
+}
+{% endschema %}

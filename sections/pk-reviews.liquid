@@ -1,0 +1,165 @@
+{%- comment -%}
+  PUREKICKZ Kundenbewertungen.
+  Standardmäßig ausgeblendet, solange es keine echten Bewertungen gibt (CLAUDE.md: nichts vortäuschen).
+  Nur echte, nachprüfbare Bewertungen eintragen. Ohne Bewertungen rendert die Section nichts.
+{%- endcomment -%}
+
+{%- if section.settings.enabled and section.blocks.size > 0 -%}
+  <div
+    class="pk-sec pk-sec--{{ section.settings.surface }} pk-reviews"
+    style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
+  >
+    <div class="pk-sec__inner">
+      <div class="pk-sec__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="pk-eyebrow" data-pk-reveal>{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="pk-h2" data-pk-reveal>{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+
+      <ul class="pk-reviews__list" data-pk-stagger>
+        {%- for block in section.blocks -%}
+          <li class="pk-reviews__card" data-pk-reveal {{ block.shopify_attributes }}>
+            <p class="pk-reviews__stars" aria-label="{{ block.settings.rating }} von 5 Sternen">
+              {%- for i in (1..5) -%}
+                <span class="pk-reviews__star{% if i > block.settings.rating %} is-off{% endif %}" aria-hidden="true">★</span>
+              {%- endfor -%}
+            </p>
+            <blockquote class="pk-reviews__text">{{ block.settings.text }}</blockquote>
+            <p class="pk-reviews__name">{{ block.settings.name }}</p>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .pk-reviews__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .pk-reviews__list {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+  }
+
+  .pk-reviews__card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 28px;
+    border-radius: 16px;
+    background: var(--pk-s-card);
+  }
+
+  .pk-reviews__stars {
+    margin: 0;
+    letter-spacing: 2px;
+    color: var(--pk-s-accent);
+  }
+
+  .pk-reviews__star.is-off {
+    color: var(--pk-s-line);
+  }
+
+  .pk-reviews__text {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .pk-reviews__name {
+    margin: auto 0 0;
+    font-family: var(--font-heading--family);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--pk-s-soft);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Bewertungen",
+  "tag": "section",
+  "class": "pk-section pk-section--reviews",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Bewertungen anzeigen",
+      "info": "Erst einschalten, wenn echte Kundenbewertungen vorliegen.",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Fläche",
+      "info": "Immer abwechselnd zur Section davor und danach wählen.",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "grey", "label": "Hellgrau" },
+        { "value": "dark", "label": "Schwarz" }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Überzeile",
+      "default": "Bewertungen"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Echte <em>Stimmen.</em>"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Bewertung",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Sterne", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "text", "id": "name", "label": "Name (z. B. Vorname + Initial)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Bewertungen"
+    }
+  ]
+}
+{% endschema %}
