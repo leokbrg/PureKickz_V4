@@ -1,0 +1,301 @@
+{%- comment -%}
+  PUREKICKZ Abschluss-Kaufbereich: Produkt freigestellt auf der Fläche, Preis live aus Shopify,
+  Kaufbutton und Zahlungsarten. Kaufbereich bewusst ohne Einblend-Animation – sofort klickbar.
+{%- endcomment -%}
+
+{%- liquid
+  assign product = section.settings.product
+  assign variant = product.selected_or_first_available_variant
+  assign button_link = section.settings.button_link
+  if button_link == blank and product != blank
+    assign button_link = product.url
+  endif
+-%}
+
+<div
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-cta"
+  style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="pk-sec__inner pk-cta__inner">
+    {%- if section.settings.image != blank -%}
+      <div class="pk-cta__visual" aria-hidden="true">
+        <span class="pk-cta__glow"></span>
+        {{
+          section.settings.image
+          | image_url: width: 1400
+          | image_tag:
+            widths: '600, 900, 1200, 1400',
+            sizes: '(min-width: 990px) 46vw, 90vw',
+            loading: 'lazy',
+            class: 'pk-cta__img',
+            alt: ''
+        }}
+      </div>
+    {%- endif -%}
+
+    <div class="pk-cta__text">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="pk-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pk-h2">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <p class="pk-cta__note">{{ section.settings.text }}</p>
+      {%- endif -%}
+
+      {%- if product != blank -%}
+        <p class="pk-cta__price">
+          <span class="pk-cta__price-value">{{ variant.price | money }}</span>
+          <span class="pk-cta__price-note">
+            {%- if cart.taxes_included -%}inkl. MwSt.{%- else -%}zzgl. MwSt.{%- endif -%}
+            {%- if shop.shipping_policy.url != blank -%}
+              , zzgl. <a href="{{ shop.shipping_policy.url }}">Versand</a>
+            {%- endif -%}
+          </span>
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank and button_link != blank -%}
+        <a class="button pk-cta__button" href="{{ button_link }}">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+
+      {%- if section.settings.show_payment and shop.enabled_payment_types.size > 0 -%}
+        <ul class="pk-cta__payments" aria-label="Zahlungsarten">
+          {%- for type in shop.enabled_payment_types -%}
+            <li>{{ type | payment_type_svg_tag: class: 'pk-cta__pay-icon' }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .pk-cta {
+    overflow: clip;
+  }
+
+  .pk-cta__inner {
+    display: grid;
+    gap: 8px;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .pk-cta__visual {
+    position: relative;
+    width: min(100%, 640px);
+  }
+
+  .pk-cta__glow {
+    position: absolute;
+    inset: 4% 8% 0;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(180, 41, 152, 0.3), rgba(180, 41, 152, 0.06) 62%, transparent);
+    filter: blur(10px);
+  }
+
+  .pk-cta__img {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .pk-cta__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    max-width: 640px;
+  }
+
+  .pk-cta__note {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--pk-s-soft);
+  }
+
+  .pk-cta__price {
+    margin: 8px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px 12px;
+  }
+
+  .pk-cta__price-value {
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pk-cta__price-note {
+    font-size: 0.8125rem;
+    color: var(--pk-s-soft);
+  }
+
+  .pk-cta__price-note a {
+    color: inherit;
+    text-underline-offset: 2px;
+  }
+
+  .pk-cta__button {
+    min-height: 56px;
+    min-width: min(100%, 300px);
+    padding-inline: 40px;
+    font-size: 1.0625rem;
+  }
+
+  .pk-cta__payments {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .pk-cta__pay-icon {
+    display: block;
+    width: 38px;
+    height: 24px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .pk-cta__inner {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: clamp(40px, 6vw, 96px);
+      align-items: center;
+      justify-items: stretch;
+      text-align: left;
+    }
+
+    .pk-cta__visual {
+      width: 100%;
+      max-width: none;
+    }
+
+    .pk-cta__text {
+      align-items: flex-start;
+    }
+
+    .pk-cta__price,
+    .pk-cta__payments {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .pk-motion .pk-cta__img {
+      animation: pk-cta-float 7s ease-in-out infinite alternate;
+    }
+
+    @keyframes pk-cta-float {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(-10px);
+      }
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Kaufbereich Abschluss",
+  "tag": "section",
+  "class": "pk-section pk-section--cta",
+  "settings": [
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Fläche",
+      "info": "Immer abwechselnd zur Section davor und danach wählen.",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "grey", "label": "Hellgrau" },
+        { "value": "dark", "label": "Schwarz" }
+      ],
+      "default": "dark"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Produkt (Preis kommt live aus Shopify)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Bild (freigestellt, PNG/WebP)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Überzeile",
+      "default": "PUREKICKZ ONE"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Saubere Sneaker, <em>weniger Aufwand.</em>"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Kurzer Hinweis",
+      "default": "Gerät und drei Aufsätze · Versand aus Deutschland"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button-Text",
+      "default": "Jetzt kaufen"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button-Link",
+      "info": "Leer lassen = Produktseite"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment",
+      "label": "Zahlungsarten anzeigen",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Kaufbereich Abschluss"
+    }
+  ]
+}
+{% endschema %}
