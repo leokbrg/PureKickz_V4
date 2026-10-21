@@ -10,7 +10,7 @@
     {%- for block in section.blocks -%}
       <li class="pk-trust__item" data-pk-reveal {{ block.shopify_attributes }}>
         {%- capture item_inner -%}
-          {%- render 'pk-icon', name: block.settings.icon, class: 'pk-trust__icon' -%}
+          <span class="pk-trust__tile">{%- render 'pk-icon', name: block.settings.icon, class: 'pk-trust__icon' -%}</span>
           <span class="pk-trust__text">
             <span class="pk-trust__title">{{ block.settings.title }}</span>
             {%- if block.settings.text != blank -%}
@@ -30,32 +30,42 @@
 </div>
 
 {% stylesheet %}
+  /* Eigene Fläche mit klarer Kante zu den Nachbar-Sections */
   .pk-trust {
-    background: #fff;
-    border-block: 1px solid var(--pk-line);
+    --pk-trust-tile: var(--pk-grey);
+    --pk-trust-sub: rgba(25, 25, 23, 0.72);
+    background: var(--pk-white);
+    color: var(--pk-ink);
   }
 
   .pk-trust--grey {
+    --pk-trust-tile: var(--pk-white);
     background: var(--pk-grey);
-    border-color: transparent;
   }
 
   .pk-trust--dark {
+    --pk-trust-tile: rgba(255, 255, 255, 0.08);
+    --pk-trust-sub: rgba(255, 255, 255, 0.68);
     background: var(--pk-ink);
-    border-color: transparent;
-    color: #fff;
+    color: var(--pk-white);
   }
 
   .pk-trust__list {
     list-style: none;
     margin: 0 auto;
     max-width: var(--page-width);
-    padding: 0 var(--page-margin);
+    padding: calc(var(--pk-trust-pad) * 0.65) var(--page-margin) calc(var(--pk-trust-pad) * 0.72);
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 18px;
   }
 
-  @media screen and (min-width: 990px) {
+  @media screen and (min-width: 750px) {
+    .pk-trust__list {
+      padding-block: var(--pk-trust-pad) calc(var(--pk-trust-pad) + 8px);
+      gap: 32px;
+    }
+
     .pk-trust__list--3 {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -71,92 +81,179 @@
   }
 
   .pk-trust__link {
-    flex: 1;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 14px;
-    padding-block: var(--pk-trust-pad);
-    padding-inline: 0 12px;
     color: inherit;
     text-decoration: none;
   }
 
-  /* Trennlinien: Handy als 2×2-Raster, Desktop als eine Reihe */
-  .pk-trust__item:nth-child(even) .pk-trust__link {
-    padding-left: 16px;
-    border-left: 1px solid var(--pk-line);
-  }
-
-  .pk-trust__item:nth-child(n + 3) {
-    border-top: 1px solid var(--pk-line);
-  }
-
-  @media screen and (min-width: 990px) {
-    .pk-trust__item:nth-child(n + 3) {
-      border-top: 0;
-    }
-
-    .pk-trust__item + .pk-trust__item .pk-trust__link {
-      padding-left: 24px;
-      border-left: 1px solid var(--pk-line);
-    }
-  }
-
-  .pk-trust--dark .pk-trust__item,
-  .pk-trust--dark .pk-trust__link {
-    border-color: rgba(255, 255, 255, 0.14);
+  .pk-trust__tile {
+    flex: none;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    background: var(--pk-trust-tile);
+    transition:
+      background-color 0.25s var(--pk-ease),
+      color 0.25s var(--pk-ease),
+      transform 0.4s var(--pk-ease);
   }
 
   .pk-trust__icon {
-    flex: none;
     width: 24px;
     height: 24px;
-    transition: transform 0.4s var(--pk-ease), color 0.2s;
+    overflow: visible;
   }
 
-  a.pk-trust__link:hover .pk-trust__icon {
-    color: var(--pk-magenta);
-    transform: translateY(-2px);
+  a.pk-trust__link:hover .pk-trust__tile,
+  a.pk-trust__link:focus-visible .pk-trust__tile {
+    background: var(--pk-magenta);
+    color: var(--pk-white);
+    transform: translateY(-3px);
   }
 
   .pk-trust__text {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
     min-width: 0;
   }
 
   .pk-trust__title {
-    font-family: var(--font-subheading--family);
+    font-family: var(--font-heading--family);
     font-weight: 600;
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     line-height: 1.25;
   }
 
+  a.pk-trust__link .pk-trust__title {
+    align-self: flex-start;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size 0.35s var(--pk-ease);
+  }
+
+  a.pk-trust__link:hover .pk-trust__title {
+    background-size: 100% 1px;
+  }
+
   .pk-trust__sub {
-    font-size: 0.78rem;
-    line-height: 1.35;
-    color: var(--pk-muted);
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: var(--pk-trust-sub);
   }
 
-  .pk-trust--dark .pk-trust__sub {
-    color: #a9a9a3;
-  }
-
-  @media screen and (max-width: 749px) {
+  @media screen and (min-width: 990px) {
     .pk-trust__link {
-      gap: 10px;
+      flex-direction: row;
       align-items: flex-start;
+      gap: 18px;
+    }
+
+    .pk-trust__tile {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
     }
 
     .pk-trust__icon {
-      width: 20px;
-      height: 20px;
-      margin-top: 1px;
+      width: 26px;
+      height: 26px;
+    }
+
+    .pk-trust__text {
+      padding-top: 6px;
     }
 
     .pk-trust__title {
-      font-size: 0.8125rem;
+      font-size: 1.0625rem;
+    }
+
+    .pk-trust__sub {
+      font-size: 0.875rem;
+    }
+  }
+
+  /*
+   * Jedes Icon zeigt beim Erscheinen kurz, was es verspricht:
+   * Lieferwagen fährt ein, Pfeil dreht zurück, Schloss rastet ein, Zeiger läuft.
+   * Nur transform/opacity; bei reduzierter Bewegung steht alles sofort still da.
+   */
+  @media (prefers-reduced-motion: no-preference) {
+    .pk-motion .pk-trust__item .pk-trust__tile {
+      opacity: 0;
+      transform: scale(0.7);
+    }
+
+    .pk-motion .pk-trust__item.is-visible .pk-trust__tile {
+      opacity: 1;
+      transform: none;
+      transition:
+        opacity 0.5s var(--pk-ease) var(--pk-delay, 0ms),
+        transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) var(--pk-delay, 0ms),
+        background-color 0.25s var(--pk-ease),
+        color 0.25s var(--pk-ease);
+    }
+
+    .pk-motion .pk-trust__item.is-visible a.pk-trust__link:hover .pk-trust__tile {
+      transform: translateY(-3px);
+    }
+
+    .pk-motion .pk-trust .is-visible .pk-icon--truck {
+      animation: pk-trust-drive 0.9s var(--pk-ease) calc(var(--pk-delay, 0ms) + 180ms) both;
+    }
+
+    .pk-motion .pk-trust .is-visible .pk-icon--return {
+      animation: pk-trust-turn 0.9s var(--pk-ease) calc(var(--pk-delay, 0ms) + 180ms) both;
+    }
+
+    .pk-motion .pk-trust .is-visible .pk-icon__shackle {
+      transform-box: view-box;
+      animation: pk-trust-lock 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--pk-delay, 0ms) + 380ms) both;
+    }
+
+    .pk-motion .pk-trust .is-visible .pk-icon__hand {
+      transform-box: view-box;
+      transform-origin: 12px 12px;
+      animation: pk-trust-tick 1.1s var(--pk-ease) calc(var(--pk-delay, 0ms) + 180ms) both;
+    }
+
+    .pk-motion .pk-trust .is-visible :is(.pk-icon--mail, .pk-icon--box, .pk-icon--check, .pk-icon--card) {
+      animation: pk-trust-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--pk-delay, 0ms) + 180ms) both;
+    }
+
+    @keyframes pk-trust-drive {
+      from {
+        opacity: 0;
+        transform: translateX(-14px);
+      }
+    }
+
+    @keyframes pk-trust-turn {
+      from {
+        transform: rotate(-200deg);
+      }
+    }
+
+    @keyframes pk-trust-lock {
+      from {
+        transform: translateY(-3.5px);
+      }
+    }
+
+    @keyframes pk-trust-tick {
+      from {
+        transform: rotate(-360deg);
+      }
+    }
+
+    @keyframes pk-trust-pop {
+      from {
+        opacity: 0;
+        transform: scale(0.4);
+      }
     }
   }
 {% endstylesheet %}
@@ -173,7 +270,7 @@
       "id": "style",
       "label": "Stil",
       "options": [
-        { "value": "light", "label": "Weiß mit Linien" },
+        { "value": "light", "label": "Weiß" },
         { "value": "grey", "label": "Hellgrau" },
         { "value": "dark", "label": "Schwarz" }
       ],
@@ -183,11 +280,11 @@
       "type": "range",
       "id": "padding",
       "label": "Innenabstand",
-      "min": 8,
-      "max": 40,
-      "step": 2,
+      "min": 24,
+      "max": 96,
+      "step": 4,
       "unit": "px",
-      "default": 20
+      "default": 56
     }
   ],
   "blocks": [
