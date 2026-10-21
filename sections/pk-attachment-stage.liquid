@@ -1,0 +1,663 @@
+{%- comment -%}
+  PUREKICKZ Aufsatz-Bühne (Signature-Moment).
+  Das Studiofoto füllt die Bühne randlos. Beim Scrollen bleibt sie stehen und wechselt Aufsatz für Aufsatz;
+  ein Magenta-Ring kreist um den aktiven Kopf. Ohne JavaScript oder mit reduzierter Bewegung: ruhige Liste.
+  Ring-Positionen sind in % des jeweiligen Bildes angegeben (Desktop- und Handy-Fassung getrennt).
+{%- endcomment -%}
+
+{%- assign count = section.blocks.size -%}
+
+<pk-attachment-stage
+  class="pk-stage"
+  style="--pk-stage-bg: {{ section.settings.background_color }}; --pk-count: {{ count }};"
+  data-count="{{ count }}"
+>
+  <div class="pk-stage__track">
+    <div class="pk-stage__sticky">
+      <div class="pk-stage__scene">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign img_d = block.settings.image_desktop
+            assign img_m = block.settings.image_mobile | default: img_d
+          -%}
+          <div
+            class="pk-stage__shot"
+            data-index="{{ forloop.index0 }}"
+            {% if img_d != blank %}
+              data-dw="{{ img_d.width }}" data-dh="{{ img_d.height }}"
+            {% endif %}
+            {% if img_m != blank %}
+              data-mw="{{ img_m.width }}" data-mh="{{ img_m.height }}"
+            {% endif %}
+            {% if forloop.first %}
+              data-active="true"
+            {% endif %}
+          >
+            {%- if img_d != blank -%}
+              <picture>
+                <source
+                  media="(min-width: 990px)"
+                  srcset="{{ img_d | image_url: width: 1200 }} 1200w, {{ img_d | image_url: width: 1800 }} 1800w, {{ img_d | image_url: width: 2400 }} 2400w"
+                  sizes="100vw"
+                >
+                {{
+                  img_m
+                  | image_url: width: 1200
+                  | image_tag:
+                    widths: '600, 900, 1200',
+                    sizes: '100vw',
+                    loading: 'lazy',
+                    class: 'pk-stage__img',
+                    alt: block.settings.title
+                }}
+              </picture>
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'pk-stage__img' }}
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+
+        <div class="pk-stage__ring" aria-hidden="true">
+          <svg viewBox="0 0 100 100" focusable="false"><circle cx="50" cy="50" r="48" /></svg>
+        </div>
+      </div>
+
+      <div class="pk-stage__inner">
+        <div class="pk-stage__content">
+          <div class="pk-stage__head">
+            {%- if section.settings.eyebrow != blank -%}
+              <p class="pk-stage__eyebrow">{{ section.settings.eyebrow }}</p>
+            {%- endif -%}
+            {%- if section.settings.heading != blank -%}
+              <h2 class="pk-stage__heading">{{ section.settings.heading }}</h2>
+            {%- endif -%}
+          </div>
+
+          <p class="pk-stage__counter" aria-hidden="true">
+            <span class="pk-stage__counter-now">01</span> / {{ count | prepend: '0' | slice: -2, 2 }}
+          </p>
+
+          <div class="pk-stage__panels">
+            {%- for block in section.blocks -%}
+              <div
+                class="pk-stage__panel"
+                id="PkStagePanel-{{ section.id }}-{{ forloop.index0 }}"
+                role="tabpanel"
+                data-index="{{ forloop.index0 }}"
+                {% if forloop.first %}
+                  data-active="true"
+                {% endif %}
+                {{ block.shopify_attributes }}
+              >
+                {%- if block.settings.head_image != blank -%}
+                  {{
+                    block.settings.head_image
+                    | image_url: width: 160
+                    | image_tag: width: 72, height: 72, loading: 'lazy', class: 'pk-stage__panel-head', alt: ''
+                  }}
+                {%- endif -%}
+                <div>
+                  <h3 class="pk-stage__name">{{ block.settings.title }}</h3>
+                  {%- if block.settings.text != blank -%}
+                    <p class="pk-stage__text">{{ block.settings.text }}</p>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+
+          <div class="pk-stage__chips" role="tablist" aria-label="{{ section.settings.heading | strip_html | escape }}">
+            {%- for block in section.blocks -%}
+              <button
+                type="button"
+                class="pk-stage__chip"
+                role="tab"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                aria-controls="PkStagePanel-{{ section.id }}-{{ forloop.index0 }}"
+                tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+                data-index="{{ forloop.index0 }}"
+                data-dx="{{ block.settings.ring_dx }}"
+                data-dy="{{ block.settings.ring_dy }}"
+                data-dd="{{ block.settings.ring_dd }}"
+                data-mx="{{ block.settings.ring_mx }}"
+                data-my="{{ block.settings.ring_my }}"
+                data-md="{{ block.settings.ring_md }}"
+              >
+                {%- if block.settings.head_image != blank -%}
+                  {{
+                    block.settings.head_image
+                    | image_url: width: 120
+                    | image_tag: width: 48, height: 48, loading: 'lazy', class: 'pk-stage__chip-img', alt: ''
+                  }}
+                {%- endif -%}
+                <span class="pk-stage__chip-label">{{ block.settings.title }}</span>
+              </button>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</pk-attachment-stage>
+
+<script src="{{ 'pk-attachment-stage.js' | asset_url }}" defer></script>
+
+{% stylesheet %}
+  .pk-stage {
+    display: block;
+    position: relative;
+    background: var(--pk-stage-bg);
+    color: var(--pk-ink);
+  }
+
+  .pk-stage__sticky {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ——— Szene: Studiofoto randlos ——— */
+  .pk-stage__scene {
+    position: relative;
+    height: 62vw;
+    max-height: 70svh;
+    /* weicher Übergang des Fotos in die Fläche darunter (Handy/Tablet) */
+    -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent);
+    mask-image: linear-gradient(to bottom, #000 72%, transparent);
+  }
+
+  .pk-stage__shot {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.7s var(--pk-ease);
+  }
+
+  .pk-stage__shot[data-active='true'] {
+    opacity: 1;
+  }
+
+  .pk-stage__shot picture {
+    display: contents;
+  }
+
+  .pk-stage__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% bottom;
+  }
+
+  .pk-stage__ring {
+    display: none;
+  }
+
+  /* ——— Inhalt ——— */
+  .pk-stage__inner {
+    position: relative;
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding: 8px var(--page-margin) 56px;
+  }
+
+  .pk-stage__content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-width: 0;
+  }
+
+  .pk-stage__eyebrow {
+    margin: 0 0 10px;
+    font-family: var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+    color: var(--pk-magenta);
+  }
+
+  .pk-stage__heading {
+    margin: 0;
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    font-size: clamp(1.9rem, 4vw, 3.4rem);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  .pk-stage__counter {
+    display: none;
+    margin: 0;
+    font-family: var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.17em;
+    color: #5f5f5a;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pk-stage__panels {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .pk-stage__panel {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .pk-stage__panel-head {
+    flex: none;
+    width: 56px;
+    height: 56px;
+  }
+
+  .pk-stage__name {
+    margin: 0 0 2px;
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: -0.015em;
+  }
+
+  .pk-stage__text {
+    margin: 0;
+    max-width: 40ch;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #3f3f3b;
+  }
+
+  .pk-stage__chips {
+    display: none;
+  }
+
+  /* ——— Desktop: Foto füllt die ganze Bühne, Inhalt rechts im Studioraum ——— */
+  @media screen and (min-width: 990px) {
+    .pk-stage__img {
+      object-position: left bottom;
+    }
+
+    .pk-stage__scene {
+      position: absolute;
+      inset: 0;
+      height: auto;
+      max-height: none;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+
+    .pk-stage__inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+      min-height: clamp(560px, 46vw, 860px);
+      align-items: center;
+      padding-block: 72px;
+    }
+
+    .pk-stage__content {
+      grid-column: 2;
+    }
+  }
+
+  /* ——— Bühne (von pk-attachment-stage.js aktiviert) ——— */
+  .pk-stage.is-enhanced .pk-stage__track {
+    height: calc(var(--pk-count) * 70svh + 100svh);
+  }
+
+  .pk-stage.is-enhanced .pk-stage__sticky {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pk-stage.is-enhanced .pk-stage__scene {
+    flex: 1 1 auto;
+    height: auto;
+    max-height: none;
+    min-height: 0;
+  }
+
+  .pk-stage.is-enhanced .pk-stage__inner {
+    flex: none;
+    width: 100%;
+    padding-bottom: 28px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .pk-stage.is-enhanced .pk-stage__sticky {
+      display: block;
+    }
+
+    .pk-stage.is-enhanced .pk-stage__inner {
+      height: 100%;
+      min-height: 0;
+      padding-block: 48px;
+    }
+  }
+
+  .pk-stage.is-enhanced .pk-stage__ring {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--ring-d, 0px);
+    aspect-ratio: 1;
+    pointer-events: none;
+    opacity: var(--ring-o, 0);
+    transform: translate(calc(var(--ring-x, 0px) - 50%), calc(var(--ring-y, 0px) - 50%));
+    transition:
+      transform 0.7s var(--pk-ease),
+      width 0.7s var(--pk-ease),
+      opacity 0.4s var(--pk-ease);
+  }
+
+  .pk-stage__ring svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    animation: pk-stage-spin 6s linear infinite;
+  }
+
+  .pk-stage__ring circle {
+    fill: none;
+    stroke: var(--pk-magenta);
+    stroke-width: 1.6;
+    stroke-dasharray: 1.5 6;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+  }
+
+  @keyframes pk-stage-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .pk-stage.is-enhanced .pk-stage__counter {
+    display: block;
+  }
+
+  .pk-stage.is-enhanced .pk-stage__panels {
+    display: grid;
+  }
+
+  .pk-stage.is-enhanced .pk-stage__panel {
+    grid-area: 1 / 1;
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition:
+      opacity 0.45s var(--pk-ease),
+      transform 0.45s var(--pk-ease);
+  }
+
+  .pk-stage.is-enhanced .pk-stage__panel[data-active='true'] {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .pk-stage.is-enhanced .pk-stage__panel-head {
+    display: none;
+  }
+
+  .pk-stage.is-enhanced .pk-stage__name {
+    font-size: clamp(1.3rem, 2vw, 1.8rem);
+  }
+
+  .pk-stage.is-enhanced .pk-stage__chips {
+    display: flex;
+    gap: 8px;
+  }
+
+  .pk-stage__chip {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    min-height: 44px;
+    padding: 8px 10px;
+    border: 1.5px solid rgba(25, 25, 23, 0.12);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.55);
+    color: var(--pk-ink);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    transition:
+      border-color 0.3s var(--pk-ease),
+      background-color 0.3s var(--pk-ease),
+      transform 0.3s var(--pk-ease);
+  }
+
+  .pk-stage__chip:hover {
+    background: rgba(255, 255, 255, 0.75);
+  }
+
+  .pk-stage__chip[aria-selected='true'] {
+    border-color: var(--pk-magenta);
+    background: #fff;
+  }
+
+  .pk-stage__chip-img {
+    flex: none;
+    width: 34px;
+    height: 34px;
+    transition: transform 0.5s var(--pk-ease);
+  }
+
+  .pk-stage__chip[aria-selected='true'] .pk-stage__chip-img {
+    transform: rotate(-35deg) scale(1.1);
+  }
+
+  .pk-stage__chip-label {
+    font-family: var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 0.8rem;
+    line-height: 1.2;
+  }
+
+  @media screen and (min-width: 990px) {
+    .pk-stage.is-enhanced .pk-stage__chips {
+      flex-direction: column;
+      gap: 10px;
+      max-width: 420px;
+    }
+
+    .pk-stage__chip {
+      flex-direction: row;
+      align-items: center;
+      gap: 14px;
+      min-height: 64px;
+      padding: 8px 18px 8px 10px;
+    }
+
+    .pk-stage__chip[aria-selected='true'] {
+      transform: translateX(6px);
+    }
+
+    .pk-stage__chip-img {
+      width: 46px;
+      height: 46px;
+    }
+
+    .pk-stage__chip-label {
+      font-size: 0.9375rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pk-stage__ring svg {
+      animation: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Aufsatz-Bühne",
+  "tag": "section",
+  "class": "pk-section pk-section--stage",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Überzeile",
+      "default": "Die Aufsätze"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Ein Gerät. Drei Aufsätze."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Hintergrund",
+      "info": "Ton des Studiofotos, damit es randlos in die Fläche übergeht.",
+      "default": "#BEBEBD"
+    },
+    {
+      "type": "paragraph",
+      "content": "Beim Scrollen bleibt die Bühne stehen und zeigt einen Aufsatz nach dem anderen. Ohne JavaScript oder mit reduzierter Bewegung erscheint eine ruhige Liste."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "attachment",
+      "name": "Aufsatz",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Name",
+          "default": "Aufsatz"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Wofür"
+        },
+        {
+          "type": "image_picker",
+          "id": "head_image",
+          "label": "Aufsatz freigestellt (quadratisch, transparent)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_desktop",
+          "label": "Studiofoto Desktop (breit)",
+          "info": "z. B. buehne-buerste.jpg"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Studiofoto Handy",
+          "info": "z. B. buehne-buerste-hoch.jpg"
+        },
+        {
+          "type": "header",
+          "content": "Magenta-Ring Desktop (in % des Bildes)"
+        },
+        {
+          "type": "range",
+          "id": "ring_dx",
+          "label": "Waagerecht",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 26
+        },
+        {
+          "type": "range",
+          "id": "ring_dy",
+          "label": "Senkrecht",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 41
+        },
+        {
+          "type": "range",
+          "id": "ring_dd",
+          "label": "Größe (% der Bildbreite)",
+          "min": 1,
+          "max": 40,
+          "step": 1,
+          "unit": "%",
+          "default": 8
+        },
+        {
+          "type": "header",
+          "content": "Magenta-Ring Handy (in % des Bildes)"
+        },
+        {
+          "type": "range",
+          "id": "ring_mx",
+          "label": "Waagerecht",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "ring_my",
+          "label": "Senkrecht",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 45
+        },
+        {
+          "type": "range",
+          "id": "ring_md",
+          "label": "Größe (% der Bildbreite)",
+          "min": 1,
+          "max": 40,
+          "step": 1,
+          "unit": "%",
+          "default": 15
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Aufsatz-Bühne",
+      "blocks": [
+        { "type": "attachment", "settings": { "title": "Harte Bürste", "text": "Für Sohle und Sohlenrand." } },
+        { "type": "attachment", "settings": { "title": "Weiche Bürste", "text": "Für Obermaterial wie Leder und Mesh." } },
+        {
+          "type": "attachment",
+          "settings": {
+            "title": "Schwamm",
+            "text": "Zum Auftragen von Reinigungsmittel und zum Abwischen.",
+            "ring_dx": 28,
+            "ring_dy": 46,
+            "ring_mx": 55,
+            "ring_my": 50
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
