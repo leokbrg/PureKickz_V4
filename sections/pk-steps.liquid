@@ -1,0 +1,340 @@
+{%- comment -%}
+  PUREKICKZ So funktioniert's: 2–4 Schritte mit freigestellten Bildern.
+  Bilder stehen frei auf der Fläche (keine Kästen); Fotos mit Hand laufen unten weich aus.
+  Am Desktop verbindet eine Linie die Schritte und zeichnet sich beim Erscheinen.
+{%- endcomment -%}
+
+<div
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-steps"
+  style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="pk-sec__inner">
+    <div class="pk-sec__head pk-sec__head--center">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="pk-eyebrow" data-pk-reveal>{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pk-h2" data-pk-reveal>{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    <ol class="pk-steps__list pk-steps__list--{{ section.blocks.size }}" data-pk-stagger>
+      {%- for block in section.blocks -%}
+        <li class="pk-steps__item" data-pk-reveal {{ block.shopify_attributes }}>
+          <div class="pk-steps__visual{% if block.settings.fade %} pk-steps__visual--fade{% endif %}">
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 1000
+                | image_tag:
+                  widths: '400, 600, 800, 1000',
+                  sizes: '(min-width: 990px) 30vw, 80vw',
+                  loading: 'lazy',
+                  class: 'pk-steps__img'
+              }}
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'pk-steps__img pk-steps__img--placeholder' }}
+            {%- endif -%}
+          </div>
+          <div class="pk-steps__text">
+            <span class="pk-steps__num" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            <h3 class="pk-steps__title">{{ block.settings.title }}</h3>
+            {%- if block.settings.text != blank -%}
+              <p class="pk-steps__desc">{{ block.settings.text }}</p>
+            {%- endif -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</div>
+
+{% stylesheet %}
+  .pk-steps__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 48px;
+  }
+
+  .pk-steps__item {
+    min-width: 0;
+    display: grid;
+    align-content: start;
+    gap: 20px;
+  }
+
+  .pk-steps__visual {
+    position: relative;
+    aspect-ratio: 5 / 4;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  /* Weicher Boden unter jedem Bild, damit es auf der Fläche steht statt zu schweben */
+  .pk-steps__visual::before {
+    content: '';
+    position: absolute;
+    inset: auto 12% 2% 12%;
+    height: 22%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(25, 25, 23, 0.1), transparent);
+    pointer-events: none;
+  }
+
+  .pk-steps__img {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+
+  .pk-steps__img--placeholder {
+    fill: var(--pk-muted);
+    opacity: 0.4;
+  }
+
+  /* Fotos mit Hand/Arm laufen unten aus, statt hart abgeschnitten zu enden */
+  .pk-steps__visual--fade::before {
+    display: none;
+  }
+
+  .pk-steps__visual--fade .pk-steps__img {
+    -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 98%);
+    mask-image: linear-gradient(to bottom, #000 62%, transparent 98%);
+  }
+
+  .pk-steps__text {
+    position: relative;
+    display: grid;
+    gap: 8px;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .pk-steps__num {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 6px;
+    border-radius: 50%;
+    background: var(--pk-s-bg);
+    border: 1.5px solid var(--pk-s-accent);
+    font-family: var(--font-heading--family);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--pk-s-accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pk-steps__title {
+    margin: 0;
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+
+  .pk-steps__desc {
+    max-width: 30ch;
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--pk-s-soft);
+  }
+
+  /* Handy: Bild links, Text rechts – kompakt, alle Schritte schnell überblickt */
+  @media screen and (max-width: 749px) {
+    .pk-steps__list {
+      gap: 28px;
+    }
+
+    .pk-steps__item {
+      grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+      align-items: center;
+      gap: 18px;
+    }
+
+    .pk-steps__visual {
+      aspect-ratio: 1;
+    }
+
+    .pk-steps__text {
+      justify-items: start;
+      text-align: left;
+    }
+
+    .pk-steps__num {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 2px;
+      font-size: 0.8125rem;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .pk-steps__list--2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pk-steps__list--3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .pk-steps__list--4 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pk-steps__list {
+      gap: 56px clamp(24px, 4vw, 56px);
+    }
+
+    /* Verbindungslinie zwischen den Nummern */
+    .pk-steps__item:not(:last-child) .pk-steps__text::after {
+      content: '';
+      position: absolute;
+      top: 22px;
+      left: calc(50% + 22px);
+      width: calc(100% - 44px + clamp(24px, 4vw, 56px));
+      height: 1.5px;
+      background: var(--pk-s-line);
+      transform-origin: left center;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .pk-steps__list--4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 1199px) {
+    .pk-steps__list--4 .pk-steps__item:nth-child(2n) .pk-steps__text::after {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .pk-motion .pk-steps__item .pk-steps__text::after {
+      transform: scaleX(0);
+      transition: transform 0.9s var(--pk-ease) calc(var(--pk-delay, 0ms) + 350ms);
+    }
+
+    .pk-motion .pk-steps__item.is-visible .pk-steps__text::after {
+      transform: none;
+    }
+
+    .pk-motion .pk-steps__item .pk-steps__img {
+      transform: translateY(14px) scale(0.97);
+      transition: transform 0.9s var(--pk-ease) var(--pk-delay, 0ms);
+    }
+
+    .pk-motion .pk-steps__item.is-visible .pk-steps__img {
+      transform: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK So funktioniert's",
+  "tag": "section",
+  "class": "pk-section pk-section--steps",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Fläche",
+      "info": "Immer abwechselnd zur Section davor und danach wählen.",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "grey", "label": "Hellgrau" },
+        { "value": "dark", "label": "Schwarz" }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Überzeile",
+      "default": "So funktioniert's"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "In drei Schritten <em>sauber.</em>"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Schritt",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Bild (freigestellt, PNG/WebP)"
+        },
+        {
+          "type": "checkbox",
+          "id": "fade",
+          "label": "Unten weich auslaufen lassen",
+          "info": "Für Fotos, bei denen Hand oder Arm unten abgeschnitten sind.",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel",
+          "default": "Schritt"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK So funktioniert's",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Aufsatz wählen", "text": "Harte Bürste, weiche Bürste oder Schwamm – je nach Material." } },
+        { "type": "step", "settings": { "title": "Aufsetzen & einschalten", "text": "Aufsatz aufstecken, Taste drücken.", "fade": true } },
+        { "type": "step", "settings": { "title": "Drüberführen", "text": "Über die verschmutzte Fläche führen – der Motor macht die Bewegung." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
