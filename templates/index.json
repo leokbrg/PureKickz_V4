@@ -21,12 +21,13 @@
         "button2_label": "So funktioniert's",
         "button2_link": "",
         "image_position": "right",
-        "background_color": "#FFFFFF",
+        "background_color": "#E8E8E6",
         "padding_top": 72,
         "padding_bottom": 72,
-        "image_desktop": "shopify://shop_images/sneaker-cleaner-mit-sneakern.webp",
-        "image_mobile": "",
-        "image_style": "cutout"
+        "image_desktop": "shopify://shop_images/hero-studio-weit.jpg",
+        "image_mobile": "shopify://shop_images/hero-studio-hoch.jpg",
+        "image_style": "photo",
+        "mobile_text_start": 78
       }
     },
     "pk_trust": {
