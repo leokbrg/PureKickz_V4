@@ -1,11 +1,16 @@
 {%- comment -%}
-  PUREKICKZ Hero: Headline, Kurztext, Preis live aus dem Produkt, Kaufbutton, gerahmtes Bild.
+  PUREKICKZ Hero: Headline, Kurztext, Preis live aus dem Produkt, Kaufbutton.
+  Bild-Stile:
+  - photo:   Foto ist der Hintergrund der ganzen Section (randlos, Text liegt auf dem Studiohintergrund)
+  - cutout:  freigestelltes Produkt steht auf der Seite
+  - framed:  Foto im Rahmen neben dem Text
   Ohne eigene Bilder wird das Hauptbild des gewählten Produkts gezeigt.
 {%- endcomment -%}
 
 {%- liquid
   assign product = section.settings.product
   assign variant = product.selected_or_first_available_variant
+  assign style = section.settings.image_style
 
   assign image_desktop = section.settings.image_desktop
   if image_desktop == blank and product != blank
@@ -17,12 +22,55 @@
   if button_link == blank and product != blank
     assign button_link = product.url
   endif
+
+  assign desktop_srcset = ''
+  if image_desktop != blank
+    for w in (6..26)
+      assign px = w | times: 100
+      if px <= image_desktop.width
+        assign entry = image_desktop | image_url: width: px | append: ' ' | append: px | append: 'w, '
+        assign desktop_srcset = desktop_srcset | append: entry
+      endif
+    endfor
+    assign desktop_srcset = desktop_srcset | strip | remove_last: ','
+  endif
+
+  if style == 'photo'
+    assign desktop_sizes = '100vw'
+  else
+    assign desktop_sizes = '(min-width: 990px) 58vw, 100vw'
+  endif
 -%}
 
+{%- capture picture -%}
+  {%- if image_desktop != blank -%}
+    {%- comment -%} Ein <picture>: das Handy lädt nur das Hochformat, der Desktop nur das Querformat {%- endcomment -%}
+    <picture>
+      <source media="(min-width: 750px)" srcset="{{ desktop_srcset }}" sizes="{{ desktop_sizes }}">
+      {{
+        image_mobile
+        | image_url: width: 1100
+        | image_tag:
+          widths: '400, 600, 800, 1100',
+          sizes: '100vw',
+          loading: 'eager',
+          fetchpriority: 'high',
+          class: 'pk-hero__img'
+      }}
+    </picture>
+  {%- else -%}
+    {{ 'hero-apparel-1' | placeholder_svg_tag: 'pk-hero__img' }}
+  {%- endif -%}
+{%- endcapture -%}
+
 <div
-  class="pk-hero pk-hero--image-{{ section.settings.image_position }} pk-hero--{{ section.settings.image_style }}"
-  style="--pk-hero-bg: {{ section.settings.background_color }}; --pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
+  class="pk-hero pk-hero--{{ style }} pk-hero--image-{{ section.settings.image_position }}"
+  style="--pk-hero-bg: {{ section.settings.background_color }}; --pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px; --pk-hero-text-start: {{ section.settings.mobile_text_start }};"
 >
+  {%- if style == 'photo' -%}
+    <div class="pk-hero__bg">{{ picture }}</div>
+  {%- endif -%}
+
   <div class="pk-hero__inner">
     <div class="pk-hero__text">
       {%- if section.settings.eyebrow != blank -%}
@@ -37,7 +85,7 @@
         <div class="pk-hero__lead pk-hero__rise" style="--i: 2">{{ section.settings.text }}</div>
       {%- endif -%}
 
-      {%- comment -%} Kaufbereich bewusst ohne Einblend-Animation: sofort sichtbar und klickbar {%- endcomment -%}
+      {%- comment -%} Kaufbereich bewusst ohne Animation: sofort sichtbar und klickbar {%- endcomment -%}
       <div class="pk-hero__buy">
         {%- if product != blank and section.settings.show_price -%}
           <p class="pk-hero__price">
@@ -64,46 +112,21 @@
       </div>
     </div>
 
-    <div class="pk-hero__media">
-      <div class="pk-hero__frame">
-        <span class="pk-hero__glow" aria-hidden="true"></span>
-        {%- if image_desktop != blank -%}
-          {%- comment -%} Ein <picture>: das Handy lädt nur das Hochformat, der Desktop nur das Querformat {%- endcomment -%}
-          {%- liquid
-            assign desktop_srcset = ''
-            for w in (6..16)
-              assign px = w | times: 100
-              if px <= image_desktop.width
-                assign entry = image_desktop | image_url: width: px | append: ' ' | append: px | append: 'w, '
-                assign desktop_srcset = desktop_srcset | append: entry
-              endif
-            endfor
-            assign desktop_srcset = desktop_srcset | strip | remove_last: ','
-          -%}
-          <picture>
-            <source media="(min-width: 750px)" srcset="{{ desktop_srcset }}" sizes="(min-width: 990px) 58vw, 100vw">
-            {{
-              image_mobile
-              | image_url: width: 1100
-              | image_tag:
-                widths: '400, 600, 800, 1100',
-                sizes: '100vw',
-                loading: 'eager',
-                fetchpriority: 'high',
-                class: 'pk-hero__img'
-            }}
-          </picture>
-        {%- else -%}
-          {{ 'hero-apparel-1' | placeholder_svg_tag: 'pk-hero__img' }}
-        {%- endif -%}
-        <span class="pk-hero__shadow" aria-hidden="true"></span>
+    {%- unless style == 'photo' -%}
+      <div class="pk-hero__media">
+        <div class="pk-hero__frame">
+          <span class="pk-hero__glow" aria-hidden="true"></span>
+          {{ picture }}
+          <span class="pk-hero__shadow" aria-hidden="true"></span>
+        </div>
       </div>
-    </div>
+    {%- endunless -%}
   </div>
 </div>
 
 {% stylesheet %}
   .pk-hero {
+    position: relative;
     overflow-x: clip;
     background: var(--pk-hero-bg, #fff);
     padding-block: calc(var(--pk-pad-top) * 0.6) calc(var(--pk-pad-bottom) * 0.6);
@@ -116,6 +139,7 @@
   }
 
   .pk-hero__inner {
+    position: relative;
     max-width: var(--page-width);
     margin-inline: auto;
     padding-inline: var(--page-margin);
@@ -157,7 +181,7 @@
     margin: 0;
     font-family: var(--font-heading--family);
     font-weight: 700;
-    font-size: clamp(2.6rem, 9vw, 5.2rem);
+    font-size: clamp(2.5rem, 8.6vw, 4.8rem);
     line-height: 1.02;
     letter-spacing: -0.03em;
     text-wrap: balance;
@@ -174,7 +198,7 @@
     max-width: 46ch;
     font-size: clamp(1rem, 1.3vw, 1.125rem);
     line-height: 1.55;
-    color: #55554f;
+    color: #4a4a45;
   }
 
   .pk-hero__lead p {
@@ -206,7 +230,7 @@
 
   .pk-hero__price-note {
     font-size: 0.8125rem;
-    color: var(--pk-muted);
+    color: #6b6b66;
   }
 
   .pk-hero__price-note a {
@@ -236,6 +260,52 @@
     }
   }
 
+  .pk-hero__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ——— Stil „photo“: Foto ist die Fläche, Text liegt auf dem Studiohintergrund ——— */
+  .pk-hero--photo {
+    padding: 0;
+    background: var(--pk-hero-bg, var(--pk-grey));
+  }
+
+  .pk-hero__bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .pk-hero__bg picture {
+    display: contents;
+  }
+
+  .pk-hero--photo .pk-hero__img {
+    object-position: center top;
+  }
+
+  /* Handy: Produkt oben im Bild, Text darunter auf dem hellen Boden des Fotos */
+  .pk-hero--photo .pk-hero__inner {
+    padding-top: calc(var(--pk-hero-text-start) * 1vw);
+    padding-bottom: 40px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .pk-hero--photo .pk-hero__img {
+      object-position: right bottom;
+    }
+
+    .pk-hero--photo .pk-hero__inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      min-height: clamp(540px, 42vw, 820px);
+      padding-block: var(--pk-pad-top) var(--pk-pad-bottom);
+    }
+  }
+
+  /* ——— Stil „framed“: Foto im Rahmen ——— */
   .pk-hero__media {
     min-width: 0;
   }
@@ -258,20 +328,12 @@
     display: contents;
   }
 
-  .pk-hero__img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-
-  /* ——— Freigestellt: das Produkt steht auf der Seite, ohne Rahmen ——— */
   .pk-hero__glow,
   .pk-hero__shadow {
     display: none;
   }
 
+  /* ——— Stil „cutout“: freigestelltes Produkt auf der Seite ——— */
   .pk-hero--cutout .pk-hero__frame {
     aspect-ratio: auto;
     overflow: visible;
@@ -308,10 +370,9 @@
     filter: blur(6px);
   }
 
-
   /*
    * Bewegung (reines CSS, kein Aufblitzen): Text steigt gestaffelt auf, das Bild stellt sich
-   * ruhig scharf, am Desktop leichte Tiefe beim Scrollen. Kaufbereich bleibt immer sofort sichtbar.
+   * ruhig ein, am Desktop leichte Tiefe beim Scrollen. Kaufbereich bleibt immer sofort sichtbar.
    */
   @media (prefers-reduced-motion: no-preference) {
     .pk-hero__rise {
@@ -327,16 +388,15 @@
     }
 
     .pk-hero__img {
-      animation: pk-hero-settle 1.1s var(--pk-ease) both;
+      animation: pk-hero-settle 1.4s var(--pk-ease) both;
     }
 
     @keyframes pk-hero-settle {
       from {
         opacity: 0;
-        transform: scale(1.06);
+        transform: scale(1.05);
       }
     }
-
 
     .pk-hero--cutout .pk-hero__img {
       animation-name: pk-hero-land;
@@ -360,36 +420,20 @@
       }
     }
 
+    /* Tiefe beim Scrollen: das Bild bewegt sich etwas langsamer als die Seite */
     @supports (animation-timeline: view()) {
       @media screen and (min-width: 990px) {
-        .pk-hero__img {
-          animation-name: pk-hero-settle, pk-hero-drift;
-          animation-duration: 1.1s, auto;
-          animation-timing-function: var(--pk-ease), linear;
-          animation-fill-mode: both, both;
-          animation-timeline: auto, view();
-          animation-range: normal, exit 0% exit 100%;
-        }
-
-        .pk-hero--cutout .pk-hero__img {
-          animation: pk-hero-land 1.1s var(--pk-ease) both;
-        }
-
-        .pk-hero--cutout .pk-hero__media {
-          animation: pk-hero-drift-soft linear both;
+        .pk-hero--photo .pk-hero__bg,
+        .pk-hero--cutout .pk-hero__media,
+        .pk-hero--framed .pk-hero__frame {
+          animation: pk-hero-drift linear both;
           animation-timeline: view();
           animation-range: exit 0% exit 100%;
         }
 
-        @keyframes pk-hero-drift-soft {
-          to {
-            transform: translateY(8%);
-          }
-        }
-
         @keyframes pk-hero-drift {
           to {
-            transform: translateY(6%) scale(1.04);
+            transform: translateY(10%);
           }
         }
       }
@@ -474,31 +518,43 @@
       "content": "Bild"
     },
     {
-      "type": "image_picker",
-      "id": "image_desktop",
-      "label": "Bild Desktop (3:2)",
-      "info": "Freigestellt: sneaker-cleaner-mit-sneakern.webp. Im Rahmen: hero-desktop.jpg"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_mobile",
-      "label": "Bild Handy (3:4)",
-      "info": "Empfohlen: hero-mobil.jpg. Leer lassen: Desktop-Bild wird zugeschnitten."
-    },
-    {
       "type": "select",
       "id": "image_style",
       "label": "Bild-Stil",
       "options": [
-        { "value": "cutout", "label": "Freigestellt (PNG/WebP mit Transparenz)" },
+        { "value": "photo", "label": "Foto als Hintergrund (randlos)" },
+        { "value": "cutout", "label": "Freigestellt" },
         { "value": "framed", "label": "Foto im Rahmen" }
       ],
-      "default": "cutout"
+      "default": "photo"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Bild Desktop",
+      "info": "Foto als Hintergrund: hero-studio-weit.jpg (Produkt rechts, ruhiger Raum links)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Bild Handy",
+      "info": "Foto als Hintergrund: hero-studio-hoch.jpg (Produkt oben, Boden unten)"
+    },
+    {
+      "type": "range",
+      "id": "mobile_text_start",
+      "label": "Handy: Text beginnt bei",
+      "info": "Abstand von oben in % der Bildschirmbreite, damit der Text unter dem Produkt steht.",
+      "min": 40,
+      "max": 140,
+      "step": 2,
+      "unit": "%",
+      "default": 78
     },
     {
       "type": "select",
       "id": "image_position",
-      "label": "Bild-Position (Desktop)",
+      "label": "Bild-Position (Desktop, nur Rahmen/Freigestellt)",
       "options": [
         { "value": "right", "label": "Rechts" },
         { "value": "left", "label": "Links" }
@@ -513,7 +569,8 @@
       "type": "color",
       "id": "background_color",
       "label": "Hintergrund",
-      "default": "#FFFFFF"
+      "info": "Bei „Foto als Hintergrund“ der Ton des Foto-Bodens (Hellgrau).",
+      "default": "#E8E8E6"
     },
     {
       "type": "range",
