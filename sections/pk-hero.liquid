@@ -283,19 +283,46 @@
     display: contents;
   }
 
-  .pk-hero--photo .pk-hero__img {
-    object-position: center top;
+  /* Handy: Foto in natürlicher Größe oben, darunter läuft der Boden weich in die Fläche aus */
+  .pk-hero--photo .pk-hero__bg {
+    bottom: auto;
   }
 
-  /* Handy: Produkt oben im Bild, Text darunter auf dem hellen Boden des Fotos */
+  .pk-hero--photo .pk-hero__img {
+    height: auto;
+  }
+
+  .pk-hero--photo .pk-hero__bg::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 38%;
+    background: linear-gradient(to bottom, transparent, var(--pk-hero-bg));
+    pointer-events: none;
+  }
+
+  /* Handy: Text beginnt unter dem Produkt, auf dem hellen Boden des Fotos */
   .pk-hero--photo .pk-hero__inner {
     padding-top: calc(var(--pk-hero-text-start) * 1vw);
     padding-bottom: 40px;
   }
 
   @media screen and (min-width: 750px) {
+    .pk-hero--photo .pk-hero__bg {
+      bottom: 0;
+    }
+
+    .pk-hero--photo .pk-hero__bg::after {
+      display: none;
+    }
+
     .pk-hero--photo .pk-hero__img {
+      height: 100%;
       object-position: right bottom;
+    }
+
+    .pk-hero--photo .pk-hero__lead {
+      max-width: 38ch;
     }
 
     .pk-hero--photo .pk-hero__inner {
@@ -549,7 +576,7 @@
       "max": 140,
       "step": 2,
       "unit": "%",
-      "default": 78
+      "default": 70
     },
     {
       "type": "select",
