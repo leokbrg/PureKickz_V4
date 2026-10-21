@@ -6,6 +6,18 @@ Die Studiofotos sind im Original maximal 1536 px groß. Größer geht ohne Quali
 
 ---
 
+## 0. Logo & Favicon (zuerst)
+
+**Wo:** Onlineshop → Themes → unser Theme → Anpassen → Theme-Einstellungen (Zahnrad) → Logo und Favicon
+
+| Datei (`logos/`) | Feld | Hinweis |
+|---|---|---|
+| `logo-header-wortmarke.png` | Logo | Wortmarke für den Header. Logo-Höhe: 20 px Desktop, 16 px Handy |
+| `favicon.png` | Favicon | PK-Monogramm |
+| `logo-footer-hell.png` | (später im Footer) | Helle Variante für den schwarzen Footer |
+
+---
+
 ## 1. Produktgalerie – PUREKICKZ ONE
 
 **Wo:** Shopify-Admin → Produkte → PUREKICKZ ONE → Medien
