@@ -319,7 +319,7 @@
         "enable_sticky_add_to_cart": true,
         "background_color": "{{ settings.color_palette.background }}",
         "padding-block-start": 24,
-        "padding-block-end": 80
+        "padding-block-end": 32
       }
     },
     "pk_features": {
