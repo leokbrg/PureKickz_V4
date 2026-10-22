@@ -112,7 +112,9 @@ Harte Kanten nur zum Trennen von Sections. Ausnahme: die Produktgalerie (Fotos m
 nie zwei graue (oder zwei gleiche) Hintergründe direkt hintereinander. Für die Übergänge gibt es nur drei
 Formen, je nachdem was passt (wie bei den Referenzen): **hart** (z. B. nach randlosen Fotos, zu Header und
 Footer), **weiche Blende** (nur wo ein Bild in seine eigene Fläche ausläuft) oder **Box mit runden Ecken**
-auf Weiß (Einstellung „Form der Fläche“). Keine Bögen, keine Farbverläufe zwischen Sections.
+auf Weiß (Einstellung „Form der Fläche“) – Boxen sparsam, etwa eine pro Seite, als Kombination mit harten
+Kanten. Keine Bögen, keine Farbverläufe zwischen Sections. Bänder brauchen oben und unten eine klare Grenze
+(andere Fläche davor und danach).
 Schmale Bänder (PK Band) sind selbst die Naht. Trust-Hinweise nicht als eigene dünne Leiste mit
 Icon-Kacheln, sondern dort einbetten, wo gekauft wird (z. B. Häkchen-Zeile unter dem Kaufbutton).
 
