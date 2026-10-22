@@ -13,7 +13,7 @@
 -%}
 
 <div
-  class="pk-sec pk-sec--{{ section.settings.surface }} pk-cta"
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-sec--edge-{{ section.settings.edge | default: 'hard' }} pk-cta"
   style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
 >
   <div class="pk-sec__inner pk-cta__inner">
@@ -219,11 +219,41 @@
       "label": "Fläche",
       "info": "Immer abwechselnd zur Section davor und danach wählen.",
       "options": [
-        { "value": "white", "label": "Weiß" },
-        { "value": "grey", "label": "Hellgrau" },
-        { "value": "dark", "label": "Schwarz" }
+        {
+          "value": "white",
+          "label": "Weiß"
+        },
+        {
+          "value": "grey",
+          "label": "Hellgrau"
+        },
+        {
+          "value": "dark",
+          "label": "Schwarz"
+        }
       ],
       "default": "dark"
+    },
+    {
+      "type": "select",
+      "id": "edge",
+      "label": "Form der Fläche",
+      "info": "Hart: gerade Kante über die ganze Breite. Karte: abgerundete Fläche mit Abstand zum Rand. Bogen: oben weich gerundet.",
+      "options": [
+        {
+          "value": "hard",
+          "label": "Hart"
+        },
+        {
+          "value": "panel",
+          "label": "Abgerundete Karte"
+        },
+        {
+          "value": "arch",
+          "label": "Bogen oben"
+        }
+      ],
+      "default": "hard"
     },
     {
       "type": "product",

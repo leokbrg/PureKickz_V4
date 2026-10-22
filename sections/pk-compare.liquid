@@ -5,7 +5,7 @@
 {%- endcomment -%}
 
 <div
-  class="pk-sec pk-sec--{{ section.settings.surface }} pk-compare"
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-sec--edge-{{ section.settings.edge | default: 'hard' }} pk-compare"
   style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
 >
   <div class="pk-sec__inner pk-compare__inner">
@@ -224,11 +224,41 @@
       "label": "Fläche",
       "info": "Immer abwechselnd zur Section davor und danach wählen.",
       "options": [
-        { "value": "white", "label": "Weiß" },
-        { "value": "grey", "label": "Hellgrau" },
-        { "value": "dark", "label": "Schwarz" }
+        {
+          "value": "white",
+          "label": "Weiß"
+        },
+        {
+          "value": "grey",
+          "label": "Hellgrau"
+        },
+        {
+          "value": "dark",
+          "label": "Schwarz"
+        }
       ],
       "default": "dark"
+    },
+    {
+      "type": "select",
+      "id": "edge",
+      "label": "Form der Fläche",
+      "info": "Hart: gerade Kante über die ganze Breite. Karte: abgerundete Fläche mit Abstand zum Rand. Bogen: oben weich gerundet.",
+      "options": [
+        {
+          "value": "hard",
+          "label": "Hart"
+        },
+        {
+          "value": "panel",
+          "label": "Abgerundete Karte"
+        },
+        {
+          "value": "arch",
+          "label": "Bogen oben"
+        }
+      ],
+      "default": "hard"
     },
     {
       "type": "image_picker",
@@ -295,9 +325,22 @@
       "type": "row",
       "name": "Zeile",
       "settings": [
-        { "type": "text", "id": "label", "label": "Merkmal", "default": "Merkmal" },
-        { "type": "text", "id": "us", "label": "Unser Produkt" },
-        { "type": "text", "id": "them", "label": "Vergleich" }
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Merkmal",
+          "default": "Merkmal"
+        },
+        {
+          "type": "text",
+          "id": "us",
+          "label": "Unser Produkt"
+        },
+        {
+          "type": "text",
+          "id": "them",
+          "label": "Vergleich"
+        }
       ]
     }
   ],
@@ -305,10 +348,38 @@
     {
       "name": "PK Vergleich",
       "blocks": [
-        { "type": "row", "settings": { "label": "Bewegung", "us": "Der Motor dreht den Aufsatz", "them": "Du schrubbst von Hand" } },
-        { "type": "row", "settings": { "label": "Aufsätze", "us": "3 – harte Bürste, weiche Bürste, Schwamm", "them": "Eine Bürste" } },
-        { "type": "row", "settings": { "label": "Im Einsatz", "us": "Kabellos mit 1200-mAh-Akku", "them": "Ohne Strom" } },
-        { "type": "row", "settings": { "label": "Laden", "us": "Per USB-C", "them": "Nicht nötig" } }
+        {
+          "type": "row",
+          "settings": {
+            "label": "Bewegung",
+            "us": "Der Motor dreht den Aufsatz",
+            "them": "Du schrubbst von Hand"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "label": "Aufsätze",
+            "us": "3 – harte Bürste, weiche Bürste, Schwamm",
+            "them": "Eine Bürste"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "label": "Im Einsatz",
+            "us": "Kabellos mit 1200-mAh-Akku",
+            "them": "Ohne Strom"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "label": "Laden",
+            "us": "Per USB-C",
+            "them": "Nicht nötig"
+          }
+        }
       ]
     }
   ]

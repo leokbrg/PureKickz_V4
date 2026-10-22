@@ -5,7 +5,7 @@
 {%- endcomment -%}
 
 <div
-  class="pk-sec pk-sec--{{ section.settings.surface }} pk-specs"
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-sec--edge-{{ section.settings.edge | default: 'hard' }} pk-specs"
   style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
 >
   <div class="pk-sec__inner pk-specs__inner">
@@ -191,11 +191,41 @@
       "label": "Fläche",
       "info": "Immer abwechselnd zur Section davor und danach wählen. Das Bild sollte denselben Hintergrund haben.",
       "options": [
-        { "value": "white", "label": "Weiß" },
-        { "value": "grey", "label": "Hellgrau" },
-        { "value": "dark", "label": "Schwarz" }
+        {
+          "value": "white",
+          "label": "Weiß"
+        },
+        {
+          "value": "grey",
+          "label": "Hellgrau"
+        },
+        {
+          "value": "dark",
+          "label": "Schwarz"
+        }
       ],
       "default": "grey"
+    },
+    {
+      "type": "select",
+      "id": "edge",
+      "label": "Form der Fläche",
+      "info": "Hart: gerade Kante über die ganze Breite. Karte: abgerundete Fläche mit Abstand zum Rand. Bogen: oben weich gerundet.",
+      "options": [
+        {
+          "value": "hard",
+          "label": "Hart"
+        },
+        {
+          "value": "panel",
+          "label": "Abgerundete Karte"
+        },
+        {
+          "value": "arch",
+          "label": "Bogen oben"
+        }
+      ],
+      "default": "hard"
     },
     {
       "type": "image_picker",
@@ -252,16 +282,36 @@
       "type": "item",
       "name": "Im Karton",
       "settings": [
-        { "type": "text", "id": "qty", "label": "Menge", "default": "1×" },
-        { "type": "text", "id": "name", "label": "Teil", "default": "Teil" }
+        {
+          "type": "text",
+          "id": "qty",
+          "label": "Menge",
+          "default": "1×"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Teil",
+          "default": "Teil"
+        }
       ]
     },
     {
       "type": "spec",
       "name": "Technische Angabe",
       "settings": [
-        { "type": "text", "id": "label", "label": "Merkmal", "default": "Merkmal" },
-        { "type": "text", "id": "value", "label": "Wert", "default": "Wert" }
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Merkmal",
+          "default": "Merkmal"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Wert",
+          "default": "Wert"
+        }
       ]
     }
   ],
@@ -269,17 +319,83 @@
     {
       "name": "PK Lieferumfang & Daten",
       "blocks": [
-        { "type": "item", "settings": { "qty": "1×", "name": "PUREKICKZ ONE" } },
-        { "type": "item", "settings": { "qty": "1×", "name": "Harte Bürste" } },
-        { "type": "item", "settings": { "qty": "1×", "name": "Weiche Bürste" } },
-        { "type": "item", "settings": { "qty": "1×", "name": "Schwamm" } },
-        { "type": "item", "settings": { "qty": "", "name": "USB-C-Kabel: [[KABEL_IM_LIEFERUMFANG]]" } },
-        { "type": "spec", "settings": { "label": "Maße", "value": "163 × 96 × 45 mm" } },
-        { "type": "spec", "settings": { "label": "Akku", "value": "1200 mAh" } },
-        { "type": "spec", "settings": { "label": "Laden", "value": "USB-C" } },
-        { "type": "spec", "settings": { "label": "Aufsätze", "value": "3" } },
-        { "type": "spec", "settings": { "label": "Akkulaufzeit", "value": "[[AKKULAUFZEIT]]" } },
-        { "type": "spec", "settings": { "label": "Ladedauer", "value": "[[LADEDAUER]]" } }
+        {
+          "type": "item",
+          "settings": {
+            "qty": "1×",
+            "name": "PUREKICKZ ONE"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "qty": "1×",
+            "name": "Harte Bürste"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "qty": "1×",
+            "name": "Weiche Bürste"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "qty": "1×",
+            "name": "Schwamm"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "qty": "",
+            "name": "USB-C-Kabel: [[KABEL_IM_LIEFERUMFANG]]"
+          }
+        },
+        {
+          "type": "spec",
+          "settings": {
+            "label": "Maße",
+            "value": "163 × 96 × 45 mm"
+          }
+        },
+        {
+          "type": "spec",
+          "settings": {
+            "label": "Akku",
+            "value": "1200 mAh"
+          }
+        },
+        {
+          "type": "spec",
+          "settings": {
+            "label": "Laden",
+            "value": "USB-C"
+          }
+        },
+        {
+          "type": "spec",
+          "settings": {
+            "label": "Aufsätze",
+            "value": "3"
+          }
+        },
+        {
+          "type": "spec",
+          "settings": {
+            "label": "Akkulaufzeit",
+            "value": "[[AKKULAUFZEIT]]"
+          }
+        },
+        {
+          "type": "spec",
+          "settings": {
+            "label": "Ladedauer",
+            "value": "[[LADEDAUER]]"
+          }
+        }
       ]
     }
   ]

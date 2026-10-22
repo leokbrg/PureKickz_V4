@@ -6,7 +6,7 @@
 {%- endcomment -%}
 
 <div
-  class="pk-sec pk-sec--{{ section.settings.surface }} pk-statement"
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-sec--edge-{{ section.settings.edge | default: 'hard' }} pk-statement"
   style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
 >
   <div class="pk-sec__inner pk-statement__inner">
@@ -234,11 +234,41 @@
       "label": "Fläche",
       "info": "Immer abwechselnd zur Section davor und danach wählen.",
       "options": [
-        { "value": "white", "label": "Weiß" },
-        { "value": "grey", "label": "Hellgrau" },
-        { "value": "dark", "label": "Schwarz" }
+        {
+          "value": "white",
+          "label": "Weiß"
+        },
+        {
+          "value": "grey",
+          "label": "Hellgrau"
+        },
+        {
+          "value": "dark",
+          "label": "Schwarz"
+        }
       ],
       "default": "white"
+    },
+    {
+      "type": "select",
+      "id": "edge",
+      "label": "Form der Fläche",
+      "info": "Hart: gerade Kante über die ganze Breite. Karte: abgerundete Fläche mit Abstand zum Rand. Bogen: oben weich gerundet.",
+      "options": [
+        {
+          "value": "hard",
+          "label": "Hart"
+        },
+        {
+          "value": "panel",
+          "label": "Abgerundete Karte"
+        },
+        {
+          "value": "arch",
+          "label": "Bogen oben"
+        }
+      ],
+      "default": "hard"
     },
     {
       "type": "text",
@@ -310,9 +340,30 @@
     {
       "name": "PK Statement & Fakten",
       "blocks": [
-        { "type": "fact", "settings": { "value": "Motor", "unit": "", "label": "übernimmt die Bewegung, nicht dein Arm." } },
-        { "type": "fact", "settings": { "value": "1200", "unit": "mAh", "label": "Akku – im Einsatz kabellos." } },
-        { "type": "fact", "settings": { "value": "USB-C", "unit": "", "label": "zum Aufladen." } }
+        {
+          "type": "fact",
+          "settings": {
+            "value": "Motor",
+            "unit": "",
+            "label": "übernimmt die Bewegung, nicht dein Arm."
+          }
+        },
+        {
+          "type": "fact",
+          "settings": {
+            "value": "1200",
+            "unit": "mAh",
+            "label": "Akku – im Einsatz kabellos."
+          }
+        },
+        {
+          "type": "fact",
+          "settings": {
+            "value": "USB-C",
+            "unit": "",
+            "label": "zum Aufladen."
+          }
+        }
       ]
     }
   ]

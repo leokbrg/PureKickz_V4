@@ -6,7 +6,7 @@
 
 {%- if section.settings.enabled and section.blocks.size > 0 -%}
   <div
-    class="pk-sec pk-sec--{{ section.settings.surface }} pk-reviews"
+    class="pk-sec pk-sec--{{ section.settings.surface }} pk-sec--edge-{{ section.settings.edge | default: 'hard' }} pk-reviews"
     style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
   >
     <div class="pk-sec__inner">
@@ -106,11 +106,41 @@
       "label": "Fläche",
       "info": "Immer abwechselnd zur Section davor und danach wählen.",
       "options": [
-        { "value": "white", "label": "Weiß" },
-        { "value": "grey", "label": "Hellgrau" },
-        { "value": "dark", "label": "Schwarz" }
+        {
+          "value": "white",
+          "label": "Weiß"
+        },
+        {
+          "value": "grey",
+          "label": "Hellgrau"
+        },
+        {
+          "value": "dark",
+          "label": "Schwarz"
+        }
       ],
       "default": "white"
+    },
+    {
+      "type": "select",
+      "id": "edge",
+      "label": "Form der Fläche",
+      "info": "Hart: gerade Kante über die ganze Breite. Karte: abgerundete Fläche mit Abstand zum Rand. Bogen: oben weich gerundet.",
+      "options": [
+        {
+          "value": "hard",
+          "label": "Hart"
+        },
+        {
+          "value": "panel",
+          "label": "Abgerundete Karte"
+        },
+        {
+          "value": "arch",
+          "label": "Bogen oben"
+        }
+      ],
+      "default": "hard"
     },
     {
       "type": "text",
@@ -150,9 +180,25 @@
       "type": "review",
       "name": "Bewertung",
       "settings": [
-        { "type": "range", "id": "rating", "label": "Sterne", "min": 1, "max": 5, "step": 1, "default": 5 },
-        { "type": "textarea", "id": "text", "label": "Text" },
-        { "type": "text", "id": "name", "label": "Name (z. B. Vorname + Initial)" }
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Sterne",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name (z. B. Vorname + Initial)"
+        }
       ]
     }
   ],

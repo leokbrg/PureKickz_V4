@@ -5,7 +5,7 @@
 {%- endcomment -%}
 
 <div
-  class="pk-sec pk-sec--{{ section.settings.surface }} pk-faq"
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-sec--edge-{{ section.settings.edge | default: 'hard' }} pk-faq"
   style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
 >
   <div class="pk-sec__inner pk-faq__inner">
@@ -265,11 +265,41 @@
       "label": "Fläche",
       "info": "Immer abwechselnd zur Section davor und danach wählen.",
       "options": [
-        { "value": "white", "label": "Weiß" },
-        { "value": "grey", "label": "Hellgrau" },
-        { "value": "dark", "label": "Schwarz" }
+        {
+          "value": "white",
+          "label": "Weiß"
+        },
+        {
+          "value": "grey",
+          "label": "Hellgrau"
+        },
+        {
+          "value": "dark",
+          "label": "Schwarz"
+        }
       ],
       "default": "grey"
+    },
+    {
+      "type": "select",
+      "id": "edge",
+      "label": "Form der Fläche",
+      "info": "Hart: gerade Kante über die ganze Breite. Karte: abgerundete Fläche mit Abstand zum Rand. Bogen: oben weich gerundet.",
+      "options": [
+        {
+          "value": "hard",
+          "label": "Hart"
+        },
+        {
+          "value": "panel",
+          "label": "Abgerundete Karte"
+        },
+        {
+          "value": "arch",
+          "label": "Bogen oben"
+        }
+      ],
+      "default": "hard"
     },
     {
       "type": "text",
@@ -354,8 +384,18 @@
       "type": "question",
       "name": "Frage",
       "settings": [
-        { "type": "text", "id": "question", "label": "Frage", "default": "Frage" },
-        { "type": "richtext", "id": "answer", "label": "Antwort", "default": "<p>Antwort</p>" }
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Frage",
+          "default": "Frage"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Antwort",
+          "default": "<p>Antwort</p>"
+        }
       ]
     }
   ],
@@ -363,8 +403,20 @@
     {
       "name": "PK FAQ & Service",
       "blocks": [
-        { "type": "question", "settings": { "question": "Welche Aufsätze sind dabei?", "answer": "<p>Drei: eine harte Bürste, eine weiche Bürste und ein Schwamm.</p>" } },
-        { "type": "question", "settings": { "question": "Wie lade ich das Gerät?", "answer": "<p>Über USB-C.</p>" } }
+        {
+          "type": "question",
+          "settings": {
+            "question": "Welche Aufsätze sind dabei?",
+            "answer": "<p>Drei: eine harte Bürste, eine weiche Bürste und ein Schwamm.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "Wie lade ich das Gerät?",
+            "answer": "<p>Über USB-C.</p>"
+          }
+        }
       ]
     }
   ]

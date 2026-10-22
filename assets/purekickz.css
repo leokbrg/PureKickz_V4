@@ -240,38 +240,17 @@ product-price,
 }
 
 /*
- * Weiche Übergänge zwischen Sections (gesetzt von purekickz-flow.js):
- * die Farbe der vorigen Fläche läuft oben in die nächste aus – kein Baukasten-Schnitt.
+ * Übergänge je nach Lage (Einstellung „Form der Fläche“ in jeder PK-Section):
+ * hart = gerade Kante über die volle Breite, Karte = abgerundete Fläche mit Abstand auf dem
+ * weißen Grund (z. B. dunkle Bühnen), Bogen = Fläche beginnt mit einer weichen Rundung.
+ * Header und Footer bleiben immer hart getrennt.
  */
-.pk-blend {
-  position: relative;
+.pk-sec--edge-panel {
+  margin: clamp(12px, 2.4vw, 32px) clamp(8px, 2vw, 32px);
+  border-radius: clamp(20px, 3vw, 36px);
+  overflow: clip;
 }
 
-.pk-blend::before {
-  content: '';
-  position: absolute;
-  inset: 0 0 auto;
-  z-index: 3;
-  height: var(--pk-blend-h, clamp(48px, 7vw, 96px));
-  background: linear-gradient(to bottom, var(--pk-prev-bg), transparent);
-  /* Weich auslaufende Kurve statt linearem Verlauf: kein sichtbarer Schatten-Streifen */
-  background: linear-gradient(
-    to bottom,
-    var(--pk-prev-bg) 0%,
-    color-mix(in srgb, var(--pk-prev-bg) 74%, transparent) 19%,
-    color-mix(in srgb, var(--pk-prev-bg) 54%, transparent) 34%,
-    color-mix(in srgb, var(--pk-prev-bg) 38%, transparent) 47%,
-    color-mix(in srgb, var(--pk-prev-bg) 26%, transparent) 57%,
-    color-mix(in srgb, var(--pk-prev-bg) 16%, transparent) 66%,
-    color-mix(in srgb, var(--pk-prev-bg) 9%, transparent) 75%,
-    color-mix(in srgb, var(--pk-prev-bg) 4%, transparent) 84%,
-    color-mix(in srgb, var(--pk-prev-bg) 1%, transparent) 93%,
-    transparent 100%
-  );
-  pointer-events: none;
-}
-
-/* Der Footer hat weniger Abstand oben – kürzerer Übergang */
-footer > .pk-blend {
-  --pk-blend-h: 48px;
+.pk-sec--edge-arch {
+  border-radius: 50% 50% 0 0 / clamp(28px, 5vw, 72px) clamp(28px, 5vw, 72px) 0 0;
 }
