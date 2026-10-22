@@ -1,0 +1,316 @@
+{%- comment -%}
+  PUREKICKZ Versprechen: Siegel mit umlaufendem Text und die echten Zusagen daneben.
+  Das Siegel dreht sich langsam (nur transform); bei reduzierter Bewegung steht es still.
+  Nur Zusagen eintragen, die stimmen; offene Punkte als [[PLATZHALTER]] oder Block löschen.
+{%- endcomment -%}
+
+{%- liquid
+  assign ring = section.settings.seal_text | strip | append: ' · '
+-%}
+
+<div
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-promise"
+  style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="pk-sec__inner pk-promise__inner">
+    <div class="pk-promise__seal" aria-hidden="true" data-pk-reveal>
+      <svg class="pk-promise__ring" viewBox="0 0 200 200">
+        <defs>
+          <path id="pk-seal-{{ section.id }}" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/>
+        </defs>
+        <circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" stroke-width="1"/>
+        <circle cx="100" cy="100" r="62" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text>
+          <textPath href="#pk-seal-{{ section.id }}" textLength="488" lengthAdjust="spacing">{{ ring | upcase }}</textPath>
+        </text>
+      </svg>
+      <span class="pk-promise__core">
+        <span class="pk-promise__big">{{ section.settings.seal_big }}</span>
+        <span class="pk-promise__small">{{ section.settings.seal_small }}</span>
+      </span>
+    </div>
+
+    <div class="pk-promise__body">
+      <div class="pk-sec__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="pk-eyebrow" data-pk-reveal>{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="pk-h2" data-pk-reveal>{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+
+      <ul class="pk-promise__list" data-pk-stagger>
+        {%- for block in section.blocks -%}
+          <li class="pk-promise__item" data-pk-reveal {{ block.shopify_attributes }}>
+            <span class="pk-promise__num" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            <div>
+              <p class="pk-promise__title">
+                {%- if block.settings.link != blank -%}
+                  <a href="{{ block.settings.link }}">{{ block.settings.title }}</a>
+                {%- else -%}
+                  {{ block.settings.title }}
+                {%- endif -%}
+              </p>
+              {%- if block.settings.text != blank -%}
+                <p class="pk-promise__text">{{ block.settings.text }}</p>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .pk-promise__inner {
+    display: grid;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .pk-promise__seal {
+    position: relative;
+    width: min(64vw, 280px);
+    aspect-ratio: 1;
+    margin-inline: auto;
+    color: var(--pk-s-fg);
+  }
+
+  .pk-promise__ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .pk-promise__ring text {
+    font-family: var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 11.5px;
+    letter-spacing: 0.2em;
+    fill: currentColor;
+  }
+
+  .pk-promise__ring circle:last-of-type {
+    stroke: var(--pk-s-accent);
+    stroke-width: 1.5;
+  }
+
+  .pk-promise__core {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    text-align: center;
+  }
+
+  .pk-promise__big {
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    font-size: clamp(3rem, 12vw, 4.25rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--pk-s-accent);
+  }
+
+  .pk-promise__small {
+    margin-top: 4px;
+    font-family: var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .pk-promise__body .pk-sec__head {
+    margin-bottom: clamp(28px, 4vw, 44px);
+  }
+
+  .pk-promise__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--pk-s-line);
+  }
+
+  .pk-promise__item {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 12px;
+    padding-block: 20px;
+    border-bottom: 1px solid var(--pk-s-line);
+  }
+
+  .pk-promise__num {
+    padding-top: 3px;
+    font-family: var(--font-heading--family);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: var(--pk-s-accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pk-promise__title {
+    margin: 0;
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    font-size: clamp(1.125rem, 1.6vw, 1.3125rem);
+    line-height: 1.25;
+  }
+
+  .pk-promise__title a {
+    color: inherit;
+    text-decoration: none;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1.5px no-repeat;
+    transition: background-size 0.35s var(--pk-ease);
+  }
+
+  .pk-promise__title a:hover {
+    background-size: 100% 1.5px;
+  }
+
+  .pk-promise__text {
+    margin: 6px 0 0;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--pk-s-soft);
+  }
+
+  @media screen and (min-width: 750px) {
+    .pk-promise__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 40px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .pk-promise__inner {
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+      gap: clamp(40px, 6vw, 96px);
+    }
+
+    .pk-promise__seal {
+      width: min(100%, 340px);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .pk-promise__ring {
+      animation: pk-seal-spin 40s linear infinite;
+    }
+
+    @keyframes pk-seal-spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Versprechen",
+  "tag": "section",
+  "class": "pk-section pk-section--promise",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Fläche",
+      "info": "Immer abwechselnd zur Section davor und danach wählen.",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "grey", "label": "Hellgrau" },
+        { "value": "dark", "label": "Schwarz" }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "header",
+      "content": "Siegel"
+    },
+    {
+      "type": "text",
+      "id": "seal_text",
+      "label": "Umlaufender Text",
+      "default": "Versand aus Deutschland · 14 Tage Widerrufsrecht"
+    },
+    {
+      "type": "text",
+      "id": "seal_big",
+      "label": "Große Zahl/Wort in der Mitte",
+      "default": "14"
+    },
+    {
+      "type": "text",
+      "id": "seal_small",
+      "label": "Kleiner Text darunter",
+      "default": "Tage Widerruf"
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Überzeile",
+      "default": "Unser Versprechen"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Kaufen ohne <em>Risiko.</em>"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    }
+  ],
+  "blocks": [
+    {
+      "type": "promise",
+      "name": "Zusage",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titel", "default": "Zusage" },
+        { "type": "text", "id": "text", "label": "Text" },
+        { "type": "url", "id": "link", "label": "Link (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Versprechen",
+      "blocks": [
+        { "type": "promise", "settings": { "title": "Versand aus Deutschland", "text": "Meist innerhalb von 1 Werktag verschickt, Lieferung in 2–4 Werktagen." } },
+        { "type": "promise", "settings": { "title": "14 Tage Widerrufsrecht", "text": "Die Rücksendung ist für dich kostenlos." } },
+        { "type": "promise", "settings": { "title": "Sichere Bezahlung", "text": "Verschlüsselt über den Shopify-Checkout." } },
+        { "type": "promise", "settings": { "title": "Garantie", "text": "[[GARANTIE]]" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
