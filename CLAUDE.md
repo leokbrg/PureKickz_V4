@@ -113,7 +113,8 @@ nie zwei graue (oder zwei gleiche) Hintergründe direkt hintereinander. Jede Sec
 nächsten getrennt (Weiß ↔ Grau/Bild ↔ Schwarz). Die Übergänge werden je nach Lage gewählt (wie bei den
 Referenzen), damit es nicht wie ein Baukasten wirkt: hart bei randlosen Bildflächen, Header und Footer;
 dunkle Bühnen als abgerundete Karte auf Weiß; ruhige Flächen gern mit Bogen oben (Einstellung „Form der
-Fläche“). Keine Farbverläufe zwischen Sections. Schmale Bänder (PK Band) sind selbst die Naht. Trust-Hinweise nicht als eigene dünne Leiste mit
+Fläche“). Keine Farbverläufe zwischen Sections. Harte Kanten von Grau auf Weiß vermeiden (stattdessen Bogen,
+Karte oder ein bewusster Wechsel auf Schwarz, z. B. der schwarze Footer). Schmale Bänder (PK Band) sind selbst die Naht. Trust-Hinweise nicht als eigene dünne Leiste mit
 Icon-Kacheln, sondern dort einbetten, wo gekauft wird (z. B. Häkchen-Zeile unter dem Kaufbutton).
 
 Die Originale in `bilder/` sind Rohmaterial und werden **nicht verändert und nicht gelöscht**.
