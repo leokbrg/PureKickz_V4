@@ -1,0 +1,125 @@
+{%- comment -%}
+  PUREKICKZ Video/Demo: Produkt im Einsatz. Ohne Video rendert die Section nichts
+  (CLAUDE.md: nichts Leeres live). Video in Shopify hochladen und hier auswählen.
+{%- endcomment -%}
+
+{%- if section.settings.video != blank -%}
+  <div
+    class="pk-sec pk-sec--{{ section.settings.surface }} pk-video"
+    style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
+  >
+    <div class="pk-sec__inner">
+      <div class="pk-sec__head pk-sec__head--center">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="pk-eyebrow" data-pk-reveal>{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="pk-h2" data-pk-reveal>{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+      <div class="pk-video__frame" data-pk-reveal>
+        {{
+          section.settings.video
+          | video_tag:
+            autoplay: section.settings.autoplay,
+            muted: section.settings.autoplay,
+            loop: section.settings.autoplay,
+            playsinline: true,
+            controls: true,
+            preload: 'metadata',
+            class: 'pk-video__media'
+        }}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .pk-video__frame {
+    max-width: 1100px;
+    margin-inline: auto;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--pk-ink);
+  }
+
+  .pk-video__media {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Video",
+  "tag": "section",
+  "class": "pk-section pk-section--video",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Bleibt unsichtbar, bis ein Video ausgewählt ist."
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Stumm automatisch abspielen (Schleife)",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Fläche",
+      "info": "Immer abwechselnd zur Section davor und danach wählen.",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "grey", "label": "Hellgrau" },
+        { "value": "dark", "label": "Schwarz" }
+      ],
+      "default": "dark"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Überzeile",
+      "default": "Im Einsatz"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "So sieht's <em>in Aktion</em> aus."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Video"
+    }
+  ]
+}
+{% endschema %}
