@@ -20,6 +20,7 @@
             "media_columns": "two",
             "image_gap": 8,
             "large_first_image": false,
+            "icons_style": "arrow",
             "slideshow_controls_style": "thumbnails",
             "slideshow_mobile_controls_style": "dots",
             "thumbnail_position": "left",
@@ -98,6 +99,7 @@
                 "border_opacity": 100,
                 "border_color": "",
                 "border_radius": 0,
+                "link": "",
                 "open_in_new_tab": false,
                 "placeholder": "",
                 "padding-block-start": 0,
@@ -106,6 +108,14 @@
                 "padding-inline-end": 0
               },
               "blocks": {
+                "pk_title": {
+                  "type": "pk-product-title",
+                  "settings": {
+                    "split_title": true,
+                    "show_subtitle": true
+                  },
+                  "blocks": {}
+                },
                 "price_tVjtKg": {
                   "type": "price",
                   "settings": {
@@ -127,19 +137,19 @@
                     "padding-inline-end": 0
                   },
                   "blocks": {}
-                },
-                "pk_title": {
-                  "type": "pk-product-title",
-                  "settings": {
-                    "split_title": true,
-                    "show_subtitle": true
-                  }
                 }
               },
               "block_order": [
                 "pk_title",
                 "price_tVjtKg"
               ]
+            },
+            "pk_benefits": {
+              "type": "pk-benefits",
+              "settings": {
+                "items": "Der Motor übernimmt die Bewegung\n3 Aufsätze: harte Bürste, weiche Bürste, Schwamm\n1200-mAh-Akku, im Einsatz kabellos\nLaden über USB-C"
+              },
+              "blocks": {}
             },
             "variant_picker_R3rGDr": {
               "type": "variant-picker",
@@ -194,13 +204,13 @@
                   "type": "quantity",
                   "static": true,
                   "settings": {
+                    "pk_show": false,
                     "input_style": "default",
                     "input_background_color": "{{ settings.color_palette.background }}",
                     "input_text_color": "{{ settings.color_palette.foreground }}",
                     "input_border_color": "{{ settings.color_palette.foreground }}",
                     "border_width": 1,
-                    "border_radius": 0,
-                    "pk_show": false
+                    "border_radius": 0
                   },
                   "blocks": {}
                 },
@@ -224,12 +234,6 @@
               },
               "block_order": []
             },
-            "pk_benefits": {
-              "type": "pk-benefits",
-              "settings": {
-                "items": "Der Motor übernimmt die Bewegung\n3 Aufsätze: harte Bürste, weiche Bürste, Schwamm\n1200-mAh-Akku, im Einsatz kabellos\nLaden über USB-C"
-              }
-            },
             "pk_trust": {
               "type": "pk-trust-row",
               "settings": {
@@ -240,20 +244,22 @@
                 "icon_3": "lock",
                 "text_3": "Sichere Bezahlung",
                 "show_payment_icons": true
-              }
+              },
+              "blocks": {}
             },
             "pk_details": {
               "type": "pk-product-details",
               "settings": {
                 "show_description": false,
                 "description_title": "Beschreibung",
+                "show_box": false,
                 "box_title": "Lieferumfang",
                 "open_first": true,
                 "specs_title": "Technische Daten",
                 "shipping_title": "Versand & Rückgabe",
-                "shipping_text": "<p>Versand aus Deutschland, meist innerhalb von 1 Werktag. Lieferung innerhalb Deutschlands in 2–4 Werktagen nach Versand.</p><p>14 Tage Widerrufsrecht, die Rücksendung ist für dich kostenlos. Details in der <a href=\"/policies/refund-policy\">Widerrufsbelehrung</a>.</p>",
-                "show_box": false
-              }
+                "shipping_text": "<p>Versand aus Deutschland, meist innerhalb von 1 Werktag. Lieferung innerhalb Deutschlands in 2–4 Werktagen nach Versand.</p><p>14 Tage Widerrufsrecht, die Rücksendung ist für dich kostenlos. Details in der <a href=\"/policies/refund-policy\">Widerrufsbelehrung</a>.</p>"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -290,22 +296,6 @@
     "pk_stage": {
       "type": "pk-attachment-stage",
       "blocks": {
-        "hart": {
-          "type": "attachment",
-          "settings": {
-            "title": "Harte Bürste",
-            "text": "Für Sohle und Sohlenrand.",
-            "head_image": "shopify://shop_images/aufsatz-harte-buerste.webp",
-            "image_desktop": "shopify://shop_images/buehne-hart.jpg",
-            "image_mobile": "shopify://shop_images/buehne-hart-hoch.jpg",
-            "ring_dx": 21,
-            "ring_dy": 38,
-            "ring_dd": 9,
-            "ring_mx": 56,
-            "ring_my": 46,
-            "ring_md": 16
-          }
-        },
         "weich": {
           "type": "attachment",
           "settings": {
@@ -320,6 +310,22 @@
             "ring_mx": 56,
             "ring_my": 46,
             "ring_md": 13
+          }
+        },
+        "hart": {
+          "type": "attachment",
+          "settings": {
+            "title": "Harte Bürste",
+            "text": "Für Sohle und Sohlenrand.",
+            "head_image": "shopify://shop_images/aufsatz-harte-buerste.webp",
+            "image_desktop": "shopify://shop_images/buehne-hart.jpg",
+            "image_mobile": "shopify://shop_images/buehne-hart-hoch.jpg",
+            "ring_dx": 21,
+            "ring_dy": 38,
+            "ring_dd": 9,
+            "ring_mx": 56,
+            "ring_my": 46,
+            "ring_md": 16
           }
         },
         "schwamm": {
@@ -347,7 +353,7 @@
       "settings": {
         "eyebrow": "Die Aufsätze",
         "heading": "Ein Gerät. Drei Aufsätze.",
-        "background_color": "#BEBEBD"
+        "background_color": "#bebebd"
       }
     },
     "pk_steps": {
@@ -388,25 +394,34 @@
       ],
       "settings": {
         "surface": "white",
+        "edge": "hard",
+        "layout": "full",
         "eyebrow": "So funktioniert's",
         "heading": "In drei Schritten <em>sauber.</em>",
+        "link_label": "",
+        "link": "",
         "padding_top": 112,
-        "padding_bottom": 112,
-        "edge": "hard"
+        "padding_bottom": 112
+      }
+    },
+    "pk_before_after": {
+      "type": "pk-before-after",
+      "settings": {
+        "surface": "grey",
+        "edge": "hard",
+        "eyebrow": "Vorher / Nachher",
+        "heading": "Sieh selbst.",
+        "text": "",
+        "ratio_desktop": "landscape",
+        "ratio_mobile": "portrait",
+        "label_before": "Vorher",
+        "label_after": "Nachher",
+        "padding_top": 112,
+        "padding_bottom": 112
       }
     },
     "pk_device": {
       "type": "pk-device",
-      "settings": {
-        "surface": "dark",
-        "edge": "hard",
-        "image": "shopify://shop_images/schwarze-buehne-frontal.jpg",
-        "eyebrow": "Das Gerät",
-        "heading": "Gebaut, um die Arbeit zu machen.",
-        "text": "<p>Ein Motor, ein Knopf, drei Aufsätze.</p>",
-        "padding_top": 112,
-        "padding_bottom": 112
-      },
       "blocks": {
         "f1": {
           "type": "fact",
@@ -442,19 +457,20 @@
         "f2",
         "f3",
         "f4"
-      ]
+      ],
+      "settings": {
+        "surface": "dark",
+        "edge": "hard",
+        "image": "shopify://shop_images/schwarze-buehne-frontal.jpg",
+        "eyebrow": "Das Gerät",
+        "heading": "Gebaut, um die Arbeit zu machen.",
+        "text": "<p>Ein Motor, ein Knopf, drei Aufsätze.</p>",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
     },
     "pk_box": {
       "type": "pk-box",
-      "settings": {
-        "surface": "white",
-        "edge": "hard",
-        "image": "shopify://shop_images/lieferumfang.jpg",
-        "eyebrow": "Lieferumfang",
-        "heading": "Was in der Schachtel liegt.",
-        "padding_top": 112,
-        "padding_bottom": 112
-      },
       "blocks": {
         "b1": {
           "type": "item",
@@ -490,7 +506,16 @@
         "b2",
         "b3",
         "b4"
-      ]
+      ],
+      "settings": {
+        "surface": "white",
+        "edge": "hard",
+        "image": "shopify://shop_images/lieferumfang.jpg",
+        "eyebrow": "Lieferumfang",
+        "heading": "Was in der Schachtel liegt.",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
     },
     "pk_compare": {
       "type": "pk-compare",
@@ -536,6 +561,7 @@
       ],
       "settings": {
         "surface": "grey",
+        "edge": "panel",
         "image": "shopify://shop_images/geraet-in-der-hand-buerste.webp",
         "eyebrow": "Der Vergleich",
         "heading": "Motor oder <em>Muskelkraft?</em>",
@@ -544,8 +570,7 @@
         "button_label": "",
         "button_link": "",
         "padding_top": 112,
-        "padding_bottom": 112,
-        "edge": "panel"
+        "padding_bottom": 112
       }
     },
     "pk_video": {
@@ -554,24 +579,11 @@
       "settings": {
         "autoplay": true,
         "surface": "grey",
+        "edge": "hard",
         "eyebrow": "Im Einsatz",
         "heading": "So sieht's <em>in Aktion</em> aus.",
         "padding_top": 112,
-        "padding_bottom": 112,
-        "edge": "hard"
-      }
-    },
-    "pk_before_after": {
-      "type": "pk-before-after",
-      "settings": {
-        "surface": "grey",
-        "eyebrow": "Vorher / Nachher",
-        "heading": "Sieh selbst.",
-        "label_before": "Vorher",
-        "label_after": "Nachher",
-        "padding_top": 112,
-        "padding_bottom": 112,
-        "edge": "hard"
+        "padding_bottom": 112
       }
     },
     "pk_reviews": {
@@ -580,11 +592,11 @@
       "settings": {
         "enabled": false,
         "surface": "white",
+        "edge": "hard",
         "eyebrow": "Bewertungen",
         "heading": "Echte <em>Stimmen.</em>",
         "padding_top": 112,
-        "padding_bottom": 112,
-        "edge": "hard"
+        "padding_bottom": 112
       }
     },
     "pk_faq": {
@@ -611,11 +623,25 @@
             "answer": "<p>Über den USB-C-Anschluss. Im Einsatz arbeitet das Gerät kabellos.</p>"
           }
         },
+        "q3b": {
+          "type": "question",
+          "settings": {
+            "question": "Wie lange dauert das Laden?",
+            "answer": "<p>[[LADEDAUER]]</p>"
+          }
+        },
         "q4": {
           "type": "question",
           "settings": {
             "question": "Wie groß ist der Akku?",
             "answer": "<p>1200 mAh.</p>"
+          }
+        },
+        "q4b": {
+          "type": "question",
+          "settings": {
+            "question": "Wie lange hält eine Akkuladung?",
+            "answer": "<p>[[AKKULAUFZEIT]]</p>"
           }
         },
         "q5": {
@@ -652,20 +678,6 @@
             "question": "Gibt es eine Garantie?",
             "answer": "<p>[[GARANTIE]]</p>"
           }
-        },
-        "q3b": {
-          "type": "question",
-          "settings": {
-            "question": "Wie lange dauert das Laden?",
-            "answer": "<p>[[LADEDAUER]]</p>"
-          }
-        },
-        "q4b": {
-          "type": "question",
-          "settings": {
-            "question": "Wie lange hält eine Akkuladung?",
-            "answer": "<p>[[AKKULAUFZEIT]]</p>"
-          }
         }
       },
       "block_order": [
@@ -683,6 +695,7 @@
       ],
       "settings": {
         "surface": "white",
+        "edge": "hard",
         "eyebrow": "FAQ",
         "heading": "Fragen? <em>Antworten.</em>",
         "show_service": true,
@@ -693,8 +706,7 @@
         "link_label": "Alle Fragen ansehen",
         "link": "/pages/faq",
         "padding_top": 112,
-        "padding_bottom": 112,
-        "edge": "hard"
+        "padding_bottom": 112
       }
     },
     "product_recommendations_qggXJq": {
@@ -839,6 +851,37 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "1792679539e3538647": {
+      "type": "_blocks",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "background_color": "",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     }
   },
   "order": [
@@ -853,6 +896,7 @@
     "pk_video",
     "pk_reviews",
     "pk_faq",
-    "product_recommendations_qggXJq"
+    "product_recommendations_qggXJq",
+    "1792679539e3538647"
   ]
 }
