@@ -81,6 +81,12 @@
         {% endif %}
       "
     >
+      {%- comment -%} PUREKICKZ: Logo links in der Kopfzeile des Handy-Menüs {%- endcomment -%}
+      {%- if data_header_drawer_type == 'mobile-drawer' and settings.logo != blank -%}
+        <a class="pk-drawer-logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+          {{ settings.logo | image_url: height: 48 | image_tag: height: 16, alt: shop.name, loading: 'lazy' }}
+        </a>
+      {%- endif -%}
       <button
         class="button close-button menu-drawer__close-button focus-inset"
         type="button"
@@ -110,6 +116,10 @@
             {% assign first_accordion_open = false %}
             {% assign animation_index = 0 %}
             {%- for link in linklist.links -%}
+              {%- comment -%} PUREKICKZ: Produkt nicht doppelt zeigen, wenn unten die Produktkarte steht {%- endcomment -%}
+              {%- if data_header_drawer_type == 'mobile-drawer' and block_settings.pk_product != blank and link.url == block_settings.pk_product.url -%}
+                {%- continue -%}
+              {%- endif -%}
               {% assign animation_index = animation_index | plus: 1 %}
               <li
                 style="--menu-drawer-animation-index: {{ animation_index }};"
