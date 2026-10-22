@@ -558,6 +558,8 @@
   /*
    * Bewegung (reines CSS, kein Aufblitzen): Text steigt gestaffelt auf, das Bild stellt sich
    * ruhig ein, am Desktop leichte Tiefe beim Scrollen. Kaufbereich bleibt immer sofort sichtbar.
+   * LCP: Überschrift und Hero-Foto starten nie unsichtbar – sie bewegen sich nur per transform
+   * und sind ab dem ersten Frame voll lesbar. Nur Überzeile und Kurztext blenden leicht ein.
    */
   @media (prefers-reduced-motion: no-preference) {
     .pk-hero__rise {
@@ -567,8 +569,19 @@
 
     @keyframes pk-hero-rise {
       from {
-        opacity: 0;
-        transform: translateY(18px);
+        opacity: 0.35;
+        transform: translateY(14px);
+      }
+    }
+
+    .pk-hero__heading.pk-hero__rise {
+      animation-name: pk-hero-rise-solid;
+      animation-duration: 0.9s;
+    }
+
+    @keyframes pk-hero-rise-solid {
+      from {
+        transform: translateY(10px);
       }
     }
 
@@ -578,8 +591,7 @@
 
     @keyframes pk-hero-settle {
       from {
-        opacity: 0;
-        transform: scale(1.05);
+        transform: scale(1.04);
       }
     }
 
@@ -593,8 +605,7 @@
 
     @keyframes pk-hero-land {
       from {
-        opacity: 0;
-        transform: translateY(-28px);
+        transform: translateY(-20px);
       }
     }
 
