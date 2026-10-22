@@ -1,0 +1,213 @@
+{%- comment -%}
+  PUREKICKZ Band: schmale Leiste mit kurzen Stichworten – entweder als Laufband (Wörter wandern
+  endlos von rechts nach links) oder stehend mit feinen Trennstrichen.
+  Das Band ist selbst die Naht zwischen zwei Sections (kein weicher Übergang davor/danach).
+  Laufband: nur transform, pausiert beim Drüberfahren; bei reduzierter Bewegung steht es still.
+{%- endcomment -%}
+
+{%- liquid
+  assign lines = section.settings.items | newline_to_br | split: '<br />'
+  assign words = ''
+  for line in lines
+    assign word = line | strip
+    if word != blank
+      assign words = words | append: word | append: '|'
+    endif
+  endfor
+  assign words = words | split: '|'
+-%}
+
+{%- if words.size > 0 -%}
+  <div
+    class="pk-band pk-band--{{ section.settings.surface }} pk-band--{{ section.settings.style }}"
+    style="--pk-band-speed: {{ section.settings.speed }}s;"
+    data-pk-band
+  >
+    {%- if section.settings.style == 'marquee' -%}
+      <div class="pk-band__viewport">
+        <ul class="pk-band__track">
+          {%- for copy in (1..4) -%}
+            {%- for word in words -%}
+              <li class="pk-band__item"{% if copy > 1 %} aria-hidden="true"{% endif %}>{{ word }}</li>
+            {%- endfor -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- else -%}
+      <ul class="pk-band__row">
+        {%- for word in words -%}
+          <li class="pk-band__item">{{ word }}</li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .pk-band {
+    --pk-band-bg: var(--pk-white);
+    --pk-band-fg: var(--pk-ink);
+    --pk-band-sep: var(--pk-line);
+    background: var(--pk-band-bg);
+    color: var(--pk-band-fg);
+    overflow: hidden;
+  }
+
+  .pk-band--grey {
+    --pk-band-bg: var(--pk-grey);
+    --pk-band-sep: rgba(25, 25, 23, 0.18);
+  }
+
+  .pk-band--dark {
+    --pk-band-bg: var(--pk-ink);
+    --pk-band-fg: var(--pk-white);
+    --pk-band-sep: rgba(255, 255, 255, 0.22);
+  }
+
+  .pk-band__track,
+  .pk-band__row {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Laufband: vier gleiche Kopien, um genau die Hälfte verschoben → nahtlose Schleife, auch auf breiten Bildschirmen */
+  .pk-band__viewport {
+    padding-block: 18px;
+  }
+
+  .pk-band__track {
+    display: flex;
+    width: max-content;
+  }
+
+  .pk-band--marquee .pk-band__item {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    font-family: var(--font-heading--family);
+    font-weight: 600;
+    font-size: clamp(1rem, 1.6vw, 1.375rem);
+    letter-spacing: -0.01em;
+  }
+
+  .pk-band--marquee .pk-band__item::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    margin-inline: clamp(24px, 3vw, 44px);
+    border-radius: 50%;
+    background: var(--pk-magenta);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .pk-band__track {
+      animation: pk-band-run var(--pk-band-speed, 40s) linear infinite;
+    }
+
+    .pk-band__viewport:hover .pk-band__track {
+      animation-play-state: paused;
+    }
+
+    @keyframes pk-band-run {
+      to {
+        transform: translateX(-50%);
+      }
+    }
+  }
+
+  /* Stehend: Großbuchstaben mit feinen Trennstrichen, auf dem Handy wischbar */
+  .pk-band__row {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding: 22px var(--page-margin);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .pk-band__row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pk-band--static .pk-band__item {
+    flex: none;
+    padding-inline: clamp(16px, 2.6vw, 36px);
+    white-space: nowrap;
+    font-family: var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .pk-band--static .pk-band__item + .pk-band__item {
+    border-left: 1px solid var(--pk-band-sep);
+  }
+
+  @media screen and (max-width: 749px) {
+    .pk-band__row {
+      justify-content: flex-start;
+    }
+
+    .pk-band--static .pk-band__item {
+      font-size: 0.75rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Band",
+  "tag": "section",
+  "class": "pk-section pk-section--band",
+  "settings": [
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Stil",
+      "options": [
+        { "value": "marquee", "label": "Laufband (bewegt)" },
+        { "value": "static", "label": "Stehend mit Trennstrichen" }
+      ],
+      "default": "marquee"
+    },
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Fläche",
+      "info": "Anders als die Sections davor und danach wählen – das Band ist die Naht dazwischen.",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "grey", "label": "Hellgrau" },
+        { "value": "dark", "label": "Schwarz" }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "textarea",
+      "id": "items",
+      "label": "Stichworte",
+      "info": "Ein Stichwort pro Zeile. Kurz und nur Aussagen, die stimmen.",
+      "default": "Motor statt Muskelkraft\nDrei Aufsätze\nKabellos im Einsatz\nLaden über USB-C\nVersand aus Deutschland"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Laufband: Dauer einer Runde",
+      "min": 15,
+      "max": 90,
+      "step": 5,
+      "unit": "s",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Band"
+    }
+  ]
+}
+{% endschema %}
