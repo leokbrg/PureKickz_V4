@@ -251,19 +251,6 @@ product-price,
   overflow: clip;
 }
 
-/* Bogen: die Fläche schiebt sich mit runder Oberkante über das Ende der vorigen Section,
-   deren Fläche/Foto in den Ecken sichtbar bleibt – wie ein Blatt, das darübergleitet */
 .pk-sec--edge-arch {
-  --pk-arch: clamp(28px, 5vw, 72px);
-  position: relative;
-  z-index: 2;
-  margin-top: calc(var(--pk-arch) * -1);
-  padding-top: calc(var(--pk-pad-top, 112px) * 0.6 + var(--pk-arch));
-  border-radius: 50% 50% 0 0 / var(--pk-arch) var(--pk-arch) 0 0;
-}
-
-@media screen and (min-width: 990px) {
-  .pk-sec--edge-arch {
-    padding-top: calc(var(--pk-pad-top, 112px) + var(--pk-arch));
-  }
+  border-radius: 50% 50% 0 0 / clamp(28px, 5vw, 72px) clamp(28px, 5vw, 72px) 0 0;
 }
