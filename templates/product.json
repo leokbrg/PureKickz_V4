@@ -435,7 +435,8 @@
         "eyebrow": "So funktioniert's",
         "heading": "In drei Schritten <em>sauber.</em>",
         "padding_top": 112,
-        "padding_bottom": 112
+        "padding_bottom": 112,
+        "edge": "hard"
       }
     },
     "pk_compare": {
@@ -490,7 +491,8 @@
         "button_label": "",
         "button_link": "",
         "padding_top": 112,
-        "padding_bottom": 112
+        "padding_bottom": 112,
+        "edge": "panel"
       }
     },
     "pk_video": {
@@ -502,7 +504,8 @@
         "eyebrow": "Im Einsatz",
         "heading": "So sieht's <em>in Aktion</em> aus.",
         "padding_top": 112,
-        "padding_bottom": 112
+        "padding_bottom": 112,
+        "edge": "hard"
       }
     },
     "pk_before_after": {
@@ -515,7 +518,8 @@
         "label_before": "Vorher",
         "label_after": "Nachher",
         "padding_top": 112,
-        "padding_bottom": 112
+        "padding_bottom": 112,
+        "edge": "hard"
       }
     },
     "pk_reviews": {
@@ -527,7 +531,8 @@
         "eyebrow": "Bewertungen",
         "heading": "Echte <em>Stimmen.</em>",
         "padding_top": 112,
-        "padding_bottom": 112
+        "padding_bottom": 112,
+        "edge": "hard"
       }
     },
     "pk_faq": {
@@ -620,7 +625,8 @@
         "link_label": "Alle Fragen ansehen",
         "link": "/pages/faq",
         "padding_top": 112,
-        "padding_bottom": 112
+        "padding_bottom": 112,
+        "edge": "arch"
       }
     },
     "product_recommendations_qggXJq": {

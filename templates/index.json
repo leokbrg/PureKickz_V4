@@ -268,7 +268,8 @@
         "button_link": "",
         "show_payment": true,
         "padding_top": 112,
-        "padding_bottom": 112
+        "padding_bottom": 112,
+        "edge": "panel"
       }
     },
     "pk_promise": {
@@ -281,7 +282,8 @@
         "eyebrow": "Unser Versprechen",
         "heading": "Kaufen ohne <em>Risiko.</em>",
         "padding_top": 112,
-        "padding_bottom": 112
+        "padding_bottom": 112,
+        "edge": "hard"
       },
       "blocks": {
         "p1": {
@@ -336,7 +338,8 @@
         "button_label": "",
         "button_link": "",
         "padding_top": 112,
-        "padding_bottom": 112
+        "padding_bottom": 112,
+        "edge": "arch"
       }
     }
   },
