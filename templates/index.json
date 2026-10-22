@@ -68,6 +68,15 @@
         "c4"
       ]
     },
+    "pk_marquee": {
+      "type": "pk-band",
+      "settings": {
+        "style": "marquee",
+        "surface": "white",
+        "items": "Motor statt Muskelkraft\nDrei Aufsätze\nKabellos im Einsatz\nLaden über USB-C\nVersand aus Deutschland",
+        "speed": 40
+      }
+    },
     "pk_products": {
       "type": "product-list",
       "disabled": true,
@@ -333,6 +342,7 @@
   },
   "order": [
     "pk_hero",
+    "pk_marquee",
     "pk_products",
     "pk_cta",
     "pk_promise",
