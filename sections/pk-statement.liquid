@@ -27,14 +27,40 @@
     </div>
 
     {%- if section.blocks.size > 0 -%}
-      <ul class="pk-statement__facts pk-statement__facts--{{ section.blocks.size }}" data-pk-stagger>
+{%- liquid
+  assign visible = 0
+  for block in section.blocks
+    if block.settings.value == blank
+      continue
+    endif
+    if request.design_mode == false
+      if block.settings.value contains '[[' or block.settings.unit contains '[[' or block.settings.label contains '[['
+        continue
+      endif
+    endif
+    assign visible = visible | plus: 1
+  endfor
+-%}
+      <ul class="pk-statement__facts pk-statement__facts--{{ visible }}" data-pk-stagger>
         {%- for block in section.blocks -%}
+{%- liquid
+  if block.settings.value == blank
+    continue
+  endif
+  assign ph = false
+  if block.settings.value contains '[[' or block.settings.unit contains '[[' or block.settings.label contains '[['
+    assign ph = true
+  endif
+  if ph and request.design_mode == false
+    continue
+  endif
+-%}
           {%- liquid
             assign value = block.settings.value | strip
             assign number = value | plus: 0
             assign number_text = number | append: ''
           -%}
-          <li class="pk-statement__fact" data-pk-reveal {{ block.shopify_attributes }}>
+          <li class="pk-statement__fact{% if ph %} pk-ph{% endif %}" data-pk-reveal {{ block.shopify_attributes }}>
             <span class="pk-statement__rule" aria-hidden="true"></span>
             <p class="pk-statement__value">
               {%- if number_text == value and number > 0 -%}

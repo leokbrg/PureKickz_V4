@@ -10,8 +10,10 @@
         assign icon_key = 'icon_' | append: i
         assign text = block.settings[text_key]
       -%}
-      {%- if text != blank -%}
-        <li class="pk-trust-row__item">
+      {%- assign ph = false -%}
+      {%- if text contains '[[' -%}{%- assign ph = true -%}{%- endif -%}
+      {%- if text != blank and ph == false or text != blank and request.design_mode -%}
+        <li class="pk-trust-row__item{% if ph %} pk-ph{% endif %}">
           {%- render 'pk-icon', name: block.settings[icon_key], class: 'pk-trust-row__icon' -%}
           <span>{{ text }}</span>
         </li>

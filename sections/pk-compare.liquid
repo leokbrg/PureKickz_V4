@@ -46,7 +46,19 @@
           </thead>
           <tbody data-pk-stagger>
             {%- for block in section.blocks -%}
-              <tr class="pk-compare__row" data-pk-reveal {{ block.shopify_attributes }}>
+{%- liquid
+  if block.settings.label == blank
+    continue
+  endif
+  assign ph = false
+  if block.settings.label contains '[[' or block.settings.us contains '[[' or block.settings.them contains '[['
+    assign ph = true
+  endif
+  if ph and request.design_mode == false
+    continue
+  endif
+-%}
+              <tr class="pk-compare__row{% if ph %} pk-ph{% endif %}" data-pk-reveal {{ block.shopify_attributes }}>
                 <th scope="row">{{ block.settings.label }}</th>
                 <td class="pk-compare__us">{{ block.settings.us }}</td>
                 <td>{{ block.settings.them }}</td>

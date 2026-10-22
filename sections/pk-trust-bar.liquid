@@ -6,9 +6,35 @@
   class="pk-trust pk-trust--{{ section.settings.style }}"
   style="--pk-trust-pad: {{ section.settings.padding }}px;"
 >
-  <ul class="pk-trust__list pk-trust__list--{{ section.blocks.size }}" data-pk-stagger>
+{%- liquid
+  assign visible = 0
+  for block in section.blocks
+    if block.settings.title == blank
+      continue
+    endif
+    if request.design_mode == false
+      if block.settings.title contains '[[' or block.settings.text contains '[['
+        continue
+      endif
+    endif
+    assign visible = visible | plus: 1
+  endfor
+-%}
+  <ul class="pk-trust__list pk-trust__list--{{ visible }}" data-pk-stagger>
     {%- for block in section.blocks -%}
-      <li class="pk-trust__item" data-pk-reveal {{ block.shopify_attributes }}>
+{%- liquid
+  if block.settings.title == blank
+    continue
+  endif
+  assign ph = false
+  if block.settings.title contains '[[' or block.settings.text contains '[['
+    assign ph = true
+  endif
+  if ph and request.design_mode == false
+    continue
+  endif
+-%}
+      <li class="pk-trust__item{% if ph %} pk-ph{% endif %}" data-pk-reveal {{ block.shopify_attributes }}>
         {%- capture item_inner -%}
           <span class="pk-trust__tile">{%- render 'pk-icon', name: block.settings.icon, class: 'pk-trust__icon' -%}</span>
           <span class="pk-trust__text">

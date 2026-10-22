@@ -40,7 +40,19 @@
             <h3 class="pk-specs__label">{{ section.settings.items_title }}</h3>
             <ul class="pk-specs__box">
               {%- for block in items -%}
-                <li {{ block.shopify_attributes }}>
+{%- liquid
+  if block.settings.name == blank
+    continue
+  endif
+  assign ph = false
+  if block.settings.qty contains '[[' or block.settings.name contains '[['
+    assign ph = true
+  endif
+  if ph and request.design_mode == false
+    continue
+  endif
+-%}
+                <li{% if ph %} class="pk-ph"{% endif %} {{ block.shopify_attributes }}>
                   <span class="pk-specs__qty">{{ block.settings.qty }}</span>
                   <span>{{ block.settings.name }}</span>
                 </li>
@@ -55,7 +67,19 @@
             <h3 class="pk-specs__label">{{ section.settings.specs_title }}</h3>
             <dl class="pk-specs__list">
               {%- for block in specs -%}
-                <div class="pk-specs__row" {{ block.shopify_attributes }}>
+{%- liquid
+  if block.settings.value == blank
+    continue
+  endif
+  assign ph = false
+  if block.settings.label contains '[[' or block.settings.value contains '[['
+    assign ph = true
+  endif
+  if ph and request.design_mode == false
+    continue
+  endif
+-%}
+                <div class="pk-specs__row{% if ph %} pk-ph{% endif %}" {{ block.shopify_attributes }}>
                   <dt>{{ block.settings.label }}</dt>
                   <dd>{{ block.settings.value }}</dd>
                 </div>

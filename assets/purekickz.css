@@ -250,3 +250,10 @@ product-price,
   border-radius: clamp(20px, 3vw, 36px);
   overflow: clip;
 }
+
+/* Platzhalter ([[...]]): für Kunden ausgeblendet, im Theme-Editor markiert sichtbar */
+.pk-ph {
+  outline: 2px dashed var(--pk-magenta);
+  outline-offset: 3px;
+  opacity: 0.6;
+}

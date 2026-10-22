@@ -18,9 +18,23 @@
 
       {%- if section.blocks.size > 0 -%}
         <ol class="pk-box__list" data-pk-stagger>
+          {%- assign num = 0 -%}
           {%- for block in section.blocks -%}
-            <li class="pk-box__item" data-pk-reveal {{ block.shopify_attributes }}>
-              <b aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</b>
+{%- liquid
+  if block.settings.name == blank
+    continue
+  endif
+  assign ph = false
+  if block.settings.name contains '[[' or block.settings.note contains '[['
+    assign ph = true
+  endif
+  if ph and request.design_mode == false
+    continue
+  endif
+-%}
+            {%- assign num = num | plus: 1 -%}
+            <li class="pk-box__item{% if ph %} pk-ph{% endif %}" data-pk-reveal {{ block.shopify_attributes }}>
+              <b aria-hidden="true">{{ num | prepend: '0' | slice: -2, 2 }}</b>
               <span>
                 {{- block.settings.name -}}
                 {%- if block.settings.note != blank %} — {{ block.settings.note }}{% endif -%}

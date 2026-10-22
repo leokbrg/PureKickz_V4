@@ -1,7 +1,8 @@
 {%- comment -%}
   PUREKICKZ FAQ & Service: Akkordeon mit den häufigsten Fragen, daneben der Kontakt.
   Funktioniert ohne JavaScript (details/summary); weiches Aufklappen, wo der Browser es kann.
-  Offene Fakten als [[PLATZHALTER]] eintragen oder Frage entfernen – nie raten.
+  Offene Fakten als [[PLATZHALTER]] eintragen – Fragen mit [[...]] oder leerer Antwort
+  werden für Kunden automatisch ausgeblendet (im Theme-Editor gestrichelt markiert).
 {%- endcomment -%}
 
 <div
@@ -22,8 +23,12 @@
       {%- if section.settings.show_service -%}
         <div class="pk-faq__service" data-pk-reveal>
           <p class="pk-faq__service-title">{{ section.settings.service_title }}</p>
-          {%- if section.settings.service_text != blank -%}
-            <div class="pk-faq__service-text">{{ section.settings.service_text }}</div>
+          {%- assign v = section.settings.service_text -%}
+          {%- if v != blank -%}
+            {%- assign ph = false -%}{%- if v contains '[[' -%}{%- assign ph = true -%}{%- endif -%}
+            {%- if ph == false or request.design_mode -%}
+              <div class="pk-faq__service-text{% if ph %} pk-ph{% endif %}">{{ v }}</div>
+            {%- endif -%}
           {%- endif -%}
           {%- if section.settings.email != blank -%}
             <a class="pk-faq__mail" href="mailto:{{ section.settings.email }}">
@@ -31,8 +36,12 @@
               <span>{{ section.settings.email }}</span>
             </a>
           {%- endif -%}
-          {%- if section.settings.response_time != blank -%}
-            <p class="pk-faq__response">{{ section.settings.response_time }}</p>
+          {%- assign v = section.settings.response_time -%}
+          {%- if v != blank -%}
+            {%- assign ph = false -%}{%- if v contains '[[' -%}{%- assign ph = true -%}{%- endif -%}
+            {%- if ph == false or request.design_mode -%}
+              <p class="pk-faq__response{% if ph %} pk-ph{% endif %}">{{ v }}</p>
+            {%- endif -%}
           {%- endif -%}
           {%- if section.settings.link_label != blank and section.settings.link != blank -%}
             <a class="pk-faq__more" href="{{ section.settings.link }}">{{ section.settings.link_label }} →</a>
@@ -43,7 +52,20 @@
 
     <div class="pk-faq__list" data-pk-stagger>
       {%- for block in section.blocks -%}
-        <details class="pk-faq__item" data-pk-reveal {{ block.shopify_attributes }}>
+        {%- liquid
+          assign answer_text = block.settings.answer | strip_html | strip
+          if block.settings.question == blank or answer_text == blank
+            continue
+          endif
+          assign ph = false
+          if block.settings.question contains '[[' or block.settings.answer contains '[['
+            assign ph = true
+          endif
+          if ph and request.design_mode == false
+            continue
+          endif
+        -%}
+        <details class="pk-faq__item{% if ph %} pk-ph{% endif %}" data-pk-reveal {{ block.shopify_attributes }}>
           <summary class="pk-faq__q">
             <span>{{ block.settings.question }}</span>
             <span class="pk-faq__plus" aria-hidden="true"></span>

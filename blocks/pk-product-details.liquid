@@ -1,7 +1,7 @@
 {%- comment -%}
   PUREKICKZ Produkt-Details als Akkordeon. Lieferumfang und Technik kommen aus den
   Produkt-Metafeldern (custom.*), damit jedes Produkt seine eigenen Daten mitbringt.
-  Leere Zeilen werden ausgeblendet.
+  Leere Zeilen und Werte mit [[PLATZHALTER]] werden für Kunden ausgeblendet.
 {%- endcomment -%}
 
 {%- liquid
@@ -9,20 +9,55 @@
   assign mf = product.metafields.custom
 
   assign specs = ''
-  if mf.akku != blank
-    assign specs = specs | append: '<dt>Akku</dt><dd>' | append: mf.akku | append: '</dd>'
+  assign v = mf.akku | append: ''
+  if v != blank
+    if v contains '[['
+      if request.design_mode
+        assign specs = specs | append: '<div class="pk-ph"><dt>Akku</dt><dd>' | append: v | append: '</dd></div>'
+      endif
+    else
+      assign specs = specs | append: '<dt>Akku</dt><dd>' | append: v | append: '</dd>'
+    endif
   endif
-  if mf.laden != blank
-    assign specs = specs | append: '<dt>Laden</dt><dd>' | append: mf.laden | append: '</dd>'
+  assign v = mf.laden | append: ''
+  if v != blank
+    if v contains '[['
+      if request.design_mode
+        assign specs = specs | append: '<div class="pk-ph"><dt>Laden</dt><dd>' | append: v | append: '</dd></div>'
+      endif
+    else
+      assign specs = specs | append: '<dt>Laden</dt><dd>' | append: v | append: '</dd>'
+    endif
   endif
-  if mf.leistung != blank
-    assign specs = specs | append: '<dt>Leistung</dt><dd>' | append: mf.leistung | append: '</dd>'
+  assign v = mf.leistung | append: ''
+  if v != blank
+    if v contains '[['
+      if request.design_mode
+        assign specs = specs | append: '<div class="pk-ph"><dt>Leistung</dt><dd>' | append: v | append: '</dd></div>'
+      endif
+    else
+      assign specs = specs | append: '<dt>Leistung</dt><dd>' | append: v | append: '</dd>'
+    endif
   endif
-  if mf.masse != blank
-    assign specs = specs | append: '<dt>Maße</dt><dd>' | append: mf.masse | append: '</dd>'
+  assign v = mf.masse | append: ''
+  if v != blank
+    if v contains '[['
+      if request.design_mode
+        assign specs = specs | append: '<div class="pk-ph"><dt>Maße</dt><dd>' | append: v | append: '</dd></div>'
+      endif
+    else
+      assign specs = specs | append: '<dt>Maße</dt><dd>' | append: v | append: '</dd>'
+    endif
   endif
-  if mf.material != blank
-    assign specs = specs | append: '<dt>Material</dt><dd>' | append: mf.material | append: '</dd>'
+  assign v = mf.material | append: ''
+  if v != blank
+    if v contains '[['
+      if request.design_mode
+        assign specs = specs | append: '<div class="pk-ph"><dt>Material</dt><dd>' | append: v | append: '</dd></div>'
+      endif
+    else
+      assign specs = specs | append: '<dt>Material</dt><dd>' | append: v | append: '</dd>'
+    endif
   endif
 -%}
 
@@ -40,6 +75,10 @@
       <div class="pk-details__body">
         <ul class="pk-details__box">
           {%- for part in mf.lieferumfang.value -%}
+            {%- if part contains '[[' -%}
+              {%- if request.design_mode -%}<li class="pk-ph">{{ part }}</li>{%- endif -%}
+              {%- continue -%}
+            {%- endif -%}
             <li>{{ part }}</li>
           {%- endfor -%}
         </ul>
@@ -149,6 +188,12 @@
 
   .pk-details__specs dt {
     color: var(--pk-muted);
+  }
+
+  .pk-details__specs .pk-ph {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
   }
 
   .pk-details__specs dd {

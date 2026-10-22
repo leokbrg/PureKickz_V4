@@ -38,12 +38,24 @@
       {%- if section.blocks.size > 0 -%}
         <ul class="pk-device__facts" data-pk-stagger>
           {%- for block in section.blocks -%}
+{%- liquid
+  if block.settings.value == blank
+    continue
+  endif
+  assign ph = false
+  if block.settings.value contains '[[' or block.settings.label contains '[['
+    assign ph = true
+  endif
+  if ph and request.design_mode == false
+    continue
+  endif
+-%}
             {%- liquid
               assign value = block.settings.value | strip
               assign number = value | plus: 0
               assign number_text = number | append: ''
             -%}
-            <li class="pk-device__fact" data-pk-reveal {{ block.shopify_attributes }}>
+            <li class="pk-device__fact{% if ph %} pk-ph{% endif %}" data-pk-reveal {{ block.shopify_attributes }}>
               {%- if number_text == value and number > 0 -%}
                 <b data-pk-count="{{ number }}">{{ value }}</b>
               {%- else -%}

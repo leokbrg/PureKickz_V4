@@ -7,8 +7,10 @@
 <ul class="pk-benefits" {{ block.shopify_attributes }}>
   {%- for line in lines -%}
     {%- assign item = line | strip -%}
-    {%- if item != blank -%}
-      <li class="pk-benefits__item">
+    {%- assign ph = false -%}
+    {%- if item contains '[[' -%}{%- assign ph = true -%}{%- endif -%}
+    {%- if item != blank and ph == false or item != blank and request.design_mode -%}
+      <li class="pk-benefits__item{% if ph %} pk-ph{% endif %}">
         {%- render 'pk-icon', name: 'check', class: 'pk-benefits__icon' -%}
         <span>{{ item }}</span>
       </li>
