@@ -34,7 +34,7 @@
     </details>
   {%- endif -%}
 
-  {%- if mf.lieferumfang != blank -%}
+  {%- if block.settings.show_box and mf.lieferumfang != blank -%}
     <details class="pk-details__row"{% if block.settings.open_first %} open{% endif %}>
       <summary>{{ block.settings.box_title }}</summary>
       <div class="pk-details__body">
@@ -177,6 +177,13 @@
       "id": "description_title",
       "label": "Titel Beschreibung",
       "default": "Beschreibung"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_box",
+      "label": "Lieferumfang anzeigen",
+      "info": "Ausschalten, wenn die Seite eine eigene Lieferumfang-Section hat.",
+      "default": true
     },
     {
       "type": "text",

@@ -1,0 +1,223 @@
+{%- comment -%}
+  PUREKICKZ Lieferumfang: nummerierte Liste (01, 02 …) links, Foto in einer ruhigen Fläche rechts.
+  Nur bestätigte Teile eintragen; offene Punkte (z. B. Kabel) erst nach Bestätigung ergänzen.
+{%- endcomment -%}
+
+<div
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-sec--edge-{{ section.settings.edge | default: 'hard' }} pk-box"
+  style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="pk-sec__inner pk-box__inner">
+    <div class="pk-box__body">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="pk-box__eyebrow" data-pk-reveal>{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pk-h2 pk-box__heading" data-pk-reveal>{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ol class="pk-box__list" data-pk-stagger>
+          {%- for block in section.blocks -%}
+            <li class="pk-box__item" data-pk-reveal {{ block.shopify_attributes }}>
+              <b aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</b>
+              <span>
+                {{- block.settings.name -}}
+                {%- if block.settings.note != blank %} — {{ block.settings.note }}{% endif -%}
+              </span>
+            </li>
+          {%- endfor -%}
+        </ol>
+      {%- endif -%}
+    </div>
+
+    <div class="pk-box__visual" data-pk-reveal>
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 1200
+          | image_tag:
+            widths: '500, 800, 1000, 1200',
+            sizes: '(min-width: 990px) 45vw, 90vw',
+            loading: 'lazy',
+            class: 'pk-box__img'
+        }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'pk-box__img pk-box__img--placeholder' }}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .pk-box__inner {
+    display: grid;
+    gap: clamp(28px, 4vw, 56px);
+    align-items: center;
+  }
+
+  .pk-box__eyebrow {
+    margin: 0 0 14px;
+    font-family: var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+    color: var(--pk-s-soft);
+  }
+
+  .pk-box__heading {
+    max-width: 14ch;
+  }
+
+  .pk-box__list {
+    list-style: none;
+    margin: clamp(24px, 3vw, 36px) 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pk-box__item {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    padding-block: clamp(14px, 1.6vw, 20px);
+    border-bottom: 1px solid var(--pk-s-line);
+    font-size: clamp(1rem, 1.3vw, 1.125rem);
+    line-height: 1.4;
+  }
+
+  .pk-box__item b {
+    flex: none;
+    min-width: 1.6em;
+    font-family: var(--font-heading--family);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--pk-s-accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Foto in einer ruhigen Fläche mit runden Ecken; der Bildhintergrund hat dieselbe Farbe */
+  .pk-box__visual {
+    overflow: hidden;
+    border-radius: 10px;
+    aspect-ratio: 4 / 5;
+    background: var(--pk-grey);
+  }
+
+  .pk-box__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .pk-box__img--placeholder {
+    fill: var(--pk-muted);
+    opacity: 0.4;
+  }
+
+  @media screen and (min-width: 990px) {
+    .pk-box__inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    .pk-box__visual {
+      max-height: 640px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Lieferumfang",
+  "tag": "section",
+  "class": "pk-section pk-section--box",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Fläche",
+      "info": "Immer abwechselnd zur Section davor und danach wählen.",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "grey", "label": "Hellgrau" },
+        { "value": "dark", "label": "Schwarz" }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "select",
+      "id": "edge",
+      "label": "Form der Fläche",
+      "info": "Hart: gerade Kante über die ganze Breite. Box: abgerundete Fläche mit Abstand zum Rand.",
+      "options": [
+        { "value": "hard", "label": "Hart" },
+        { "value": "panel", "label": "Box mit runden Ecken" }
+      ],
+      "default": "hard"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Bild Lieferumfang"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Überzeile",
+      "default": "Lieferumfang"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Was in der Schachtel liegt."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 32,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Teil",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Teil", "default": "Teil" },
+        { "type": "text", "id": "note", "label": "Wofür (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Lieferumfang",
+      "blocks": [
+        { "type": "item", "settings": { "name": "PUREKICKZ ONE Gerät" } },
+        { "type": "item", "settings": { "name": "Harte Bürste", "note": "für Sohle und Sohlenrand" } },
+        { "type": "item", "settings": { "name": "Weiche Bürste", "note": "für Obermaterial wie Leder und Mesh" } },
+        { "type": "item", "settings": { "name": "Schwammaufsatz", "note": "zum Auftragen und Abwischen" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
