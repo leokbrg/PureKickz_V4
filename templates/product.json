@@ -322,6 +322,15 @@
         "padding-block-end": 80
       }
     },
+    "pk_features": {
+      "type": "pk-band",
+      "settings": {
+        "style": "static",
+        "surface": "dark",
+        "items": "Für Sneaker\nKabellos im Einsatz\nLaden über USB-C\nPasst in jede Schublade",
+        "speed": 40
+      }
+    },
     "pk_stage": {
       "type": "pk-attachment-stage",
       "blocks": {
@@ -496,55 +505,15 @@
         "padding_bottom": 112
       }
     },
-    "pk_promise": {
-      "type": "pk-promise",
-      "blocks": {
-        "p1": {
-          "type": "promise",
-          "settings": {
-            "title": "Versand aus Deutschland",
-            "text": "Meist innerhalb von 1 Werktag verschickt, Lieferung in 2–4 Werktagen.",
-            "link": "/policies/shipping-policy"
-          }
-        },
-        "p2": {
-          "type": "promise",
-          "settings": {
-            "title": "14 Tage Widerrufsrecht",
-            "text": "Die Rücksendung ist für dich kostenlos.",
-            "link": "/policies/refund-policy"
-          }
-        },
-        "p3": {
-          "type": "promise",
-          "settings": {
-            "title": "Sichere Bezahlung",
-            "text": "Verschlüsselt über den Shopify-Checkout.",
-            "link": ""
-          }
-        },
-        "p4": {
-          "type": "promise",
-          "settings": {
-            "title": "Garantie",
-            "text": "[[GARANTIE]]",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "p1",
-        "p2",
-        "p3",
-        "p4"
-      ],
+    "pk_before_after": {
+      "type": "pk-before-after",
+      "disabled": true,
       "settings": {
         "surface": "white",
-        "seal_text": "Versand aus Deutschland · 14 Tage Widerrufsrecht",
-        "seal_big": "14",
-        "seal_small": "Tage Widerruf",
-        "eyebrow": "Unser Versprechen",
-        "heading": "Kaufen ohne <em>Risiko.</em>",
+        "eyebrow": "Vorher / Nachher",
+        "heading": "Sieh selbst.",
+        "label_before": "Vorher",
+        "label_after": "Nachher",
         "padding_top": 112,
         "padding_bottom": 112
       }
@@ -800,11 +769,12 @@
   },
   "order": [
     "main",
+    "pk_features",
     "pk_stage",
     "pk_steps",
     "pk_compare",
     "pk_video",
-    "pk_promise",
+    "pk_before_after",
     "pk_reviews",
     "pk_faq",
     "product_recommendations_qggXJq"
