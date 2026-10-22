@@ -20,7 +20,7 @@
         "button_label": "Jetzt kaufen",
         "button_link": "",
         "button2_label": "So funktioniert's",
-        "button2_link": "",
+        "button2_link": "#so-funktionierts",
         "image_position": "right",
         "background_color": "#E8E8E6",
         "padding_top": 72,
@@ -263,7 +263,7 @@
         "image": "shopify://shop_images/sneaker-cleaner-mit-sneakern.webp",
         "eyebrow": "PUREKICKZ ONE",
         "heading": "Saubere Sneaker, <em>weniger Aufwand.</em>",
-        "text": "Mit harter Bürste, weicher Bürste und Schwamm · Versand aus Deutschland",
+        "text": "",
         "button_label": "Zum Produkt",
         "button_link": "",
         "show_payment": true,
@@ -341,14 +341,168 @@
         "padding_bottom": 112,
         "edge": "panel"
       }
+    },
+    "pk_stage": {
+      "type": "pk-attachment-stage",
+      "blocks": {
+        "hart": {
+          "type": "attachment",
+          "settings": {
+            "title": "Harte Bürste",
+            "text": "Für Sohle und Sohlenrand.",
+            "head_image": "shopify://shop_images/aufsatz-harte-buerste.webp",
+            "image_desktop": "shopify://shop_images/buehne-hart.jpg",
+            "image_mobile": "shopify://shop_images/buehne-hart-hoch.jpg",
+            "ring_dx": 21,
+            "ring_dy": 38,
+            "ring_dd": 9,
+            "ring_mx": 56,
+            "ring_my": 46,
+            "ring_md": 16
+          }
+        },
+        "weich": {
+          "type": "attachment",
+          "settings": {
+            "title": "Weiche Bürste",
+            "text": "Für Obermaterial wie Leder und Mesh.",
+            "head_image": "shopify://shop_images/aufsatz-weiche-buerste.webp",
+            "image_desktop": "shopify://shop_images/buehne-weich.jpg",
+            "image_mobile": "shopify://shop_images/buehne-weich-hoch.jpg",
+            "ring_dx": 21,
+            "ring_dy": 38,
+            "ring_dd": 8,
+            "ring_mx": 56,
+            "ring_my": 46,
+            "ring_md": 13
+          }
+        },
+        "schwamm": {
+          "type": "attachment",
+          "settings": {
+            "title": "Schwamm",
+            "text": "Zum Auftragen von Reinigungsmittel und zum Abwischen.",
+            "head_image": "shopify://shop_images/aufsatz-schwamm.webp",
+            "image_desktop": "shopify://shop_images/buehne-schwamm.jpg",
+            "image_mobile": "shopify://shop_images/buehne-schwamm-hoch.jpg",
+            "ring_dx": 21,
+            "ring_dy": 38,
+            "ring_dd": 9,
+            "ring_mx": 56,
+            "ring_my": 46,
+            "ring_md": 16
+          }
+        }
+      },
+      "block_order": [
+        "weich",
+        "hart",
+        "schwamm"
+      ],
+      "settings": {
+        "eyebrow": "Die Aufsätze",
+        "heading": "Ein Gerät. Drei Aufsätze.",
+        "background_color": "#BEBEBD"
+      }
+    },
+    "pk_steps": {
+      "type": "pk-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "title": "Aufsatz wählen",
+            "text": "Harte Bürste, weiche Bürste oder Schwamm."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "title": "Aufsetzen & einschalten",
+            "text": "Aufsatz aufstecken, Taste drücken."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "title": "Drüberführen",
+            "text": "Der Motor macht die Bewegung."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "layout": "compact",
+        "surface": "white",
+        "edge": "hard",
+        "eyebrow": "So funktioniert's",
+        "heading": "In drei Schritten <em>sauber.</em>",
+        "link_label": "Mehr zum Gerät",
+        "link": "shopify://products/purekickz-one-elektrischer-sneaker-cleaner",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "pk_faq": {
+      "type": "pk-faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Was ist im Lieferumfang?",
+            "answer": "<p>Das Gerät, zwei Bürstenaufsätze (hart und weich) und ein Schwammaufsatz.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Wie lade ich das Gerät?",
+            "answer": "<p>Über den USB-C-Anschluss. Im Einsatz arbeitet das Gerät kabellos mit seinem Akku (1200 mAh).</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Wie groß ist das Gerät?",
+            "answer": "<p>163 × 96 × 45 mm.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3"
+      ],
+      "settings": {
+        "surface": "white",
+        "edge": "hard",
+        "eyebrow": "FAQ",
+        "heading": "Gute <em>Fragen.</em>",
+        "show_service": false,
+        "service_title": "Noch Fragen?",
+        "service_text": "<p>Schreib uns – wir helfen dir gern weiter.</p>",
+        "email": "info@purekickz.de",
+        "response_time": "",
+        "link_label": "Alle Fragen ansehen",
+        "link": "shopify://pages/faq",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
     }
   },
   "order": [
     "pk_hero",
     "pk_marquee",
+    "pk_stage",
+    "pk_steps",
     "pk_products",
     "pk_cta",
     "pk_promise",
-    "pk_about"
+    "pk_about",
+    "pk_faq"
   ]
 }

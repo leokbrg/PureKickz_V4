@@ -2,10 +2,15 @@
   PUREKICKZ So funktioniert's: 2–4 Schritte mit freigestellten Bildern.
   Bilder stehen frei auf der Fläche (keine Kästen); Fotos mit Hand laufen unten weich aus.
   Am Desktop verbindet eine Linie die Schritte und zeichnet sich beim Erscheinen.
+  Kurzfassung (Einstellung „Darstellung“): nur Nummern und Text, optional mit Link – z. B. für die Startseite.
 {%- endcomment -%}
 
+{%- assign compact = false -%}
+{%- if section.settings.layout == 'compact' -%}{%- assign compact = true -%}{%- endif -%}
+
 <div
-  class="pk-sec pk-sec--{{ section.settings.surface }} pk-sec--edge-{{ section.settings.edge | default: 'hard' }} pk-steps"
+  id="so-funktionierts"
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-sec--edge-{{ section.settings.edge | default: 'hard' }} pk-steps{% if compact %} pk-steps--compact{% endif %}"
   style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
 >
   <div class="pk-sec__inner">
@@ -21,6 +26,7 @@
     <ol class="pk-steps__list pk-steps__list--{{ section.blocks.size }}" data-pk-stagger>
       {%- for block in section.blocks -%}
         <li class="pk-steps__item" data-pk-reveal {{ block.shopify_attributes }}>
+          {%- unless compact -%}
           <div class="pk-steps__visual{% if block.settings.fade %} pk-steps__visual--fade{% endif %}">
             {%- if block.settings.image != blank -%}
               {{
@@ -36,6 +42,7 @@
               {{ 'product-1' | placeholder_svg_tag: 'pk-steps__img pk-steps__img--placeholder' }}
             {%- endif -%}
           </div>
+          {%- endunless -%}
           <div class="pk-steps__text">
             <span class="pk-steps__num" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
             <h3 class="pk-steps__title">{{ block.settings.title }}</h3>
@@ -46,10 +53,20 @@
         </li>
       {%- endfor -%}
     </ol>
+
+    {%- if section.settings.link_label != blank and section.settings.link != blank -%}
+      <p class="pk-steps__more" data-pk-reveal>
+        <a href="{{ section.settings.link }}">{{ section.settings.link_label }} →</a>
+      </p>
+    {%- endif -%}
   </div>
 </div>
 
 {% stylesheet %}
+  .pk-steps {
+    scroll-margin-top: 80px;
+  }
+
   .pk-steps__list {
     list-style: none;
     margin: 0;
@@ -241,6 +258,58 @@
       transform: none;
     }
   }
+
+  .pk-steps__more {
+    margin: 48px 0 0;
+    text-align: center;
+  }
+
+  .pk-steps__more a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-family: var(--font-heading--family);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--pk-s-accent);
+    text-decoration: none;
+  }
+
+  .pk-steps__more a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Kurzfassung: ohne Bilder, Nummer + Text; am Handy als kompakte Liste */
+  .pk-steps--compact .pk-steps__item {
+    gap: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .pk-steps--compact .pk-steps__list {
+      gap: 20px;
+    }
+
+    .pk-steps--compact .pk-steps__item {
+      grid-template-columns: 1fr;
+    }
+
+    .pk-steps--compact .pk-steps__text {
+      grid-template-columns: auto 1fr;
+      column-gap: 16px;
+      row-gap: 4px;
+      align-items: start;
+    }
+
+    .pk-steps--compact .pk-steps__num {
+      grid-row: span 2;
+      margin: 0;
+    }
+
+    .pk-steps--compact .pk-steps__title {
+      padding-top: 6px;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -289,6 +358,22 @@
       "default": "hard"
     },
     {
+      "type": "select",
+      "id": "layout",
+      "label": "Darstellung",
+      "options": [
+        {
+          "value": "full",
+          "label": "Mit Bildern"
+        },
+        {
+          "value": "compact",
+          "label": "Kurzfassung ohne Bilder"
+        }
+      ],
+      "default": "full"
+    },
+    {
       "type": "text",
       "id": "eyebrow",
       "label": "Überzeile",
@@ -299,6 +384,17 @@
       "id": "heading",
       "label": "Überschrift",
       "default": "In drei Schritten <em>sauber.</em>"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link-Text",
+      "info": "Optional, z. B. „Mehr zum Gerät“. Wird nur mit Link angezeigt."
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
     },
     {
       "type": "range",

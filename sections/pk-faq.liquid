@@ -18,6 +18,12 @@
         {%- if section.settings.heading != blank -%}
           <h2 class="pk-h2" data-pk-reveal>{{ section.settings.heading }}</h2>
         {%- endif -%}
+        {%- unless section.settings.show_service -%}
+          {%- if section.settings.link_label != blank and section.settings.link != blank -%}
+            <a class="pk-faq__more pk-faq__more--solo" href="{{ section.settings.link }}" data-pk-reveal>
+              {{- section.settings.link_label }} →</a>
+          {%- endif -%}
+        {%- endunless -%}
       </div>
 
       {%- if section.settings.show_service -%}
@@ -152,6 +158,15 @@
     font-weight: 600;
     color: var(--pk-s-accent);
     text-decoration: none;
+  }
+
+  .pk-faq__more--solo {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-top: 16px;
+    font-family: var(--font-heading--family);
+    font-size: 1rem;
   }
 
   .pk-faq__more:hover {
