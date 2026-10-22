@@ -21,7 +21,7 @@ ersetzt, erscheint der Eintrag im Shop.
 | `[[GARANTIE]]` | Produktseite: FAQ „Gibt es eine Garantie?“ (ausgeblendet) | Garantie über die gesetzliche Gewährleistung hinaus? Sonst Frage löschen. |
 | `[[ANTWORTZEIT]]` | Produktseite: „FAQ & Service“ → Kontaktkarte, Zeile „Antwort: …“ (ausgeblendet) | Wie schnell antwortet der Support? |
 | `[[FOTO_ANWENDUNG]]` | Produktseite: „So funktioniert's“, Schritt 3 (zeigt bis dahin das Gerät in der Hand); Produktgalerie | Foto: Gerät reinigt einen verschmutzten Sneaker. |
-| `[[VORHER_NACHHER]]` | Startseite + Produktseite: Section „PK Vorher/Nachher“ (im Shop unsichtbar, bis beide Bilder gesetzt sind) | Zwei echte Fotos desselben Schuhs, gleicher Ausschnitt, vorher und nachher. Im Theme-Editor in beiden Sections auswählen. |
+| `[[VORHER_NACHHER]]` | Produktseite: Section „PK Vorher/Nachher“ (im Shop unsichtbar, bis beide Bilder gesetzt sind) | Zwei echte Fotos desselben Schuhs, gleicher Ausschnitt, vorher und nachher. |
 | Kundenbewertungen | Produktseite: Section „PK Bewertungen“ (ausgeblendet, Schalter „Bewertungen anzeigen“) | Nur echte Bewertungen eintragen. |
 | Social-Media-Profile | Footer → „Social Media“ | Nur echte Profil-Links eintragen; leere Felder werden nicht angezeigt. |
 | `[[BILD_PFLEGE]]` usw. | Kategorie-Kacheln (ausgeblendet) | Erst nötig, wenn es weitere Kategorien gibt. |
