@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "main": {
       "type": "product-information",
@@ -309,7 +310,6 @@
           ]
         }
       },
-      "block_order": [],
       "settings": {
         "content_width": "content-center-aligned",
         "desktop_media_position": "left",
@@ -322,22 +322,8 @@
         "padding-block-end": 80
       }
     },
-    "pk_features": {
-      "type": "pk-band",
-      "settings": {
-        "style": "static",
-        "surface": "dark",
-        "items": "Für Sneaker\nKabellos im Einsatz\nLaden über USB-C\nPasst in jede Schublade",
-        "speed": 40
-      }
-    },
     "pk_stage": {
       "type": "pk-attachment-stage",
-      "settings": {
-        "eyebrow": "Die Aufsätze",
-        "heading": "Ein Gerät. Drei Aufsätze.",
-        "background_color": "#BEBEBD"
-      },
       "blocks": {
         "hart": {
           "type": "attachment",
@@ -392,17 +378,15 @@
         "weich",
         "hart",
         "schwamm"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Die Aufsätze",
+        "heading": "Ein Gerät. Drei Aufsätze.",
+        "background_color": "#BEBEBD"
+      }
     },
     "pk_steps": {
       "type": "pk-steps",
-      "settings": {
-        "surface": "white",
-        "eyebrow": "So funktioniert's",
-        "heading": "In drei Schritten <em>sauber.</em>",
-        "padding_top": 112,
-        "padding_bottom": 112
-      },
       "blocks": {
         "s1": {
           "type": "step",
@@ -436,22 +420,17 @@
         "s1",
         "s2",
         "s3"
-      ]
+      ],
+      "settings": {
+        "surface": "white",
+        "eyebrow": "So funktioniert's",
+        "heading": "In drei Schritten <em>sauber.</em>",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
     },
     "pk_compare": {
       "type": "pk-compare",
-      "settings": {
-        "surface": "dark",
-        "image": "shopify://shop_images/geraet-in-der-hand-buerste.webp",
-        "eyebrow": "Der Vergleich",
-        "heading": "Motor oder <em>Muskelkraft?</em>",
-        "label_us": "PUREKICKZ ONE",
-        "label_them": "Handbürste",
-        "button_label": "",
-        "button_link": "",
-        "padding_top": 112,
-        "padding_bottom": 112
-      },
       "blocks": {
         "r1": {
           "type": "row",
@@ -491,7 +470,19 @@
         "r2",
         "r3",
         "r4"
-      ]
+      ],
+      "settings": {
+        "surface": "dark",
+        "image": "shopify://shop_images/geraet-in-der-hand-buerste.webp",
+        "eyebrow": "Der Vergleich",
+        "heading": "Motor oder <em>Muskelkraft?</em>",
+        "label_us": "PUREKICKZ ONE",
+        "label_them": "Handbürste",
+        "button_label": "",
+        "button_link": "",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
     },
     "pk_video": {
       "type": "pk-video",
@@ -505,15 +496,55 @@
         "padding_bottom": 112
       }
     },
-    "pk_before_after": {
-      "type": "pk-before-after",
-      "disabled": true,
+    "pk_promise": {
+      "type": "pk-promise",
+      "blocks": {
+        "p1": {
+          "type": "promise",
+          "settings": {
+            "title": "Versand aus Deutschland",
+            "text": "Meist innerhalb von 1 Werktag verschickt, Lieferung in 2–4 Werktagen.",
+            "link": "/policies/shipping-policy"
+          }
+        },
+        "p2": {
+          "type": "promise",
+          "settings": {
+            "title": "14 Tage Widerrufsrecht",
+            "text": "Die Rücksendung ist für dich kostenlos.",
+            "link": "/policies/refund-policy"
+          }
+        },
+        "p3": {
+          "type": "promise",
+          "settings": {
+            "title": "Sichere Bezahlung",
+            "text": "Verschlüsselt über den Shopify-Checkout.",
+            "link": ""
+          }
+        },
+        "p4": {
+          "type": "promise",
+          "settings": {
+            "title": "Garantie",
+            "text": "[[GARANTIE]]",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
       "settings": {
         "surface": "white",
-        "eyebrow": "Vorher / Nachher",
-        "heading": "Sieh selbst.",
-        "label_before": "Vorher",
-        "label_after": "Nachher",
+        "seal_text": "Versand aus Deutschland · 14 Tage Widerrufsrecht",
+        "seal_big": "14",
+        "seal_small": "Tage Widerruf",
+        "eyebrow": "Unser Versprechen",
+        "heading": "Kaufen ohne <em>Risiko.</em>",
         "padding_top": 112,
         "padding_bottom": 112
       }
@@ -532,20 +563,6 @@
     },
     "pk_faq": {
       "type": "pk-faq",
-      "settings": {
-        "surface": "grey",
-        "eyebrow": "FAQ",
-        "heading": "Fragen? <em>Antworten.</em>",
-        "show_service": true,
-        "service_title": "Noch Fragen?",
-        "service_text": "<p>Schreib uns – wir helfen dir gern weiter.</p>",
-        "email": "info@purekickz.de",
-        "response_time": "Antwort: [[ANTWORTZEIT]]",
-        "link_label": "Alle Fragen ansehen",
-        "link": "/pages/faq",
-        "padding_top": 112,
-        "padding_bottom": 112
-      },
       "blocks": {
         "q1": {
           "type": "question",
@@ -621,7 +638,21 @@
         "q7",
         "q8",
         "q9"
-      ]
+      ],
+      "settings": {
+        "surface": "grey",
+        "eyebrow": "FAQ",
+        "heading": "Fragen? <em>Antworten.</em>",
+        "show_service": true,
+        "service_title": "Noch Fragen?",
+        "service_text": "<p>Schreib uns – wir helfen dir gern weiter.</p>",
+        "email": "info@purekickz.de",
+        "response_time": "Antwort: [[ANTWORTZEIT]]",
+        "link_label": "Alle Fragen ansehen",
+        "link": "/pages/faq",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
     },
     "product_recommendations_qggXJq": {
       "type": "product-recommendations",
@@ -745,6 +776,7 @@
       "block_order": [
         "text_cbcgyb"
       ],
+      "disabled": true,
       "name": "t:names.product_recommendations",
       "settings": {
         "product": "{{ closest.product }}",
@@ -763,18 +795,16 @@
         "background_color": "{{ settings.color_palette.background }}",
         "padding-block-start": 48,
         "padding-block-end": 48
-      },
-      "disabled": true
+      }
     }
   },
   "order": [
     "main",
-    "pk_features",
     "pk_stage",
     "pk_steps",
     "pk_compare",
     "pk_video",
-    "pk_before_after",
+    "pk_promise",
     "pk_reviews",
     "pk_faq",
     "product_recommendations_qggXJq"
