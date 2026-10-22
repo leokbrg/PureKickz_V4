@@ -11,42 +11,23 @@
     "main": {
       "type": "product-information",
       "blocks": {
-        "disclosures_g9mWze": {
-          "type": "disclosures",
-          "name": "t:names.disclosures",
-          "settings": {
-            "heading": "Disclosures",
-            "heading_preset": "h5",
-            "open_by_default": false,
-            "icon": "caret",
-            "disclosure_heading_preset": "h6",
-            "text_color": "",
-            "dividers": true,
-            "divider_color": "{{ settings.color_palette.color2 }}",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
         "media-gallery": {
           "type": "_product-media-gallery",
           "static": true,
           "settings": {
-            "media_presentation": "grid",
+            "media_presentation": "carousel",
             "media_columns": "two",
-            "image_gap": 4,
+            "image_gap": 8,
             "large_first_image": false,
-            "slideshow_controls_style": "counter",
+            "slideshow_controls_style": "thumbnails",
             "slideshow_mobile_controls_style": "dots",
-            "thumbnail_position": "right",
-            "thumbnail_width": 44,
-            "thumbnail_radius": 0,
-            "aspect_ratio": "adapt",
+            "thumbnail_position": "left",
+            "thumbnail_width": 64,
+            "thumbnail_radius": 8,
+            "aspect_ratio": "1/1.25",
             "constrain_to_viewport": true,
-            "media_fit": "contain",
-            "media_radius": 0,
+            "media_fit": "cover",
+            "media_radius": 12,
             "extend_media": false,
             "zoom": true,
             "video_loop": false,
@@ -68,7 +49,7 @@
             "custom_width_mobile": 100,
             "height": "fit",
             "details_position": "flex-start",
-            "gap": 28,
+            "gap": 20,
             "sticky_details_desktop": true,
             "background_media": "none",
             "background_color": "",
@@ -79,7 +60,7 @@
             "border_opacity": 100,
             "border_color": "",
             "border_radius": 0,
-            "padding-block-start": 24,
+            "padding-block-start": 8,
             "padding-block-end": 24,
             "padding-inline-start": 0,
             "padding-inline-end": 0
@@ -96,7 +77,7 @@
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
+                "gap": 10,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -155,8 +136,8 @@
                   "settings": {
                     "show_sale_price_first": true,
                     "show_installments": false,
-                    "show_tax_info": false,
-                    "type_preset": "paragraph",
+                    "show_tax_info": true,
+                    "type_preset": "h4",
                     "width": "100%",
                     "alignment": "left",
                     "font": "var(--font-body--family)",
@@ -165,7 +146,33 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "text_color": "",
-                    "padding-block-start": 4,
+                    "padding-block-start": 6,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "text_eyebrow": {
+                  "type": "text",
+                  "name": "Untertitel",
+                  "settings": {
+                    "text": "<p>{{ closest.product.metafields.custom.untertitel.value }}</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h6",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "text_color": "#B42998",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
@@ -174,22 +181,10 @@
                 }
               },
               "block_order": [
+                "text_eyebrow",
                 "text_xrnftG",
                 "price_tVjtKg"
               ]
-            },
-            "divider_VJhene": {
-              "type": "_divider",
-              "name": "t:names.divider",
-              "settings": {
-                "thickness": 1,
-                "corner_radius": "square",
-                "divider_color": "{{ settings.color_palette.color2 }}",
-                "width_percent": 100,
-                "padding-block-start": 0,
-                "padding-block-end": 0
-              },
-              "blocks": {}
             },
             "variant_picker_R3rGDr": {
               "type": "variant-picker",
@@ -273,56 +268,391 @@
               },
               "block_order": []
             },
-            "text_aEtTtq": {
-              "type": "text",
-              "name": "t:names.product_description",
+            "pk_benefits": {
+              "type": "pk-benefits",
               "settings": {
-                "text": "{{ closest.product.description }}",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
+                "items": "Der Motor übernimmt die Bewegung\n3 Aufsätze: harte Bürste, weiche Bürste, Schwamm\n1200-mAh-Akku, im Einsatz kabellos\nLaden über USB-C"
+              }
+            },
+            "pk_trust": {
+              "type": "pk-trust-row",
+              "settings": {
+                "icon_1": "truck",
+                "text_1": "Versand aus Deutschland, 2–4 Werktage",
+                "icon_2": "return",
+                "text_2": "14 Tage Widerruf, Rücksendung kostenlos",
+                "icon_3": "lock",
+                "text_3": "Sichere Bezahlung",
+                "show_payment_icons": true
+              }
+            },
+            "pk_details": {
+              "type": "pk-product-details",
+              "settings": {
+                "show_description": false,
+                "description_title": "Beschreibung",
+                "box_title": "Lieferumfang",
+                "open_first": true,
+                "specs_title": "Technische Daten",
+                "shipping_title": "Versand & Rückgabe",
+                "shipping_text": "<p>Versand aus Deutschland, meist innerhalb von 1 Werktag. Lieferung innerhalb Deutschlands in 2–4 Werktagen nach Versand.</p><p>14 Tage Widerrufsrecht, die Rücksendung ist für dich kostenlos. Details in der <a href=\"/policies/refund-policy\">Widerrufsbelehrung</a>.</p>"
+              }
             }
           },
           "block_order": [
             "group_icgrde",
-            "divider_VJhene",
+            "pk_benefits",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
-            "text_aEtTtq"
+            "pk_trust",
+            "pk_details"
           ]
         }
       },
-      "block_order": [
-        "disclosures_g9mWze"
-      ],
+      "block_order": [],
       "settings": {
         "content_width": "content-center-aligned",
         "desktop_media_position": "left",
         "equal_columns": false,
-        "limit_details_width": false,
-        "gap": 48,
+        "limit_details_width": true,
+        "gap": 64,
         "enable_sticky_add_to_cart": true,
         "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "padding-block-start": 24,
+        "padding-block-end": 80
       }
+    },
+    "pk_stage": {
+      "type": "pk-attachment-stage",
+      "settings": {
+        "eyebrow": "Die Aufsätze",
+        "heading": "Ein Gerät. Drei Aufsätze.",
+        "background_color": "#BEBEBD"
+      },
+      "blocks": {
+        "hart": {
+          "type": "attachment",
+          "settings": {
+            "title": "Harte Bürste",
+            "text": "Für Sohle und Sohlenrand.",
+            "head_image": "shopify://shop_images/aufsatz-harte-buerste.webp",
+            "image_desktop": "shopify://shop_images/buehne-hart.jpg",
+            "image_mobile": "shopify://shop_images/buehne-hart-hoch.jpg",
+            "ring_dx": 21,
+            "ring_dy": 38,
+            "ring_dd": 9,
+            "ring_mx": 56,
+            "ring_my": 46,
+            "ring_md": 16
+          }
+        },
+        "weich": {
+          "type": "attachment",
+          "settings": {
+            "title": "Weiche Bürste",
+            "text": "Für Obermaterial wie Leder und Mesh.",
+            "head_image": "shopify://shop_images/aufsatz-weiche-buerste.webp",
+            "image_desktop": "shopify://shop_images/buehne-weich.jpg",
+            "image_mobile": "shopify://shop_images/buehne-weich-hoch.jpg",
+            "ring_dx": 21,
+            "ring_dy": 38,
+            "ring_dd": 8,
+            "ring_mx": 56,
+            "ring_my": 46,
+            "ring_md": 13
+          }
+        },
+        "schwamm": {
+          "type": "attachment",
+          "settings": {
+            "title": "Schwamm",
+            "text": "Zum Auftragen von Reinigungsmittel und zum Abwischen.",
+            "head_image": "shopify://shop_images/aufsatz-schwamm.webp",
+            "image_desktop": "shopify://shop_images/buehne-schwamm.jpg",
+            "image_mobile": "shopify://shop_images/buehne-schwamm-hoch.jpg",
+            "ring_dx": 21,
+            "ring_dy": 38,
+            "ring_dd": 9,
+            "ring_mx": 56,
+            "ring_my": 46,
+            "ring_md": 16
+          }
+        }
+      },
+      "block_order": [
+        "weich",
+        "hart",
+        "schwamm"
+      ]
+    },
+    "pk_steps": {
+      "type": "pk-steps",
+      "settings": {
+        "surface": "white",
+        "eyebrow": "So funktioniert's",
+        "heading": "In drei Schritten <em>sauber.</em>",
+        "padding_top": 112,
+        "padding_bottom": 112
+      },
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/so-gehts-aufsaetze.webp",
+            "fade": false,
+            "title": "Aufsatz wählen",
+            "text": "Harte Bürste, weiche Bürste oder Schwamm – je nach Material."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/geraet-frontal-taste.webp",
+            "fade": true,
+            "title": "Aufsetzen & einschalten",
+            "text": "Aufsatz aufstecken, Taste drücken."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/geraet-in-der-hand-seitlich.webp",
+            "fade": true,
+            "title": "Drüberführen",
+            "text": "Über die verschmutzte Fläche führen – der Motor macht die Bewegung."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    },
+    "pk_compare": {
+      "type": "pk-compare",
+      "settings": {
+        "surface": "dark",
+        "image": "shopify://shop_images/geraet-in-der-hand-buerste.webp",
+        "eyebrow": "Der Vergleich",
+        "heading": "Motor oder <em>Muskelkraft?</em>",
+        "label_us": "PUREKICKZ ONE",
+        "label_them": "Handbürste",
+        "button_label": "",
+        "button_link": "",
+        "padding_top": 112,
+        "padding_bottom": 112
+      },
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "label": "Bewegung",
+            "us": "Der Motor dreht den Aufsatz",
+            "them": "Du schrubbst von Hand"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "label": "Aufsätze",
+            "us": "3 – harte Bürste, weiche Bürste, Schwamm",
+            "them": "Eine Bürste"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "label": "Im Einsatz",
+            "us": "Kabellos mit 1200-mAh-Akku",
+            "them": "Ohne Strom"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "label": "Laden",
+            "us": "Per USB-C",
+            "them": "Nicht nötig"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ]
+    },
+    "pk_video": {
+      "type": "pk-video",
+      "disabled": true,
+      "settings": {
+        "autoplay": true,
+        "surface": "grey",
+        "eyebrow": "Im Einsatz",
+        "heading": "So sieht's <em>in Aktion</em> aus.",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
+    },
+    "pk_promise": {
+      "type": "pk-promise",
+      "settings": {
+        "surface": "white",
+        "seal_text": "Versand aus Deutschland · 14 Tage Widerrufsrecht",
+        "seal_big": "14",
+        "seal_small": "Tage Widerruf",
+        "eyebrow": "Unser Versprechen",
+        "heading": "Kaufen ohne <em>Risiko.</em>",
+        "padding_top": 112,
+        "padding_bottom": 112
+      },
+      "blocks": {
+        "p1": {
+          "type": "promise",
+          "settings": {
+            "title": "Versand aus Deutschland",
+            "text": "Meist innerhalb von 1 Werktag verschickt, Lieferung in 2–4 Werktagen.",
+            "link": "/policies/shipping-policy"
+          }
+        },
+        "p2": {
+          "type": "promise",
+          "settings": {
+            "title": "14 Tage Widerrufsrecht",
+            "text": "Die Rücksendung ist für dich kostenlos.",
+            "link": "/policies/refund-policy"
+          }
+        },
+        "p3": {
+          "type": "promise",
+          "settings": {
+            "title": "Sichere Bezahlung",
+            "text": "Verschlüsselt über den Shopify-Checkout.",
+            "link": ""
+          }
+        },
+        "p4": {
+          "type": "promise",
+          "settings": {
+            "title": "Garantie",
+            "text": "[[GARANTIE]]",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ]
+    },
+    "pk_reviews": {
+      "type": "pk-reviews",
+      "disabled": true,
+      "settings": {
+        "enabled": false,
+        "surface": "white",
+        "eyebrow": "Bewertungen",
+        "heading": "Echte <em>Stimmen.</em>",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
+    },
+    "pk_faq": {
+      "type": "pk-faq",
+      "settings": {
+        "surface": "grey",
+        "eyebrow": "FAQ",
+        "heading": "Fragen? <em>Antworten.</em>",
+        "show_service": true,
+        "service_title": "Noch Fragen?",
+        "service_text": "<p>Schreib uns – wir helfen dir gern weiter.</p>",
+        "email": "info@purekickz.de",
+        "response_time": "Antwort: [[ANTWORTZEIT]]",
+        "link_label": "Alle Fragen ansehen",
+        "link": "/pages/faq",
+        "padding_top": 112,
+        "padding_bottom": 112
+      },
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Welche Aufsätze sind dabei?",
+            "answer": "<p>Drei: eine harte Bürste für Sohle und Sohlenrand, eine weiche Bürste für Obermaterial wie Leder und Mesh und ein Schwamm zum Auftragen von Reinigungsmittel und zum Abwischen.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Wie funktioniert der PUREKICKZ ONE?",
+            "answer": "<p>Aufsatz wählen, aufsetzen, einschalten und das Gerät über die verschmutzte Fläche führen. Der Motor dreht den Aufsatz – du musst nicht selbst schrubben.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Wie lade ich das Gerät?",
+            "answer": "<p>Über den USB-C-Anschluss. Ladedauer: [[LADEDAUER]].</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Wie lange hält der Akku?",
+            "answer": "<p>Der Akku hat 1200 mAh. Laufzeit pro Ladung: [[AKKULAUFZEIT]].</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "Ist ein USB-C-Kabel dabei?",
+            "answer": "<p>[[KABEL_IM_LIEFERUMFANG]]</p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "question": "Wie schnell ist meine Bestellung da?",
+            "answer": "<p>Wir versenden aus Deutschland, meist innerhalb von 1 Werktag. Innerhalb Deutschlands dauert die Lieferung danach 2–4 Werktage.</p>"
+          }
+        },
+        "q7": {
+          "type": "question",
+          "settings": {
+            "question": "Kann ich den PUREKICKZ ONE zurückgeben?",
+            "answer": "<p>Ja, du hast 14 Tage Widerrufsrecht. Die Rücksendung ist für dich kostenlos. Alle Details findest du in der <a href=\"/policies/refund-policy\">Widerrufsbelehrung</a>.</p>"
+          }
+        },
+        "q8": {
+          "type": "question",
+          "settings": {
+            "question": "Wie kann ich bezahlen?",
+            "answer": "<p>Du bezahlst sicher über den Shopify-Checkout. Welche Zahlungsarten du nutzen kannst, siehst du im Checkout und auf der Seite <a href=\"/pages/zahlungsarten\">Zahlungsarten</a>.</p>"
+          }
+        },
+        "q9": {
+          "type": "question",
+          "settings": {
+            "question": "Gibt es eine Garantie?",
+            "answer": "<p>[[GARANTIE]]</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q9"
+      ]
     },
     "product_recommendations_qggXJq": {
       "type": "product-recommendations",
@@ -331,7 +661,7 @@
           "type": "text",
           "name": "t:names.header",
           "settings": {
-            "text": "<h3>You may also like </h3>",
+            "text": "<h3>Passt dazu</h3>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -464,11 +794,19 @@
         "background_color": "{{ settings.color_palette.background }}",
         "padding-block-start": 48,
         "padding-block-end": 48
-      }
+      },
+      "disabled": true
     }
   },
   "order": [
     "main",
+    "pk_stage",
+    "pk_steps",
+    "pk_compare",
+    "pk_video",
+    "pk_promise",
+    "pk_reviews",
+    "pk_faq",
     "product_recommendations_qggXJq"
   ]
 }
