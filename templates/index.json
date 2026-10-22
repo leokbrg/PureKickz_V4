@@ -269,7 +269,7 @@
         "show_payment": true,
         "padding_top": 112,
         "padding_bottom": 112,
-        "edge": "panel"
+        "edge": "hard"
       }
     },
     "pk_promise": {

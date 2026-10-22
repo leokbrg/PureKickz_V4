@@ -614,7 +614,7 @@
         "q9"
       ],
       "settings": {
-        "surface": "grey",
+        "surface": "white",
         "eyebrow": "FAQ",
         "heading": "Fragen? <em>Antworten.</em>",
         "show_service": true,
@@ -626,7 +626,7 @@
         "link": "/pages/faq",
         "padding_top": 112,
         "padding_bottom": 112,
-        "edge": "panel"
+        "edge": "hard"
       }
     },
     "product_recommendations_qggXJq": {
