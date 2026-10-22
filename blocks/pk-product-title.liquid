@@ -1,0 +1,81 @@
+{%- comment -%}
+  PUREKICKZ Produkt-Titel im Kaufbereich: Name groß, darunter genau eine Unterzeile in Grau.
+  Unterzeile = Metafeld custom.untertitel; ist es leer, der Teil des Produkttitels nach „ – “.
+  So steht „Elektrischer Sneaker Cleaner“ nicht doppelt über- und untereinander.
+{%- endcomment -%}
+
+{%- liquid
+  assign product = closest.product
+  assign full_title = product.title
+  assign name = full_title
+  assign rest = ''
+  if block.settings.split_title and full_title contains ' – '
+    assign parts = full_title | split: ' – '
+    assign name = parts | first
+    assign rest = full_title | remove_first: name | remove_first: ' – '
+  endif
+
+  assign sub = product.metafields.custom.untertitel.value | default: rest
+-%}
+
+<h1 class="pk-ptitle" {{ block.shopify_attributes }}>
+  <span class="pk-ptitle__name">{{ name }}</span>
+  {%- if block.settings.show_subtitle and sub != blank -%}
+    <span class="pk-ptitle__sub">{{ sub }}</span>
+  {%- endif -%}
+</h1>
+
+{% stylesheet %}
+  .pk-ptitle {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    margin: 0;
+  }
+
+  .pk-ptitle__name {
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    font-size: clamp(1.875rem, 3.2vw, 2.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--pk-ink);
+  }
+
+  .pk-ptitle__sub {
+    font-family: var(--font-subheading--family, var(--font-heading--family));
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.35;
+    letter-spacing: normal;
+    color: rgba(25, 25, 23, 0.64);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Produkt-Titel",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "split_title",
+      "label": "Titel am Gedankenstrich teilen",
+      "info": "„PUREKICKZ ONE – Elektrischer Sneaker Cleaner“ → groß nur „PUREKICKZ ONE“.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subtitle",
+      "label": "Unterzeile anzeigen",
+      "info": "Text aus dem Metafeld „Untertitel“, sonst der Rest des Titels.",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Produkt-Titel"
+    }
+  ]
+}
+{% endschema %}

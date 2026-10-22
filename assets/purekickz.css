@@ -57,7 +57,9 @@ shopify-accelerated-checkout {
   transform: scale(0.985);
 }
 
-/* Steuer-/Versandhinweis unter dem Preis: klein und ruhig, egal wie groß der Preis gesetzt ist */
+/* Steuer-/Versandhinweis unter dem Preis: klein und ruhig, egal wie groß der Preis gesetzt ist
+   (Selektor stärker als Horizons .tax-note.tax-note.tax-note) */
+product-price .tax-note.tax-note.tax-note.tax-note,
 .tax-note {
   margin-top: 4px;
   font-family: var(--font-body--family);
@@ -66,7 +68,12 @@ shopify-accelerated-checkout {
   line-height: 1.4;
   letter-spacing: normal;
   text-transform: none;
-  color: var(--pk-muted);
+  color: rgba(25, 25, 23, 0.64);
+}
+
+.tax-note a {
+  color: inherit;
+  text-underline-offset: 2px;
 }
 
 /* Preise und Zahlen sauber untereinander */

@@ -13,13 +13,23 @@
   {% endstyle %}
 {%- endif -%}
 
+{%- comment -%} PUREKICKZ: Mengenwähler per Schalter ausblendbar; das Feld bleibt im Formular (Menge 1). {%- endcomment -%}
+{%- if block.settings.pk_show == false -%}<div class="pk-qty-hidden" hidden>{%- endif -%}
 {% render 'quantity-selector', product: closest.product, block: block, wrapper_class: wrapper_class %}
+{%- if block.settings.pk_show == false -%}</div>{%- endif -%}
 
 {% schema %}
 {
   "name": "t:names.quantity",
   "tag": null,
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "pk_show",
+      "label": "Mengenwähler anzeigen",
+      "info": "Aus: Es wird immer 1 Stück in den Warenkorb gelegt; die Menge lässt sich im Warenkorb ändern.",
+      "default": true
+    },
     {
       "type": "header",
       "content": "t:content.input"
