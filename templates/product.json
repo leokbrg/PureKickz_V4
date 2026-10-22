@@ -608,9 +608,8 @@
     },
     "pk_before_after": {
       "type": "pk-before-after",
-      "disabled": true,
       "settings": {
-        "surface": "white",
+        "surface": "grey",
         "eyebrow": "Vorher / Nachher",
         "heading": "Sieh selbst.",
         "label_before": "Vorher",
@@ -876,11 +875,11 @@
     "pk_features",
     "pk_stage",
     "pk_steps",
+    "pk_before_after",
     "pk_device",
     "pk_box",
     "pk_compare",
     "pk_video",
-    "pk_before_after",
     "pk_reviews",
     "pk_faq",
     "product_recommendations_qggXJq"

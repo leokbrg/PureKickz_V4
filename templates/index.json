@@ -492,6 +492,19 @@
         "padding_top": 112,
         "padding_bottom": 112
       }
+    },
+    "pk_before_after": {
+      "type": "pk-before-after",
+      "settings": {
+        "surface": "grey",
+        "eyebrow": "Vorher / Nachher",
+        "heading": "Sieh selbst.",
+        "label_before": "Vorher",
+        "label_after": "Nachher",
+        "padding_top": 112,
+        "padding_bottom": 112,
+        "edge": "hard"
+      }
     }
   },
   "order": [
@@ -499,6 +512,7 @@
     "pk_marquee",
     "pk_stage",
     "pk_steps",
+    "pk_before_after",
     "pk_products",
     "pk_cta",
     "pk_promise",

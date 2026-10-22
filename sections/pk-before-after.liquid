@@ -1,78 +1,219 @@
 {%- comment -%}
   PUREKICKZ Vorher/Nachher-Schieberegler auf einem echten Sneaker.
-  Beide Bilder im selben Format und Ausschnitt hochladen. Ohne JavaScript: Regler funktioniert
-  nicht, beide Hälften bleiben aber sichtbar. Erst einblenden, wenn echte Fotos da sind ([[VORHER_NACHHER]]).
+  Beide Bilder im selben Format und Ausschnitt hochladen. Die Section erscheint im Shop erst,
+  wenn beide Bilder gesetzt sind ([[VORHER_NACHHER]]); im Theme-Editor ist sie bis dahin mit Hinweis sichtbar.
+  Der Regler bewegt sich nur per transform/clip-path. Beim ersten Sichtbarwerden schwingt er einmal kurz an,
+  damit klar ist, dass man ziehen kann (nicht bei reduzierter Bewegung). Ohne JavaScript: Regler per Tastatur/Maus
+  bleibt bedienbar, sobald das Skript lädt; ohne Skript stehen beide Hälften bei 50 %.
 {%- endcomment -%}
 
-<div
-  class="pk-sec pk-sec--{{ section.settings.surface }} pk-sec--edge-{{ section.settings.edge | default: 'hard' }} pk-ba"
-  style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
->
-  <div class="pk-sec__inner">
-    <div class="pk-sec__head pk-sec__head--center">
-      {%- if section.settings.eyebrow != blank -%}
-        <p class="pk-eyebrow" data-pk-reveal>{{ section.settings.eyebrow }}</p>
-      {%- endif -%}
-      {%- if section.settings.heading != blank -%}
-        <h2 class="pk-h2" data-pk-reveal>{{ section.settings.heading }}</h2>
-      {%- endif -%}
-    </div>
+{%- liquid
+  assign img_before = section.settings.image_before
+  assign img_after = section.settings.image_after
+  assign has_pair = false
+  if img_before != blank and img_after != blank
+    assign has_pair = true
+  endif
+-%}
 
-    <pk-before-after class="pk-ba__frame" style="--pk-ba: 50%;">
-      <div class="pk-ba__layer pk-ba__layer--after">
-        {%- if section.settings.image_after != blank -%}
-          {{ section.settings.image_after | image_url: width: 1800 | image_tag: widths: '600, 1000, 1400, 1800', sizes: '(min-width: 990px) 1100px, 100vw', loading: 'lazy', class: 'pk-ba__img' }}
-        {%- else -%}
-          {{ 'lifestyle-2' | placeholder_svg_tag: 'pk-ba__img pk-ba__img--placeholder' }}
+{%- if has_pair or request.design_mode -%}
+  <div
+    class="pk-sec pk-sec--{{ section.settings.surface }} pk-sec--edge-{{ section.settings.edge | default: 'hard' }} pk-ba"
+    style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
+  >
+    <div class="pk-sec__inner">
+      {%- unless has_pair -%}
+        <p class="pk-ba__editor-note">
+          Nur im Theme-Editor sichtbar: Wähle ein Vorher- und ein Nachher-Bild, dann erscheint die Section im Shop.
+        </p>
+      {%- endunless -%}
+
+      <div class="pk-sec__head pk-sec__head--center">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="pk-eyebrow" data-pk-reveal>{{ section.settings.eyebrow }}</p>
         {%- endif -%}
-        <span class="pk-ba__tag pk-ba__tag--after">{{ section.settings.label_after }}</span>
-      </div>
-      <div class="pk-ba__layer pk-ba__layer--before">
-        {%- if section.settings.image_before != blank -%}
-          {{ section.settings.image_before | image_url: width: 1800 | image_tag: widths: '600, 1000, 1400, 1800', sizes: '(min-width: 990px) 1100px, 100vw', loading: 'lazy', class: 'pk-ba__img' }}
-        {%- else -%}
-          {{ 'lifestyle-1' | placeholder_svg_tag: 'pk-ba__img pk-ba__img--placeholder' }}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="pk-h2" data-pk-reveal>{{ section.settings.heading }}</h2>
         {%- endif -%}
-        <span class="pk-ba__tag pk-ba__tag--before">{{ section.settings.label_before }}</span>
+        {%- if section.settings.text != blank -%}
+          <p class="pk-ba__text" data-pk-reveal>{{ section.settings.text }}</p>
+        {%- endif -%}
       </div>
-      <span class="pk-ba__handle" aria-hidden="true"></span>
-      <input
-        class="pk-ba__range"
-        type="range"
-        min="0"
-        max="100"
-        value="50"
-        aria-label="{{ section.settings.label_before }} / {{ section.settings.label_after }} vergleichen"
+
+      <pk-before-after
+        class="pk-ba__frame pk-ba__frame--d-{{ section.settings.ratio_desktop }} pk-ba__frame--m-{{ section.settings.ratio_mobile }}"
+        style="--pk-ba: 50;"
+        data-pk-reveal
       >
-    </pk-before-after>
+        <div class="pk-ba__layer pk-ba__layer--after">
+          {%- if img_after != blank -%}
+            {{
+              img_after
+              | image_url: width: 2000
+              | image_tag:
+                widths: '600, 900, 1200, 1600, 2000',
+                sizes: '(min-width: 1200px) 1100px, calc(100vw - 32px)',
+                loading: 'lazy',
+                class: 'pk-ba__img',
+                alt: img_after.alt | default: section.settings.label_after
+            }}
+          {%- else -%}
+            {{ 'lifestyle-2' | placeholder_svg_tag: 'pk-ba__img pk-ba__img--placeholder' }}
+          {%- endif -%}
+          <span class="pk-ba__tag pk-ba__tag--after">{{ section.settings.label_after }}</span>
+        </div>
+        <div class="pk-ba__layer pk-ba__layer--before">
+          {%- if img_before != blank -%}
+            {{
+              img_before
+              | image_url: width: 2000
+              | image_tag:
+                widths: '600, 900, 1200, 1600, 2000',
+                sizes: '(min-width: 1200px) 1100px, calc(100vw - 32px)',
+                loading: 'lazy',
+                class: 'pk-ba__img',
+                alt: img_before.alt | default: section.settings.label_before
+            }}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'pk-ba__img pk-ba__img--placeholder' }}
+          {%- endif -%}
+          <span class="pk-ba__tag pk-ba__tag--before">{{ section.settings.label_before }}</span>
+        </div>
+        <input
+          class="pk-ba__range"
+          type="range"
+          min="0"
+          max="100"
+          step="1"
+          value="50"
+          aria-label="Schieberegler: {{ section.settings.label_before }} und {{ section.settings.label_after }} vergleichen"
+        >
+        <span class="pk-ba__handle" aria-hidden="true">
+          <span class="pk-ba__knob">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M9 6 3 12l6 6M15 6l6 6-6 6"/></svg>
+          </span>
+        </span>
+      </pk-before-after>
+    </div>
   </div>
-</div>
 
-<script>
-  if (!customElements.get('pk-before-after')) {
-    customElements.define(
-      'pk-before-after',
-      class extends HTMLElement {
-        connectedCallback() {
-          const range = this.querySelector('.pk-ba__range');
-          range?.addEventListener('input', () => this.style.setProperty('--pk-ba', `${range.value}%`));
+  <script>
+    if (!customElements.get('pk-before-after')) {
+      customElements.define(
+        'pk-before-after',
+        class extends HTMLElement {
+          connectedCallback() {
+            this.range = this.querySelector('.pk-ba__range');
+            if (!this.range) return;
+            this.touched = false;
+            this.range.addEventListener('input', () => {
+              this.touched = true;
+              this.set(this.range.value);
+            });
+            this.range.addEventListener('pointerdown', () => (this.touched = true), { passive: true });
+
+            const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (calm || !('IntersectionObserver' in window)) return;
+            this.io = new IntersectionObserver(
+              (entries) => {
+                if (!entries.some((e) => e.isIntersecting)) return;
+                this.io.disconnect();
+                setTimeout(() => this.hint(), 500);
+              },
+              { threshold: 0.6 }
+            );
+            this.io.observe(this);
+          }
+
+          disconnectedCallback() {
+            this.io?.disconnect();
+          }
+
+          set(value) {
+            this.style.setProperty('--pk-ba', value);
+          }
+
+          /* Einmaliger Hinweis-Schwung: 50 → 32 → 64 → 50 */
+          hint() {
+            const keys = [50, 32, 64, 50];
+            const step = 700;
+            const start = performance.now();
+            const ease = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+            const tick = (now) => {
+              if (this.touched) return;
+              const t = (now - start) / step;
+              const i = Math.floor(t);
+              if (i >= keys.length - 1) {
+                this.set(50);
+                return;
+              }
+              const v = keys[i] + (keys[i + 1] - keys[i]) * ease(t - i);
+              this.set(v.toFixed(2));
+              requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+          }
         }
-      }
-    );
-  }
-</script>
+      );
+    }
+  </script>
+{%- endif -%}
 
 {% stylesheet %}
+  .pk-ba__editor-note {
+    max-width: 640px;
+    margin: 0 auto 24px;
+    padding: 10px 16px;
+    border: 2px dashed var(--pk-magenta);
+    border-radius: 12px;
+    font-size: 0.875rem;
+    text-align: center;
+  }
+
+  .pk-ba__text {
+    max-width: 52ch;
+    margin: 12px auto 0;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    color: var(--pk-s-soft);
+  }
+
   .pk-ba__frame {
+    --pk-ba-pos: calc(var(--pk-ba) * 1%);
     position: relative;
     display: block;
     max-width: 1100px;
     margin-inline: auto;
-    aspect-ratio: 3 / 2;
+    aspect-ratio: 4 / 5;
     border-radius: 20px;
     overflow: hidden;
     background: var(--pk-s-card);
     touch-action: pan-y;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .pk-ba__frame--m-square {
+    aspect-ratio: 1;
+  }
+
+  .pk-ba__frame--m-landscape {
+    aspect-ratio: 3 / 2;
+  }
+
+  @media screen and (min-width: 750px) {
+    .pk-ba__frame--d-landscape {
+      aspect-ratio: 3 / 2;
+    }
+
+    .pk-ba__frame--d-wide {
+      aspect-ratio: 16 / 9;
+    }
+
+    .pk-ba__frame--d-square {
+      aspect-ratio: 1;
+      max-width: 760px;
+    }
   }
 
   .pk-ba__layer {
@@ -81,7 +222,7 @@
   }
 
   .pk-ba__layer--before {
-    clip-path: inset(0 calc(100% - var(--pk-ba)) 0 0);
+    clip-path: inset(0 calc(100% - var(--pk-ba-pos)) 0 0);
   }
 
   .pk-ba__img {
@@ -89,6 +230,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    pointer-events: none;
   }
 
   .pk-ba__img--placeholder {
@@ -119,48 +261,79 @@
     background: var(--pk-magenta);
   }
 
+  /* Griff: volle Breite, Linie an der rechten Kante – verschoben nur per transform */
   .pk-ba__handle {
+    position: absolute;
+    inset: 0;
+    transform: translateX(calc(var(--pk-ba-pos) - 100%));
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  .pk-ba__handle::before {
+    content: '';
     position: absolute;
     top: 0;
     bottom: 0;
-    left: var(--pk-ba);
+    right: -1px;
     width: 2px;
-    margin-left: -1px;
     background: var(--pk-white);
-    pointer-events: none;
+    box-shadow: 0 0 12px rgba(25, 25, 23, 0.25);
   }
 
-  .pk-ba__handle::after {
-    content: '‹ ›';
+  .pk-ba__knob {
     position: absolute;
     top: 50%;
-    left: 50%;
+    right: 0;
     display: grid;
     place-items: center;
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     background: var(--pk-white);
     color: var(--pk-ink);
-    font-weight: 700;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 6px 20px rgba(25, 25, 23, 0.2);
+    transform: translate(50%, -50%);
+    box-shadow: 0 8px 24px rgba(25, 25, 23, 0.22);
+    transition: transform 0.25s var(--pk-ease), color 0.25s var(--pk-ease);
+  }
+
+  .pk-ba__knob svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .pk-ba__frame:hover .pk-ba__knob,
+  .pk-ba__frame:active .pk-ba__knob {
+    color: var(--pk-magenta);
+    transform: translate(50%, -50%) scale(1.08);
   }
 
   .pk-ba__range {
     position: absolute;
     inset: 0;
+    z-index: 1;
     width: 100%;
     height: 100%;
     margin: 0;
     opacity: 0;
     cursor: ew-resize;
+    touch-action: pan-y;
   }
 
-  .pk-ba__range:focus-visible + .pk-ba__handle,
-  .pk-ba__frame:focus-within .pk-ba__handle::after {
+  .pk-ba__frame:has(.pk-ba__range:focus-visible) .pk-ba__knob {
     outline: 2px solid var(--pk-magenta);
-    outline-offset: 2px;
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pk-ba__knob {
+      transition: none;
+    }
   }
 {% endstylesheet %}
 
@@ -172,7 +345,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Nur mit echten Fotos desselben Sneakers einblenden ([[VORHER_NACHHER]])."
+      "content": "Nur echte Fotos desselben Sneakers, gleicher Ausschnitt. Ohne beide Bilder bleibt die Section im Shop automatisch ausgeblendet ([[VORHER_NACHHER]])."
     },
     {
       "type": "select",
@@ -225,6 +398,12 @@
       "default": "Sieh selbst."
     },
     {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "info": "Optional, ein kurzer Satz."
+    },
+    {
       "type": "image_picker",
       "id": "image_before",
       "label": "Vorher-Bild"
@@ -233,6 +412,28 @@
       "type": "image_picker",
       "id": "image_after",
       "label": "Nachher-Bild"
+    },
+    {
+      "type": "select",
+      "id": "ratio_desktop",
+      "label": "Format Desktop",
+      "options": [
+        { "value": "landscape", "label": "Quer 3:2" },
+        { "value": "wide", "label": "Breit 16:9" },
+        { "value": "square", "label": "Quadratisch" }
+      ],
+      "default": "landscape"
+    },
+    {
+      "type": "select",
+      "id": "ratio_mobile",
+      "label": "Format Handy",
+      "options": [
+        { "value": "portrait", "label": "Hoch 4:5" },
+        { "value": "square", "label": "Quadratisch" },
+        { "value": "landscape", "label": "Quer 3:2" }
+      ],
+      "default": "portrait"
     },
     {
       "type": "text",
