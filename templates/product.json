@@ -296,7 +296,8 @@
                 "open_first": true,
                 "specs_title": "Technische Daten",
                 "shipping_title": "Versand & Rückgabe",
-                "shipping_text": "<p>Versand aus Deutschland, meist innerhalb von 1 Werktag. Lieferung innerhalb Deutschlands in 2–4 Werktagen nach Versand.</p><p>14 Tage Widerrufsrecht, die Rücksendung ist für dich kostenlos. Details in der <a href=\"/policies/refund-policy\">Widerrufsbelehrung</a>.</p>"
+                "shipping_text": "<p>Versand aus Deutschland, meist innerhalb von 1 Werktag. Lieferung innerhalb Deutschlands in 2–4 Werktagen nach Versand.</p><p>14 Tage Widerrufsrecht, die Rücksendung ist für dich kostenlos. Details in der <a href=\"/policies/refund-policy\">Widerrufsbelehrung</a>.</p>",
+                "show_box": false
               }
             }
           },
@@ -439,6 +440,103 @@
         "edge": "hard"
       }
     },
+    "pk_device": {
+      "type": "pk-device",
+      "settings": {
+        "surface": "dark",
+        "edge": "hard",
+        "image": "shopify://shop_images/schwarze-buehne-frontal.jpg",
+        "eyebrow": "Das Gerät",
+        "heading": "Gebaut, um die Arbeit zu machen.",
+        "text": "<p>Ein Motor, ein Knopf, drei Aufsätze.</p>",
+        "padding_top": 112,
+        "padding_bottom": 112
+      },
+      "blocks": {
+        "f1": {
+          "type": "fact",
+          "settings": {
+            "value": "1200",
+            "label": "mAh Akku"
+          }
+        },
+        "f2": {
+          "type": "fact",
+          "settings": {
+            "value": "3",
+            "label": "Aufsätze im Lieferumfang"
+          }
+        },
+        "f3": {
+          "type": "fact",
+          "settings": {
+            "value": "163",
+            "label": "mm lang (163 × 96 × 45)"
+          }
+        },
+        "f4": {
+          "type": "fact",
+          "settings": {
+            "value": "USB-C",
+            "label": "Laden über Standardkabel"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4"
+      ]
+    },
+    "pk_box": {
+      "type": "pk-box",
+      "settings": {
+        "surface": "white",
+        "edge": "hard",
+        "image": "shopify://shop_images/lieferumfang.jpg",
+        "eyebrow": "Lieferumfang",
+        "heading": "Was in der Schachtel liegt.",
+        "padding_top": 112,
+        "padding_bottom": 112
+      },
+      "blocks": {
+        "b1": {
+          "type": "item",
+          "settings": {
+            "name": "PUREKICKZ ONE Gerät",
+            "note": ""
+          }
+        },
+        "b2": {
+          "type": "item",
+          "settings": {
+            "name": "Harte Bürste",
+            "note": "für Sohle und Sohlenrand"
+          }
+        },
+        "b3": {
+          "type": "item",
+          "settings": {
+            "name": "Weiche Bürste",
+            "note": "für Obermaterial wie Leder und Mesh"
+          }
+        },
+        "b4": {
+          "type": "item",
+          "settings": {
+            "name": "Schwammaufsatz",
+            "note": "zum Auftragen und Abwischen"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    },
     "pk_compare": {
       "type": "pk-compare",
       "blocks": {
@@ -482,7 +580,7 @@
         "r4"
       ],
       "settings": {
-        "surface": "dark",
+        "surface": "grey",
         "image": "shopify://shop_images/geraet-in-der-hand-buerste.webp",
         "eyebrow": "Der Vergleich",
         "heading": "Motor oder <em>Muskelkraft?</em>",
@@ -778,6 +876,8 @@
     "pk_features",
     "pk_stage",
     "pk_steps",
+    "pk_device",
+    "pk_box",
     "pk_compare",
     "pk_video",
     "pk_before_after",
