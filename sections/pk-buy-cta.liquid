@@ -20,6 +20,17 @@
     {%- if section.settings.image != blank -%}
       <div class="pk-cta__visual" aria-hidden="true">
         <span class="pk-cta__glow"></span>
+        <picture class="pk-cta__picture">
+{%- if section.settings.image_mobile != blank -%}
+  {%- assign m = section.settings.image_mobile -%}
+  <source
+    media="(max-width: 749px)"
+    srcset="{{ m | image_url: width: 600 }} 600w, {{ m | image_url: width: 900 }} 900w, {{ m | image_url: width: 1200 }} 1200w"
+    sizes="90vw"
+    width="{{ m.width }}"
+    height="{{ m.height }}"
+  >
+{%- endif -%}
         {{
           section.settings.image
           | image_url: width: 1400
@@ -30,6 +41,7 @@
             class: 'pk-cta__img',
             alt: ''
         }}
+        </picture>
       </div>
     {%- endif -%}
 
@@ -94,6 +106,10 @@
     border-radius: 50%;
     background: radial-gradient(closest-side, rgba(180, 41, 152, 0.3), rgba(180, 41, 152, 0.06) 62%, transparent);
     filter: blur(10px);
+  }
+
+  .pk-cta__picture {
+    display: contents;
   }
 
   .pk-cta__img {
@@ -259,7 +275,14 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Bild (freigestellt, PNG/WebP)"
+      "label": "Bild (freigestellt, PNG/WebP)",
+      "info": "Am besten ein anderes Motiv als im Hero, damit sich Bilder auf der Seite nicht wiederholen."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Bild Handy (optional)",
+      "info": "Leer lassen, um das Bild oben auch am Handy zu zeigen."
     },
     {
       "type": "text",

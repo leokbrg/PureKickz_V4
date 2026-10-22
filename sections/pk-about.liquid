@@ -30,6 +30,17 @@
 
     {%- if section.settings.image != blank -%}
       <div class="pk-about__visual" data-pk-reveal>
+        <picture class="pk-about__picture">
+{%- if section.settings.image_mobile != blank -%}
+  {%- assign m = section.settings.image_mobile -%}
+  <source
+    media="(max-width: 749px)"
+    srcset="{{ m | image_url: width: 600 }} 600w, {{ m | image_url: width: 900 }} 900w, {{ m | image_url: width: 1200 }} 1200w"
+    sizes="100vw"
+    width="{{ m.width }}"
+    height="{{ m.height }}"
+  >
+{%- endif -%}
         {{
           section.settings.image
           | image_url: width: 1400
@@ -39,6 +50,7 @@
             loading: 'lazy',
             class: 'pk-about__img'
         }}
+        </picture>
       </div>
     {%- endif -%}
   </div>
@@ -88,6 +100,10 @@
 
   .pk-about__visual {
     order: -1;
+  }
+
+  .pk-about__picture {
+    display: contents;
   }
 
   /* Foto läuft zu allen Seiten weich in die Fläche aus */
@@ -176,7 +192,14 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Bild"
+      "label": "Bild",
+      "info": "Am besten ein anderes Motiv als in Hero und Kaufbereich, damit sich Bilder auf der Seite nicht wiederholen."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Bild Handy (optional)",
+      "info": "Leer lassen, um das Bild oben auch am Handy zu zeigen."
     },
     {
       "type": "text",
