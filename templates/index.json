@@ -68,446 +68,182 @@
         "c4"
       ]
     },
-    "pk_statement": {
-      "type": "pk-statement",
-      "settings": {
-        "surface": "white",
-        "eyebrow": "Warum elektrisch",
-        "heading": "Schluss mit <em>Schrubben.</em>",
-        "text": "",
-        "padding_top": 128,
-        "padding_bottom": 128
-      },
-      "blocks": {
-        "f1": {
-          "type": "fact",
-          "settings": {
-            "value": "Motor",
-            "unit": "",
-            "label": "übernimmt die Bewegung, nicht dein Arm."
-          }
-        },
-        "f2": {
-          "type": "fact",
-          "settings": {
-            "value": "1200",
-            "unit": "mAh",
-            "label": "Akku – im Einsatz kabellos."
-          }
-        },
-        "f3": {
-          "type": "fact",
-          "settings": {
-            "value": "USB-C",
-            "unit": "",
-            "label": "zum Aufladen."
-          }
-        }
-      },
-      "block_order": [
-        "f1",
-        "f2",
-        "f3"
-      ]
-    },
-    "pk_stage": {
-      "type": "pk-attachment-stage",
-      "settings": {
-        "eyebrow": "Die Aufsätze",
-        "heading": "Ein Gerät. Drei Aufsätze.",
-        "background_color": "#BEBEBD"
-      },
-      "blocks": {
-        "hart": {
-          "type": "attachment",
-          "settings": {
-            "title": "Harte Bürste",
-            "text": "Für Sohle und Sohlenrand.",
-            "head_image": "shopify://shop_images/aufsatz-harte-buerste.webp",
-            "image_desktop": "shopify://shop_images/buehne-hart.jpg",
-            "image_mobile": "shopify://shop_images/buehne-hart-hoch.jpg",
-            "ring_dx": 21,
-            "ring_dy": 38,
-            "ring_dd": 9,
-            "ring_mx": 56,
-            "ring_my": 46,
-            "ring_md": 16
-          }
-        },
-        "weich": {
-          "type": "attachment",
-          "settings": {
-            "title": "Weiche Bürste",
-            "text": "Für Obermaterial wie Leder und Mesh.",
-            "head_image": "shopify://shop_images/aufsatz-weiche-buerste.webp",
-            "image_desktop": "shopify://shop_images/buehne-weich.jpg",
-            "image_mobile": "shopify://shop_images/buehne-weich-hoch.jpg",
-            "ring_dx": 21,
-            "ring_dy": 38,
-            "ring_dd": 8,
-            "ring_mx": 56,
-            "ring_my": 46,
-            "ring_md": 13
-          }
-        },
-        "schwamm": {
-          "type": "attachment",
-          "settings": {
-            "title": "Schwamm",
-            "text": "Zum Auftragen von Reinigungsmittel und zum Abwischen.",
-            "head_image": "shopify://shop_images/aufsatz-schwamm.webp",
-            "image_desktop": "shopify://shop_images/buehne-schwamm.jpg",
-            "image_mobile": "shopify://shop_images/buehne-schwamm-hoch.jpg",
-            "ring_dx": 21,
-            "ring_dy": 38,
-            "ring_dd": 9,
-            "ring_mx": 56,
-            "ring_my": 46,
-            "ring_md": 16
-          }
-        }
-      },
-      "block_order": [
-        "weich",
-        "hart",
-        "schwamm"
-      ]
-    },
-    "pk_steps": {
-      "type": "pk-steps",
-      "settings": {
-        "surface": "white",
-        "eyebrow": "So funktioniert's",
-        "heading": "In drei Schritten <em>sauber.</em>",
-        "padding_top": 112,
-        "padding_bottom": 112
-      },
-      "blocks": {
-        "s1": {
-          "type": "step",
-          "settings": {
-            "image": "shopify://shop_images/so-gehts-aufsaetze.webp",
-            "fade": false,
-            "title": "Aufsatz wählen",
-            "text": "Harte Bürste, weiche Bürste oder Schwamm – je nach Material."
-          }
-        },
-        "s2": {
-          "type": "step",
-          "settings": {
-            "image": "shopify://shop_images/geraet-frontal-taste.webp",
-            "fade": true,
-            "title": "Aufsetzen & einschalten",
-            "text": "Aufsatz aufstecken, Taste drücken."
-          }
-        },
-        "s3": {
-          "type": "step",
-          "settings": {
-            "image": "shopify://shop_images/geraet-in-der-hand-seitlich.webp",
-            "fade": true,
-            "title": "Drüberführen",
-            "text": "Über die verschmutzte Fläche führen – der Motor macht die Bewegung."
-          }
-        }
-      },
-      "block_order": [
-        "s1",
-        "s2",
-        "s3"
-      ]
-    },
-    "pk_compare": {
-      "type": "pk-compare",
-      "settings": {
-        "surface": "dark",
-        "image": "shopify://shop_images/geraet-in-der-hand-buerste.webp",
-        "eyebrow": "Der Vergleich",
-        "heading": "Motor oder <em>Muskelkraft?</em>",
-        "label_us": "PUREKICKZ ONE",
-        "label_them": "Handbürste",
-        "button_label": "Jetzt kaufen",
-        "button_link": "/products/purekickz-one-elektrischer-sneaker-cleaner",
-        "padding_top": 112,
-        "padding_bottom": 112
-      },
-      "blocks": {
-        "r1": {
-          "type": "row",
-          "settings": {
-            "label": "Bewegung",
-            "us": "Der Motor dreht den Aufsatz",
-            "them": "Du schrubbst von Hand"
-          }
-        },
-        "r2": {
-          "type": "row",
-          "settings": {
-            "label": "Aufsätze",
-            "us": "3 – harte Bürste, weiche Bürste, Schwamm",
-            "them": "Eine Bürste"
-          }
-        },
-        "r3": {
-          "type": "row",
-          "settings": {
-            "label": "Im Einsatz",
-            "us": "Kabellos mit 1200-mAh-Akku",
-            "them": "Ohne Strom"
-          }
-        },
-        "r4": {
-          "type": "row",
-          "settings": {
-            "label": "Laden",
-            "us": "Per USB-C",
-            "them": "Nicht nötig"
-          }
-        }
-      },
-      "block_order": [
-        "r1",
-        "r2",
-        "r3",
-        "r4"
-      ]
-    },
-    "pk_specs": {
-      "type": "pk-specs",
-      "settings": {
-        "surface": "grey",
-        "image": "shopify://shop_images/lieferumfang.jpg",
-        "eyebrow": "Lieferumfang & Daten",
-        "heading": "Alles drin. <em>Alles klar.</em>",
-        "items_title": "Im Karton",
-        "specs_title": "Technische Daten",
-        "padding_top": 112,
-        "padding_bottom": 112
-      },
-      "blocks": {
-        "i1": {
-          "type": "item",
-          "settings": {
-            "qty": "1×",
-            "name": "PUREKICKZ ONE"
-          }
-        },
-        "i2": {
-          "type": "item",
-          "settings": {
-            "qty": "1×",
-            "name": "Harte Bürste"
-          }
-        },
-        "i3": {
-          "type": "item",
-          "settings": {
-            "qty": "1×",
-            "name": "Weiche Bürste"
-          }
-        },
-        "i4": {
-          "type": "item",
-          "settings": {
-            "qty": "1×",
-            "name": "Schwamm"
-          }
-        },
-        "i5": {
-          "type": "item",
-          "settings": {
-            "qty": "",
-            "name": "USB-C-Kabel: [[KABEL_IM_LIEFERUMFANG]]"
-          }
-        },
-        "d1": {
-          "type": "spec",
-          "settings": {
-            "label": "Maße",
-            "value": "163 × 96 × 45 mm"
-          }
-        },
-        "d2": {
-          "type": "spec",
-          "settings": {
-            "label": "Akku",
-            "value": "1200 mAh"
-          }
-        },
-        "d3": {
-          "type": "spec",
-          "settings": {
-            "label": "Laden",
-            "value": "USB-C"
-          }
-        },
-        "d4": {
-          "type": "spec",
-          "settings": {
-            "label": "Aufsätze",
-            "value": "3"
-          }
-        },
-        "d5": {
-          "type": "spec",
-          "settings": {
-            "label": "Akkulaufzeit",
-            "value": "[[AKKULAUFZEIT]]"
-          }
-        },
-        "d6": {
-          "type": "spec",
-          "settings": {
-            "label": "Ladedauer",
-            "value": "[[LADEDAUER]]"
-          }
-        }
-      },
-      "block_order": [
-        "i1",
-        "i2",
-        "i3",
-        "i4",
-        "i5",
-        "d1",
-        "d2",
-        "d3",
-        "d4",
-        "d5",
-        "d6"
-      ]
-    },
-    "pk_reviews": {
-      "type": "pk-reviews",
+    "pk_products": {
+      "type": "product-list",
       "disabled": true,
+      "name": "Unsere Produkte",
       "settings": {
-        "enabled": false,
-        "surface": "white",
-        "eyebrow": "Bewertungen",
-        "heading": "Echte <em>Stimmen.</em>",
-        "padding_top": 112,
-        "padding_bottom": 112
-      }
-    },
-    "pk_about": {
-      "type": "pk-about",
-      "settings": {
-        "surface": "white",
-        "image": "shopify://shop_images/kachel-sneaker-cleaner.jpg",
-        "eyebrow": "Über PUREKICKZ",
-        "heading": "Schuhpflege, <em>einfacher gemacht.</em>",
-        "text": "<p>PUREKICKZ ist eine junge Marke aus Deutschland. Wir wollen Schuhpflege einfacher machen – mit Werkzeug, das die Arbeit übernimmt, und Angaben, die stimmen.</p><p>Der PUREKICKZ ONE ist unser erstes Produkt. Weitere Pflegeprodukte sind in Planung.</p>",
-        "signature": "Dein PUREKICKZ-Team",
-        "button_label": "",
-        "button_link": "",
-        "padding_top": 112,
-        "padding_bottom": 112
-      }
-    },
-    "pk_faq": {
-      "type": "pk-faq",
-      "settings": {
-        "surface": "grey",
-        "eyebrow": "FAQ",
-        "heading": "Fragen? <em>Antworten.</em>",
-        "show_service": true,
-        "service_title": "Noch Fragen?",
-        "service_text": "<p>Schreib uns – wir helfen dir gern weiter.</p>",
-        "email": "info@purekickz.de",
-        "response_time": "Antwort: [[ANTWORTZEIT]]",
-        "link_label": "Alle Fragen ansehen",
-        "link": "/pages/faq",
-        "padding_top": 112,
-        "padding_bottom": 112
+        "collection": "all",
+        "max_products": 4,
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "columns": 4,
+        "mobile_columns": "2",
+        "columns_gap": 8,
+        "rows_gap": 24,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "gap": 28,
+        "padding-block-start": 96,
+        "padding-block-end": 96,
+        "background_color": "#FFFFFF"
       },
       "blocks": {
-        "q1": {
-          "type": "question",
+        "static-header": {
+          "type": "_product-list-content",
+          "name": "t:names.header",
+          "static": true,
           "settings": {
-            "question": "Welche Aufsätze sind dabei?",
-            "answer": "<p>Drei: eine harte Bürste für Sohle und Sohlenrand, eine weiche Bürste für Obermaterial wie Leder und Mesh und ein Schwamm zum Auftragen von Reinigungsmittel und zum Abwischen.</p>"
-          }
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_list_text": {
+              "type": "_product-list-text",
+              "name": "t:names.collection_title",
+              "settings": {
+                "text": "<h2>Unsere Produkte</h2>",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "product_list_button": {
+              "type": "_product-list-button",
+              "name": "t:names.product_list_button",
+              "settings": {
+                "label": "Alle ansehen",
+                "open_in_new_tab": false,
+                "style_class": "button-unstyled",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              }
+            }
+          },
+          "block_order": [
+            "product_list_text",
+            "product_list_button"
+          ]
         },
-        "q2": {
-          "type": "question",
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
           "settings": {
-            "question": "Wie funktioniert der PUREKICKZ ONE?",
-            "answer": "<p>Aufsatz wählen, aufsetzen, einschalten und das Gerät über die verschmutzte Fläche führen. Der Motor dreht den Aufsatz – du musst nicht selbst schrubben.</p>"
-          }
-        },
-        "q3": {
-          "type": "question",
-          "settings": {
-            "question": "Wie lade ich das Gerät?",
-            "answer": "<p>Über den USB-C-Anschluss. Ladedauer: [[LADEDAUER]].</p>"
-          }
-        },
-        "q4": {
-          "type": "question",
-          "settings": {
-            "question": "Wie lange hält der Akku?",
-            "answer": "<p>Der Akku hat 1200 mAh. Laufzeit pro Ladung: [[AKKULAUFZEIT]].</p>"
-          }
-        },
-        "q5": {
-          "type": "question",
-          "settings": {
-            "question": "Ist ein USB-C-Kabel dabei?",
-            "answer": "<p>[[KABEL_IM_LIEFERUMFANG]]</p>"
-          }
-        },
-        "q6": {
-          "type": "question",
-          "settings": {
-            "question": "Wie schnell ist meine Bestellung da?",
-            "answer": "<p>Wir versenden aus Deutschland, meist innerhalb von 1 Werktag. Innerhalb Deutschlands dauert die Lieferung danach 2–4 Werktage.</p>"
-          }
-        },
-        "q7": {
-          "type": "question",
-          "settings": {
-            "question": "Kann ich den PUREKICKZ ONE zurückgeben?",
-            "answer": "<p>Ja, du hast 14 Tage Widerrufsrecht. Die Rücksendung ist für dich kostenlos. Alle Details findest du in der <a href=\"/policies/refund-policy\">Widerrufsbelehrung</a>.</p>"
-          }
-        },
-        "q8": {
-          "type": "question",
-          "settings": {
-            "question": "Wie kann ich bezahlen?",
-            "answer": "<p>Du bezahlst sicher über den Shopify-Checkout. Welche Zahlungsarten du nutzen kannst, siehst du im Checkout und auf der Seite <a href=\"/pages/zahlungsarten\">Zahlungsarten</a>.</p>"
-          }
-        },
-        "q9": {
-          "type": "question",
-          "settings": {
-            "question": "Gibt es eine Garantie?",
-            "answer": "<p>[[GARANTIE]]</p>"
-          }
+            "product_card_gap": 4,
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product-card-gallery": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "portrait",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "product_title": {
+              "type": "product-title",
+              "name": "t:names.product_title",
+              "settings": {
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "paragraph",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "price": {
+              "type": "price",
+              "name": "t:names.product_price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "h6",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            }
+          },
+          "block_order": [
+            "product-card-gallery",
+            "product_title",
+            "price"
+          ]
         }
-      },
-      "block_order": [
-        "q1",
-        "q2",
-        "q3",
-        "q4",
-        "q5",
-        "q6",
-        "q7",
-        "q8",
-        "q9"
-      ]
-    },
-    "pk_before_after": {
-      "type": "pk-before-after",
-      "disabled": true,
-      "settings": {
-        "surface": "white",
-        "eyebrow": "Vorher / Nachher",
-        "heading": "Sieh selbst.",
-        "label_before": "Vorher",
-        "label_after": "Nachher",
-        "padding_top": 112,
-        "padding_bottom": 112
       }
     },
     "pk_cta": {
@@ -518,10 +254,78 @@
         "image": "shopify://shop_images/sneaker-cleaner-mit-sneakern.webp",
         "eyebrow": "PUREKICKZ ONE",
         "heading": "Saubere Sneaker, <em>weniger Aufwand.</em>",
-        "text": "Gerät und drei Aufsätze · Versand aus Deutschland",
-        "button_label": "Jetzt kaufen",
+        "text": "Mit harter Bürste, weicher Bürste und Schwamm · Versand aus Deutschland",
+        "button_label": "Zum Produkt",
         "button_link": "",
         "show_payment": true,
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
+    },
+    "pk_promise": {
+      "type": "pk-promise",
+      "settings": {
+        "surface": "white",
+        "seal_text": "Versand aus Deutschland · 14 Tage Widerrufsrecht",
+        "seal_big": "14",
+        "seal_small": "Tage Widerruf",
+        "eyebrow": "Unser Versprechen",
+        "heading": "Kaufen ohne <em>Risiko.</em>",
+        "padding_top": 112,
+        "padding_bottom": 112
+      },
+      "blocks": {
+        "p1": {
+          "type": "promise",
+          "settings": {
+            "title": "Versand aus Deutschland",
+            "text": "Meist innerhalb von 1 Werktag verschickt, Lieferung in 2–4 Werktagen.",
+            "link": "/policies/shipping-policy"
+          }
+        },
+        "p2": {
+          "type": "promise",
+          "settings": {
+            "title": "14 Tage Widerrufsrecht",
+            "text": "Die Rücksendung ist für dich kostenlos.",
+            "link": "/policies/refund-policy"
+          }
+        },
+        "p3": {
+          "type": "promise",
+          "settings": {
+            "title": "Sichere Bezahlung",
+            "text": "Verschlüsselt über den Shopify-Checkout.",
+            "link": ""
+          }
+        },
+        "p4": {
+          "type": "promise",
+          "settings": {
+            "title": "Persönlicher Support",
+            "text": "Schreib uns an info@purekickz.de.",
+            "link": "/pages/contact"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ]
+    },
+    "pk_about": {
+      "type": "pk-about",
+      "settings": {
+        "surface": "grey",
+        "image": "shopify://shop_images/kachel-sneaker-cleaner.jpg",
+        "eyebrow": "Über PUREKICKZ",
+        "heading": "Schuhpflege, <em>einfacher gemacht.</em>",
+        "text": "<p>PUREKICKZ ist eine junge Marke aus Deutschland. Wir wollen Schuhpflege einfacher machen – mit Werkzeug, das die Arbeit übernimmt, und Angaben, die stimmen.</p><p>Der PUREKICKZ ONE ist unser erstes Produkt. Weitere Pflegeprodukte sind in Planung.</p>",
+        "signature": "Dein PUREKICKZ-Team",
+        "button_label": "",
+        "button_link": "",
         "padding_top": 112,
         "padding_bottom": 112
       }
@@ -529,15 +333,9 @@
   },
   "order": [
     "pk_hero",
-    "pk_statement",
-    "pk_stage",
-    "pk_steps",
-    "pk_compare",
-    "pk_specs",
-    "pk_reviews",
-    "pk_about",
-    "pk_faq",
-    "pk_before_after",
-    "pk_cta"
+    "pk_products",
+    "pk_cta",
+    "pk_promise",
+    "pk_about"
   ]
 }
