@@ -722,6 +722,12 @@
         {%- endif -%}
       </div>
 
+      {%- comment -%} PUREKICKZ: Produktkarte, Versprechen und Kontakt am Ende des Handy-Menüs {%- endcomment -%}
+      {%- if data_header_drawer_type == 'mobile-drawer' -%}
+        {%- assign pk_drawer_index = linklist.links.size | plus: 1 -%}
+        {% render 'pk-drawer-extras', block: block, index: pk_drawer_index %}
+      {%- endif -%}
+
       {% liquid
         if block_settings.menu_style == 'featured_collections'
           assign top_level_featured_collections = linklist.links | where: 'type', 'collection_link'

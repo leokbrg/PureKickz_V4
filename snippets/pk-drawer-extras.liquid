@@ -1,0 +1,65 @@
+{%- doc -%}
+  PUREKICKZ Abschluss des Handy-Menüs: Produktkarte mit Kaufbutton, kurze Versprechen, Kontakt.
+  Einstellungen im Header → Menü-Block („PK Menü am Handy“). Zeilen mit [[...]] werden ausgeblendet.
+
+  @param {object} block - Der Header-Menü-Block mit den PK-Einstellungen
+{%- enddoc -%}
+
+{%- liquid
+  assign s = block.settings
+  assign product = s.pk_product
+  assign trust_lines = s.pk_trust | newline_to_br | split: '<br />'
+-%}
+
+{%- if product != blank or s.pk_trust != blank or s.pk_email != blank -%}
+  <div class="pk-drawer menu-drawer__animated-element" style="--menu-drawer-animation-index: {{ index | default: 5 }};">
+    {%- if product != blank -%}
+      <div class="pk-drawer__card">
+        <a class="pk-drawer__product" href="{{ product.url }}">
+          {%- if product.featured_media != blank -%}
+            {{
+              product.featured_media.preview_image
+              | image_url: width: 240
+              | image_tag:
+                widths: '120, 180, 240',
+                sizes: '84px',
+                loading: 'lazy',
+                class: 'pk-drawer__img',
+                alt: product.featured_media.alt | default: product.title
+            }}
+          {%- endif -%}
+          <span class="pk-drawer__info">
+            <span class="pk-drawer__name">{{ product.title | split: ' – ' | first }}</span>
+            <span class="pk-drawer__price">
+              {{- product.selected_or_first_available_variant.price | money -}}
+              <small>{% if cart.taxes_included %} inkl. MwSt.{% else %} zzgl. MwSt.{% endif %}</small>
+            </span>
+          </span>
+        </a>
+        {%- if s.pk_button_label != blank -%}
+          <a class="button pk-drawer__button" href="{{ product.url }}">{{ s.pk_button_label }}</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if s.pk_trust != blank -%}
+      <ul class="pk-drawer__trust" role="list">
+        {%- for line in trust_lines -%}
+          {%- assign item = line | strip -%}
+          {%- if item == blank or item contains '[[' -%}{%- continue -%}{%- endif -%}
+          <li>
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m3.5 8.5 3 3 6-7"/></svg>
+            <span>{{ item }}</span>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if s.pk_email != blank -%}
+      <a class="pk-drawer__mail" href="mailto:{{ s.pk_email }}">
+        <span class="pk-drawer__mail-label">Fragen?</span>
+        <span>{{ s.pk_email }}</span>
+      </a>
+    {%- endif -%}
+  </div>
+{%- endif -%}

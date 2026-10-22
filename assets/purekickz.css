@@ -264,3 +264,275 @@ product-price,
   outline-offset: 3px;
   opacity: 0.6;
 }
+
+/* ——— Handy-Menü (Horizon-Drawer im PUREKICKZ-Stil) ———
+   Große Poppins-Links mit feinen Linien, Unterpunkte als Chips, unten Produktkarte. */
+.header-drawer .menu-drawer {
+  --pk-drawer-gutter: 24px;
+  background-color: var(--pk-white);
+  color: var(--pk-ink);
+}
+
+@media screen and (max-width: 749px) {
+  .header-drawer .menu-drawer {
+    width: 100vw;
+    max-width: none;
+    border-inline-end: 0;
+  }
+}
+
+.header-drawer .menu-drawer__close-button {
+  align-self: flex-end;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin: 8px 12px 0 auto;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--pk-grey);
+  transition: transform 0.3s var(--pk-ease);
+}
+
+.header-drawer .menu-drawer__close-button.menu-drawer__close-button {
+  border-radius: 50%;
+  outline-offset: 2px;
+  color: var(--pk-ink);
+  box-shadow: none;
+}
+
+.header-drawer .menu-drawer__close-button:hover {
+  background: var(--pk-grey);
+  color: var(--pk-ink);
+  transform: rotate(90deg);
+}
+
+.header-drawer .menu-drawer__close-button .svg-wrapper {
+  width: 18px;
+  height: 18px;
+}
+
+.header-drawer .menu-drawer__menu {
+  padding-inline: var(--pk-drawer-gutter);
+}
+
+.header-drawer .menu-drawer__menu > .menu-drawer__list-item {
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 0;
+}
+
+.header-drawer .menu-drawer__list-item--divider,
+.header-drawer .menu-drawer__menu-container--divider {
+  border-block-end: 1px solid var(--pk-line);
+}
+
+.header-drawer .menu-drawer__menu-item--mainlist {
+  min-height: 68px;
+  padding: 14px 0;
+  font-family: var(--font-heading--family);
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  color: var(--pk-ink);
+}
+
+/* Feiner Pfeil rechts, wandert beim Antippen leicht nach rechts */
+.header-drawer .menu-drawer__menu-item--mainlist::after {
+  content: '';
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin-inline: 16px 4px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  opacity: 0.35;
+  transform: rotate(45deg);
+  transition:
+    transform 0.3s var(--pk-ease),
+    opacity 0.3s var(--pk-ease),
+    color 0.3s var(--pk-ease);
+}
+
+.header-drawer .menu-drawer__menu-item--mainlist:hover::after,
+.header-drawer .menu-drawer__menu-item--mainlist:focus-visible::after {
+  opacity: 1;
+  color: var(--pk-magenta);
+  transform: translateX(4px) rotate(45deg);
+}
+
+/* Aktuelle Seite: Magenta-Unterstrich unter dem Wort */
+.header-drawer .menu-drawer__menu-item[aria-current='page'] .menu-drawer__menu-item-text {
+  text-decoration: underline;
+  text-decoration-color: var(--pk-magenta);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+}
+
+/* Unterpunkte als Chips unter dem Hauptpunkt (kein Bildkasten mehr) */
+.header-drawer .menu-drawer__list-item--flat .menu-drawer__menu--childlist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -4px 0 0;
+  padding: 0 0 18px;
+}
+
+.header-drawer .menu-drawer__menu--childlist .menu-drawer__list-item {
+  margin: 0;
+  min-height: 0;
+}
+
+.header-drawer .menu-drawer__menu-item--child {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--pk-line);
+  border-radius: 999px;
+  font-family: var(--font-heading--family);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1;
+  color: var(--pk-ink);
+  transition:
+    border-color 0.2s var(--pk-ease),
+    background-color 0.2s var(--pk-ease);
+}
+
+.header-drawer .menu-drawer__menu-item--child:hover,
+.header-drawer .menu-drawer__menu-item--child[aria-current='page'] {
+  border-color: var(--pk-ink);
+  color: var(--pk-ink);
+}
+
+.header-drawer .menu-drawer__utility-links {
+  margin-inline: var(--pk-drawer-gutter);
+}
+
+/* Abschluss: Produktkarte, Versprechen, Kontakt */
+.pk-drawer {
+  display: grid;
+  gap: 18px;
+  margin: 28px var(--pk-drawer-gutter, 24px) 0;
+  padding-bottom: 28px;
+}
+
+.pk-drawer__card {
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 18px;
+  background: var(--pk-grey);
+}
+
+.pk-drawer__product {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  color: var(--pk-ink);
+  text-decoration: none;
+}
+
+.pk-drawer__img {
+  display: block;
+  width: 76px;
+  height: 76px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: var(--pk-white);
+}
+
+.pk-drawer__info {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.pk-drawer__name {
+  font-family: var(--font-heading--family);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  line-height: 1.2;
+}
+
+.pk-drawer__price {
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.pk-drawer__price small {
+  font-size: 0.75rem;
+  color: rgba(25, 25, 23, 0.64);
+}
+
+.pk-drawer__button {
+  width: 100%;
+  min-height: 52px;
+}
+
+.pk-drawer__trust {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+}
+
+.pk-drawer__trust li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: rgba(25, 25, 23, 0.72);
+}
+
+.pk-drawer__trust svg {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: var(--pk-magenta);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pk-drawer__mail {
+  display: grid;
+  gap: 2px;
+  min-height: 44px;
+  padding-top: 16px;
+  border-top: 1px solid var(--pk-line);
+  font-family: var(--font-heading--family);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--pk-ink);
+  text-decoration: none;
+}
+
+.pk-drawer__mail-label {
+  font-family: var(--font-body--family);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  color: rgba(25, 25, 23, 0.64);
+}
+
+/* Gestaffeltes Erscheinen etwas weicher als bei Horizon; ruhig bei reduzierter Bewegung */
+@media (prefers-reduced-motion: no-preference) {
+  .header-drawer .menu-drawer-container[open] .menu-drawer__animated-element {
+    animation-duration: 0.45s;
+    animation-timing-function: var(--pk-ease);
+    animation-delay: calc(0.12s + (var(--menu-drawer-animation-index) - 1) * 0.05s);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-drawer .menu-drawer-container[open] .menu-drawer__animated-element {
+    animation: none;
+  }
+}
