@@ -212,3 +212,29 @@ product-price,
 [data-pk-count] {
   font-variant-numeric: tabular-nums;
 }
+
+/*
+ * Produktseite: Kaufbereich im PUREKICKZ-Stil (Mechanik bleibt Horizon).
+ */
+.product-information h1 {
+  font-family: var(--font-heading--family);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.product-information .price,
+.product-information product-price {
+  font-family: var(--font-heading--family);
+  font-weight: 700;
+}
+
+.product-information .add-to-cart-button,
+.sticky-add-to-cart__button {
+  min-height: 56px;
+  font-family: var(--font-heading--family);
+  font-weight: 600;
+  font-size: 1.0625rem;
+}
