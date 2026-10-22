@@ -241,16 +241,12 @@ product-price,
 
 /*
  * Übergänge je nach Lage (Einstellung „Form der Fläche“ in jeder PK-Section):
- * hart = gerade Kante über die volle Breite, Karte = abgerundete Fläche mit Abstand auf dem
- * weißen Grund (z. B. dunkle Bühnen), Bogen = Fläche beginnt mit einer weichen Rundung.
+ * hart = gerade Kante über die volle Breite, Box = abgerundete Fläche mit Abstand auf dem
+ * weißen Grund. Weiche Blenden nur dort, wo ein Bild in seine eigene Fläche ausläuft.
  * Header und Footer bleiben immer hart getrennt.
  */
 .pk-sec--edge-panel {
   margin: clamp(12px, 2.4vw, 32px) clamp(8px, 2vw, 32px);
   border-radius: clamp(20px, 3vw, 36px);
   overflow: clip;
-}
-
-.pk-sec--edge-arch {
-  border-radius: 50% 50% 0 0 / clamp(28px, 5vw, 72px) clamp(28px, 5vw, 72px) 0 0;
 }

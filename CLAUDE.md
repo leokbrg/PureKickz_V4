@@ -109,13 +109,11 @@ eingefügt und leer. Stattdessen immer eine dieser drei Formen:
 Harte Kanten nur zum Trennen von Sections. Ausnahme: die Produktgalerie (Fotos mit Hintergrund sind dort erwartet).
 
 **Section-Rhythmus (feste Regel):** Aufeinanderfolgende Sections haben immer abwechselnde Flächen –
-nie zwei graue (oder zwei gleiche) Hintergründe direkt hintereinander. Jede Section ist klar von der
-nächsten getrennt (Weiß ↔ Grau/Bild ↔ Schwarz). Die Übergänge werden je nach Lage gewählt (wie bei den
-Referenzen), damit es nicht wie ein Baukasten wirkt: hart bei randlosen Bildflächen, Header und Footer;
-dunkle Bühnen als abgerundete Karte auf Weiß; ruhige Flächen gern mit Bogen oben (Einstellung „Form der
-Fläche“). Keine Farbverläufe zwischen Sections. Harte Kanten sind erlaubt, wo sie passen (z. B. nach randlosen Fotos);
-reine Grau→Weiß-Kanten an ruhigen Flächen eher vermeiden (Bogen, Karte oder Wechsel auf Schwarz wie beim Footer).
-Bögen überlappen die vorige Section nicht. Schmale Bänder (PK Band) sind selbst die Naht. Trust-Hinweise nicht als eigene dünne Leiste mit
+nie zwei graue (oder zwei gleiche) Hintergründe direkt hintereinander. Für die Übergänge gibt es nur drei
+Formen, je nachdem was passt (wie bei den Referenzen): **hart** (z. B. nach randlosen Fotos, zu Header und
+Footer), **weiche Blende** (nur wo ein Bild in seine eigene Fläche ausläuft) oder **Box mit runden Ecken**
+auf Weiß (Einstellung „Form der Fläche“). Keine Bögen, keine Farbverläufe zwischen Sections.
+Schmale Bänder (PK Band) sind selbst die Naht. Trust-Hinweise nicht als eigene dünne Leiste mit
 Icon-Kacheln, sondern dort einbetten, wo gekauft wird (z. B. Häkchen-Zeile unter dem Kaufbutton).
 
 Die Originale in `bilder/` sind Rohmaterial und werden **nicht verändert und nicht gelöscht**.

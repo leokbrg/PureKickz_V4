@@ -19,7 +19,7 @@
 
 {%- if words.size > 0 -%}
   <div
-    class="pk-band pk-band--{{ section.settings.surface }} pk-band--{{ section.settings.style }} pk-band--edge-{{ section.settings.edge | default: 'hard' }}"
+    class="pk-band pk-band--{{ section.settings.surface }} pk-band--{{ section.settings.style }}"
     style="--pk-band-speed: {{ section.settings.speed }}s;"
     data-pk-band
   >
@@ -62,16 +62,6 @@
     --pk-band-bg: var(--pk-ink);
     --pk-band-fg: var(--pk-white);
     --pk-band-sep: rgba(255, 255, 255, 0.22);
-  }
-
-  /* Bogen oben: das Band schiebt sich über das Ende der vorigen Section (z. B. Hero-Foto) */
-  .pk-band--edge-arch {
-    --pk-arch: clamp(24px, 4vw, 56px);
-    position: relative;
-    z-index: 2;
-    margin-top: calc(var(--pk-arch) * -1);
-    padding-top: calc(var(--pk-arch) * 0.55);
-    border-radius: 50% 50% 0 0 / var(--pk-arch) var(--pk-arch) 0 0;
   }
 
   .pk-band__track,
@@ -210,23 +200,6 @@
         }
       ],
       "default": "white"
-    },
-    {
-      "type": "select",
-      "id": "edge",
-      "label": "Form",
-      "info": "Bogen: das Band schiebt sich mit runder Oberkante über das Ende der Section davor.",
-      "options": [
-        {
-          "value": "hard",
-          "label": "Gerade"
-        },
-        {
-          "value": "arch",
-          "label": "Bogen oben"
-        }
-      ],
-      "default": "hard"
     },
     {
       "type": "textarea",
