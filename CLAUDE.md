@@ -110,7 +110,9 @@ Harte Kanten nur zum Trennen von Sections. Ausnahme: die Produktgalerie (Fotos m
 
 **Section-Rhythmus (feste Regel):** Aufeinanderfolgende Sections haben immer abwechselnde Flächen –
 nie zwei graue (oder zwei gleiche) Hintergründe direkt hintereinander. Jede Section ist klar von der
-nächsten getrennt (Weiß ↔ Grau/Bild ↔ Schwarz). Trust-Hinweise nicht als eigene dünne Leiste mit
+nächsten getrennt (Weiß ↔ Grau/Bild ↔ Schwarz) – aber **ohne harte Schnittkante**: die Farbe der vorigen
+Fläche läuft weich in die nächste aus (`purekickz-flow.js`), damit die Seite wie aus einem Guss wirkt
+und nicht wie ein Baukasten. Schmale Bänder (PK Band: Laufband/Stichwort-Leiste) sind selbst die Naht. Trust-Hinweise nicht als eigene dünne Leiste mit
 Icon-Kacheln, sondern dort einbetten, wo gekauft wird (z. B. Häkchen-Zeile unter dem Kaufbutton).
 
 Die Originale in `bilder/` sind Rohmaterial und werden **nicht verändert und nicht gelöscht**.
