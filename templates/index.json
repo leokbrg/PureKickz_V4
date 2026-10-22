@@ -74,7 +74,8 @@
         "style": "marquee",
         "surface": "white",
         "items": "Motor statt Muskelkraft\nDrei Aufsätze\nKabellos im Einsatz\nLaden über USB-C\nVersand aus Deutschland",
-        "speed": 40
+        "speed": 40,
+        "edge": "arch"
       }
     },
     "pk_products": {

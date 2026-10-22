@@ -14,8 +14,8 @@
     "pk_footer": {
       "type": "pk-footer",
       "settings": {
-        "surface": "white",
-        "logo": "shopify://shop_images/logo-header-wortmarke.png",
+        "surface": "dark",
+        "logo": "shopify://shop_images/logo-footer-hell.png",
         "text": "<p>Junge deutsche Marke für Sneaker- und Schuhpflege.</p>",
         "email": "info@purekickz.de",
         "menu_1": "footer-shop",
