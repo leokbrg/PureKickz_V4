@@ -238,3 +238,40 @@ product-price,
   font-weight: 600;
   font-size: 1.0625rem;
 }
+
+/*
+ * Weiche Übergänge zwischen Sections (gesetzt von purekickz-flow.js):
+ * die Farbe der vorigen Fläche läuft oben in die nächste aus – kein Baukasten-Schnitt.
+ */
+.pk-blend {
+  position: relative;
+}
+
+.pk-blend::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 3;
+  height: var(--pk-blend-h, clamp(48px, 7vw, 96px));
+  background: linear-gradient(to bottom, var(--pk-prev-bg), transparent);
+  /* Weich auslaufende Kurve statt linearem Verlauf: kein sichtbarer Schatten-Streifen */
+  background: linear-gradient(
+    to bottom,
+    var(--pk-prev-bg) 0%,
+    color-mix(in srgb, var(--pk-prev-bg) 74%, transparent) 19%,
+    color-mix(in srgb, var(--pk-prev-bg) 54%, transparent) 34%,
+    color-mix(in srgb, var(--pk-prev-bg) 38%, transparent) 47%,
+    color-mix(in srgb, var(--pk-prev-bg) 26%, transparent) 57%,
+    color-mix(in srgb, var(--pk-prev-bg) 16%, transparent) 66%,
+    color-mix(in srgb, var(--pk-prev-bg) 9%, transparent) 75%,
+    color-mix(in srgb, var(--pk-prev-bg) 4%, transparent) 84%,
+    color-mix(in srgb, var(--pk-prev-bg) 1%, transparent) 93%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* Der Footer hat weniger Abstand oben – kürzerer Übergang */
+footer > .pk-blend {
+  --pk-blend-h: 48px;
+}
