@@ -120,7 +120,7 @@
       },
       "8254665832378904038": {
         "type": "shopify://apps/ag-product-reviews/blocks/app-embed/c4e1e9ca-4d46-4e76-bc39-7e42417cb327",
-        "disabled": true,
+        "disabled": false,
         "settings": {
           "air_reviews_json_ld_v3": ""
         }
