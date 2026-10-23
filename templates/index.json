@@ -11,26 +11,6 @@
   "sections": {
     "pk_hero": {
       "type": "pk-hero",
-      "settings": {
-        "product": "purekickz-one-elektrischer-sneaker-cleaner",
-        "show_price": true,
-        "eyebrow": "PUREKICKZ ONE",
-        "heading": "Du führst. Der Rest <em>dreht sich.</em>",
-        "text": "<p>Der elektrische Sneaker Cleaner mit Motor und drei Aufsätzen. Du setzt ihn auf, die Bewegung macht das Gerät.</p>",
-        "button_label": "Jetzt kaufen",
-        "button_link": "",
-        "button2_label": "So funktioniert's",
-        "button2_link": "/products/purekickz-one-elektrischer-sneaker-cleaner#so-funktionierts",
-        "image_position": "right",
-        "background_color": "#E8E8E6",
-        "padding_top": 72,
-        "padding_bottom": 72,
-        "image_desktop": "shopify://shop_images/hero-studio-weit.jpg",
-        "image_mobile": "shopify://shop_images/hero-studio-hoch.jpg",
-        "image_tablet": "shopify://shop_images/hero-studio-tablet.jpg",
-        "image_style": "photo",
-        "mobile_text_start": 70
-      },
       "blocks": {
         "c1": {
           "type": "check",
@@ -66,7 +46,27 @@
         "c2",
         "c3",
         "c4"
-      ]
+      ],
+      "settings": {
+        "product": "purekickz-one-elektrischer-sneaker-cleaner",
+        "show_price": true,
+        "eyebrow": "PUREKICKZ ONE",
+        "heading": "Du führst. Der Rest <em>dreht sich.</em>",
+        "text": "<p>Der elektrische Sneaker Cleaner mit Motor und drei Aufsätzen. Du setzt ihn auf, die Bewegung macht das Gerät.</p>",
+        "button_label": "Jetzt kaufen",
+        "button_link": "",
+        "button2_label": "So funktioniert's",
+        "button2_link": "/products/purekickz-one-elektrischer-sneaker-cleaner#so-funktionierts",
+        "image_style": "photo",
+        "image_desktop": "shopify://shop_images/hero-studio-weit.jpg",
+        "image_mobile": "shopify://shop_images/hero-studio-hoch.jpg",
+        "image_tablet": "shopify://shop_images/hero-studio-tablet.jpg",
+        "mobile_text_start": 70,
+        "image_position": "right",
+        "background_color": "#e8e8e6",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
     },
     "pk_marquee": {
       "type": "pk-band",
@@ -79,25 +79,6 @@
     },
     "pk_products": {
       "type": "product-list",
-      "disabled": true,
-      "name": "Unsere Produkte",
-      "settings": {
-        "collection": "all",
-        "max_products": 4,
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "columns": 4,
-        "mobile_columns": "2",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "gap": 28,
-        "padding-block-start": 96,
-        "padding-block-end": 96,
-        "background_color": "#FFFFFF"
-      },
       "blocks": {
         "static-header": {
           "type": "_product-list-content",
@@ -119,11 +100,13 @@
             "height": "fit",
             "custom_height": 100,
             "background_media": "none",
+            "background_color": "",
             "video_position": "cover",
             "background_image_position": "cover",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
+            "border_color": "",
             "border_radius": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
@@ -136,6 +119,9 @@
               "name": "t:names.collection_title",
               "settings": {
                 "text": "<h2>Unsere Produkte</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
                 "font_size": "",
@@ -143,14 +129,16 @@
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
+                "text_color": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "product_list_button": {
               "type": "_product-list-button",
@@ -159,11 +147,16 @@
                 "label": "Alle ansehen",
                 "open_in_new_tab": false,
                 "style_class": "button-unstyled",
+                "custom_button_background": "{{ settings.color_palette.foreground }}",
+                "custom_button_text": "{{ settings.color_palette.background }}",
+                "custom_button_border": "{{ settings.color_palette.background }}",
+                "link_text_color": "",
                 "width": "fit-content",
                 "custom_width": 100,
                 "width_mobile": "fit-content",
                 "custom_width_mobile": 100
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -177,9 +170,11 @@
           "static": true,
           "settings": {
             "product_card_gap": 4,
+            "background_color": "",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
+            "border_color": "",
             "border_radius": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
@@ -195,12 +190,14 @@
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
+                "border_color": "",
                 "border_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "product_title": {
               "type": "product-title",
@@ -216,6 +213,7 @@
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
+                "text_color": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -223,7 +221,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "price": {
               "type": "price",
@@ -240,11 +239,13 @@
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
+                "text_color": "",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -253,12 +254,34 @@
             "price"
           ]
         }
+      },
+      "disabled": true,
+      "name": "Unsere Produkte",
+      "settings": {
+        "collection": "all",
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "max_products": 4,
+        "columns": 4,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 8,
+        "rows_gap": 24,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "horizontal_alignment": "flex-start",
+        "gap": 28,
+        "background_color": "#ffffff",
+        "padding-block-start": 96,
+        "padding-block-end": 96
       }
     },
     "pk_cta": {
       "type": "pk-buy-cta",
       "settings": {
         "surface": "dark",
+        "edge": "hard",
         "product": "purekickz-one-elektrischer-sneaker-cleaner",
         "image": "shopify://shop_images/geraet-in-der-hand-seitlich.webp",
         "eyebrow": "PUREKICKZ ONE",
@@ -268,23 +291,11 @@
         "button_link": "",
         "show_payment": true,
         "padding_top": 112,
-        "padding_bottom": 112,
-        "edge": "hard"
+        "padding_bottom": 112
       }
     },
     "pk_promise": {
       "type": "pk-promise",
-      "settings": {
-        "surface": "white",
-        "seal_text": "Versand aus Deutschland · 14 Tage Widerrufsrecht",
-        "seal_big": "14",
-        "seal_small": "Tage Widerruf",
-        "eyebrow": "Unser Versprechen",
-        "heading": "Kaufen ohne <em>Risiko.</em>",
-        "padding_top": 112,
-        "padding_bottom": 112,
-        "edge": "hard"
-      },
       "blocks": {
         "p1": {
           "type": "promise",
@@ -324,12 +335,68 @@
         "p2",
         "p3",
         "p4"
-      ]
+      ],
+      "settings": {
+        "surface": "white",
+        "edge": "hard",
+        "seal_text": "Versand aus Deutschland · 14 Tage Widerrufsrecht",
+        "seal_big": "14",
+        "seal_small": "Tage Widerruf",
+        "eyebrow": "Unser Versprechen",
+        "heading": "Kaufen ohne <em>Risiko.</em>",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
+    },
+    "pk_statement_zQdmAA": {
+      "type": "pk-statement",
+      "blocks": {
+        "fact_yaTRNb": {
+          "type": "fact",
+          "settings": {
+            "value": "Motor",
+            "unit": "",
+            "label": "übernimmt die Bewegung, nicht dein Arm."
+          }
+        },
+        "fact_Qnw6Ji": {
+          "type": "fact",
+          "settings": {
+            "value": "1200",
+            "unit": "mAh",
+            "label": "Akku – im Einsatz kabellos."
+          }
+        },
+        "fact_gHXnYa": {
+          "type": "fact",
+          "settings": {
+            "value": "USB-C",
+            "unit": "",
+            "label": "zum Aufladen."
+          }
+        }
+      },
+      "block_order": [
+        "fact_yaTRNb",
+        "fact_Qnw6Ji",
+        "fact_gHXnYa"
+      ],
+      "name": "PK Statement & Fakten",
+      "settings": {
+        "surface": "white",
+        "edge": "hard",
+        "eyebrow": "Warum elektrisch",
+        "heading": "Schluss mit <em>Schrubben.</em>",
+        "text": "",
+        "padding_top": 128,
+        "padding_bottom": 128
+      }
     },
     "pk_about": {
       "type": "pk-about",
       "settings": {
         "surface": "grey",
+        "edge": "panel",
         "image": "shopify://shop_images/detail-taste-sneaker.jpg",
         "eyebrow": "Über PUREKICKZ",
         "heading": "Schuhpflege, <em>einfacher gemacht.</em>",
@@ -338,8 +405,7 @@
         "button_label": "",
         "button_link": "",
         "padding_top": 112,
-        "padding_bottom": 112,
-        "edge": "panel"
+        "padding_bottom": 112
       }
     },
     "pk_faq": {
@@ -394,6 +460,7 @@
     "pk_marquee",
     "pk_products",
     "pk_cta",
+    "pk_statement_zQdmAA",
     "pk_promise",
     "pk_about",
     "pk_faq"

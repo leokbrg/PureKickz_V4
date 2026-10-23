@@ -18,12 +18,13 @@
           "type": "_announcement",
           "settings": {
             "text": "Versand aus Deutschland",
+            "link": "",
             "font": "var(--font-subheading--family)",
             "font_size": "0.75rem",
             "weight": "600",
             "letter_spacing": "loose",
             "case": "uppercase",
-            "text_color": "#FFFFFF"
+            "text_color": "#ffffff"
           },
           "blocks": {}
         },
@@ -31,12 +32,13 @@
           "type": "_announcement",
           "settings": {
             "text": "14 Tage Widerrufsrecht",
+            "link": "",
             "font": "var(--font-subheading--family)",
             "font_size": "0.75rem",
             "weight": "600",
             "letter_spacing": "loose",
             "case": "uppercase",
-            "text_color": "#FFFFFF"
+            "text_color": "#ffffff"
           },
           "blocks": {}
         },
@@ -44,13 +46,13 @@
           "type": "_announcement",
           "settings": {
             "text": "Fragen? info@purekickz.de",
+            "link": "shopify://pages/contact",
             "font": "var(--font-subheading--family)",
             "font_size": "0.75rem",
             "weight": "600",
             "letter_spacing": "loose",
             "case": "uppercase",
-            "text_color": "#FFFFFF",
-            "link": "shopify://pages/contact"
+            "text_color": "#ffffff"
           },
           "blocks": {}
         }
@@ -89,6 +91,8 @@
           "static": true,
           "settings": {
             "menu": "main-menu",
+            "background_color": "{{ settings.color_palette.background }}",
+            "text_color": "",
             "type_font_primary_size": "0.875rem",
             "menu_font_style": "regular",
             "type_font_primary_link": "body",
@@ -98,6 +102,8 @@
             "featured_collections_aspect_ratio": "1 / 1",
             "image_border_radius": 4,
             "navigation_bar": false,
+            "background_color_navigation_bar": "{{ settings.color_palette.background }}",
+            "text_color_navigation_bar": "",
             "drawer_accordion": false,
             "drawer_accordion_expand_first": false,
             "drawer_dividers": true,
@@ -113,6 +119,7 @@
         "logo_position": "left",
         "menu_position": "left",
         "menu_row": "top",
+        "customer_account_menu": "customer-account-main-menu",
         "show_search": true,
         "search_position": "right",
         "search_row": "top",
@@ -128,16 +135,29 @@
         "enable_sticky_header": "always",
         "divider_width": 0,
         "divider_size": "page-width",
+        "divider_color": "",
         "border_width": 1,
-        "background_color_top": "#FFFFFF",
-        "enable_transparent_header_home": false,
-        "enable_transparent_header_product": false,
-        "enable_transparent_header_collection": false,
-        "bottom_border_color": "#E3E3DF",
+        "bottom_border_color": "#e3e3df",
+        "actions_display_style": "icon",
+        "actions_font_size": "0.875rem",
+        "actions_font": "body",
+        "actions_text_case": "none",
+        "background_color_top": "#ffffff",
         "text_color_top": "#191917",
+        "background_color_bottom": "",
+        "text_color_bottom": "",
         "bubble_style": "custom",
-        "bubble_background_color": "#B42998",
-        "bubble_text_color": "#FFFFFF"
+        "bubble_background_color": "#b42998",
+        "bubble_text_color": "#ffffff",
+        "enable_transparent_header_home": false,
+        "home_inverse_logo": false,
+        "text_color_transparent_home": "",
+        "enable_transparent_header_product": false,
+        "product_inverse_logo": false,
+        "text_color_transparent_product": "",
+        "enable_transparent_header_collection": false,
+        "collection_inverse_logo": false,
+        "text_color_transparent_collection": ""
       }
     }
   },
