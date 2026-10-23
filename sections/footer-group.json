@@ -24,11 +24,11 @@
         "menu_2_title": "Hilfe",
         "menu_3": "footer-rechtliches",
         "menu_3_title": "Rechtliches",
-        "instagram": "",
-        "tiktok": "",
+        "instagram": "https://www.instagram.com/purekickz.de/",
+        "tiktok": "https://www.tiktok.com/@purekickz.de",
         "youtube": "",
-        "show_newsletter": false,
-        "newsletter_title": "Neues von PUREKICKZ",
+        "show_newsletter": true,
+        "newsletter_title": "Verpasse keine Updates!",
         "show_payment": true,
         "padding_top": 80
       }
