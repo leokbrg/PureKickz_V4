@@ -1,7 +1,7 @@
 {%- comment -%}
   PUREKICKZ Das Gerät: schwarze Bühne mit großem Foto links und Faktenraster (2×2, feine Linien).
-  „Randlos“: Foto füllt am Desktop die linke Seite von oben bis unten bis zur Bildschirmkante,
-  am Handy die volle Breite oben – kein Bildkasten auf der Fläche.
+  „Bühne“: freigestelltes Foto steht direkt auf der Fläche, mit weichem Schein dahinter;
+  unten abgeschnittene Motive (Hand) wachsen aus der unteren Section-Kante – kein Bildkasten.
   Reine Zahlen zählen beim Erscheinen hoch. Nur echte Werte eintragen.
 {%- endcomment -%}
 
@@ -11,13 +11,16 @@
 >
   <div class="pk-sec__inner pk-device__inner">
     <div class="pk-device__visual" data-pk-reveal>
+      {%- if section.settings.image_layout == 'stage' -%}
+        <span class="pk-device__glow" aria-hidden="true"></span>
+      {%- endif -%}
       {%- if section.settings.image != blank -%}
         {{
           section.settings.image
-          | image_url: width: 1600
+          | image_url: width: 1200
           | image_tag:
-            widths: '500, 800, 1000, 1200, 1600',
-            sizes: '(min-width: 990px) 46vw, 100vw',
+            widths: '320, 440, 640, 880, 1200',
+            sizes: '(min-width: 990px) 40vw, 90vw',
             loading: 'lazy',
             class: 'pk-device__img'
         }}
@@ -164,48 +167,52 @@
     }
   }
 
-  /* Randlos: Foto ohne Rahmen bis an die Kanten der Section, immer im eigenen Hochformat
-     (kein Heranzoomen). Am Desktop steht es als hohes Plakat an der linken Bildschirmkante. */
-  .pk-device--bleed .pk-device__visual {
-    margin-top: calc(var(--pk-pad-top, 112px) * -0.6);
-    margin-inline: calc(var(--page-margin) * -1);
-    aspect-ratio: 2 / 3;
-    max-height: 82vh;
+  /* Bühne: freigestelltes Gerät auf der Fläche. Am Handy unter den Fakten, am Desktop links;
+     die untere Bildkante sitzt immer auf der Section-Kante. */
+  .pk-device--stage {
+    overflow: clip;
+  }
+
+  .pk-device--stage .pk-device__visual {
+    position: relative;
+    order: 2;
+    justify-self: center;
+    width: min(72%, 320px);
+    margin-top: 8px;
+    margin-bottom: calc(var(--pk-pad-bottom, 112px) * -0.6);
+    aspect-ratio: auto;
+    overflow: visible;
     border-radius: 0;
     background: none;
   }
 
-  .pk-device--bleed .pk-device__img {
-    object-position: 50% 30%;
+  .pk-device--stage .pk-device__img {
+    position: relative;
+    transform-origin: 50% 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .pk-device__glow {
+    position: absolute;
+    inset: 0 -30% 10%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(180, 41, 152, 0.28), rgba(180, 41, 152, 0.06) 60%, transparent);
+    filter: blur(12px);
   }
 
   @media screen and (min-width: 990px) {
-    .pk-device--bleed {
-      --pk-device-h: clamp(620px, 88vh, 880px);
-      padding-block: 0;
+    .pk-device--stage .pk-device__inner {
+      align-items: center;
     }
 
-    .pk-device--bleed .pk-device__inner {
-      max-width: none;
-      padding-inline: 0;
-      grid-template-columns: calc(var(--pk-device-h) * 2 / 3) minmax(0, 1fr);
-      gap: 0;
-    }
-
-    .pk-device--bleed .pk-device__visual {
-      align-self: stretch;
-      aspect-ratio: auto;
-      min-height: var(--pk-device-h);
+    .pk-device--stage .pk-device__visual {
+      order: 0;
+      align-self: end;
+      width: min(100%, 440px);
       max-height: none;
-      margin: 0;
-    }
-
-    .pk-device--bleed .pk-device__body {
-      justify-self: center;
-      width: 100%;
-      max-width: calc(680px + 2 * clamp(40px, 5vw, 96px));
-      padding: calc(var(--pk-pad-top, 112px) * 0.7) clamp(40px, 5vw, 96px)
-        calc(var(--pk-pad-bottom, 112px) * 0.7);
+      margin-top: 0;
+      margin-bottom: calc(var(--pk-pad-bottom, 112px) * -1);
     }
   }
 
@@ -260,12 +267,12 @@
       "type": "select",
       "id": "image_layout",
       "label": "Bild-Inszenierung",
-      "info": "Randlos: Das Foto füllt am Desktop die linke Seite bis zur Bildschirmkante, am Handy die ganze Breite. Ideal, wenn der Bildhintergrund nicht zur Fläche passt.",
+      "info": "Bühne: freigestelltes Bild (PNG/WebP) steht direkt auf der Fläche, die Unterkante sitzt auf der Section-Kante – ideal für Hand-Fotos. Karte: Foto mit eigenem Hintergrund im Rahmen.",
       "options": [
-        { "value": "bleed", "label": "Randlos" },
+        { "value": "stage", "label": "Freigestellt auf der Bühne" },
         { "value": "card", "label": "Bild als Karte" }
       ],
-      "default": "bleed"
+      "default": "stage"
     },
     {
       "type": "text",

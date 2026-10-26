@@ -475,8 +475,8 @@
       "settings": {
         "surface": "dark",
         "edge": "hard",
-        "image": "shopify://shop_images/schwarze-buehne-frontal.jpg",
-        "image_layout": "bleed",
+        "image": "shopify://shop_images/geraet-frontal-taste.webp",
+        "image_layout": "stage",
         "eyebrow": "Das Gerät",
         "heading": "Gebaut, um die Arbeit zu machen.",
         "text": "<p>Ein Motor, ein Knopf, drei Aufsätze.</p>",
