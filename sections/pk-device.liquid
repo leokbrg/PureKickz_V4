@@ -20,7 +20,7 @@
           | image_url: width: 1200
           | image_tag:
             widths: '320, 440, 640, 880, 1200',
-            sizes: '(min-width: 990px) 560px, 90vw',
+            sizes: '(min-width: 990px) 40vw, 90vw',
             loading: 'lazy',
             class: 'pk-device__img'
         }}
@@ -167,8 +167,8 @@
     }
   }
 
-  /* Bühne: freigestelltes Gerät groß auf der Fläche (gespiegelt zum Kaufbereich der Startseite:
-     Text links, Gerät rechts). Die Unterkante des Bildes sitzt immer auf der Section-Kante. */
+  /* Bühne: freigestelltes Gerät auf der Fläche. Am Handy unter den Fakten, am Desktop links;
+     die untere Bildkante sitzt immer auf der Section-Kante. */
   .pk-device--stage {
     overflow: clip;
   }
@@ -177,8 +177,8 @@
     position: relative;
     order: 2;
     justify-self: center;
-    width: min(86%, 400px);
-    margin-top: 16px;
+    width: min(72%, 320px);
+    margin-top: 8px;
     margin-bottom: calc(var(--pk-pad-bottom, 112px) * -0.6);
     aspect-ratio: auto;
     overflow: visible;
@@ -188,37 +188,31 @@
 
   .pk-device--stage .pk-device__img {
     position: relative;
+    transform-origin: 50% 100%;
     height: auto;
     object-fit: contain;
-    transform-origin: 50% 100%;
   }
 
   .pk-device__glow {
     position: absolute;
-    inset: 4% -24% 6%;
+    inset: 0 -30% 10%;
     border-radius: 50%;
-    background: radial-gradient(closest-side, rgba(180, 41, 152, 0.3), rgba(180, 41, 152, 0.06) 62%, transparent);
-    filter: blur(10px);
+    background: radial-gradient(closest-side, rgba(180, 41, 152, 0.28), rgba(180, 41, 152, 0.06) 60%, transparent);
+    filter: blur(12px);
   }
 
   @media screen and (min-width: 990px) {
     .pk-device--stage .pk-device__inner {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: clamp(40px, 6vw, 96px);
       align-items: center;
     }
 
     .pk-device--stage .pk-device__visual {
+      order: 0;
       align-self: end;
-      width: auto;
+      width: min(100%, 440px);
       max-height: none;
       margin-top: 0;
       margin-bottom: calc(var(--pk-pad-bottom, 112px) * -1);
-    }
-
-    .pk-device--stage .pk-device__img {
-      width: auto;
-      height: clamp(600px, 84vh, 880px);
     }
   }
 

@@ -115,15 +115,10 @@
     "blocks": {
       "8254665832378904038": {
         "type": "shopify://apps/ag-product-reviews/blocks/app-embed/c4e1e9ca-4d46-4e76-bc39-7e42417cb327",
-        "disabled": false,
+        "disabled": true,
         "settings": {
           "air_reviews_json_ld_v3": ""
         }
-      },
-      "11532412952436166569": {
-        "type": "shopify://apps/loox-reviews/blocks/loox-inject/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
-        "disabled": true,
-        "settings": {}
       }
     },
     "color_palette": {

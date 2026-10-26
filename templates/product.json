@@ -116,15 +116,6 @@
                   },
                   "blocks": {}
                 },
-                "pk_rating": {
-                  "type": "pk-rating",
-                  "settings": {
-                    "show": false,
-                    "min_count": 3,
-                    "link": ""
-                  },
-                  "blocks": {}
-                },
                 "price_tVjtKg": {
                   "type": "price",
                   "settings": {
@@ -150,7 +141,6 @@
               },
               "block_order": [
                 "pk_title",
-                "pk_rating",
                 "price_tVjtKg"
               ]
             },
