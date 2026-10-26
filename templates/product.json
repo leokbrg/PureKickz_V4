@@ -238,7 +238,7 @@
               "type": "pk-trust-row",
               "settings": {
                 "icon_1": "truck",
-                "text_1": "Versand aus Deutschland, 2–4 Werktage",
+                "text_1": "Versand aus Deutschland, in DE 2–4 Werktage",
                 "icon_2": "return",
                 "text_2": "14 Tage Widerruf, Rücksendung kostenlos",
                 "icon_3": "lock",
@@ -259,7 +259,7 @@
                 "open_first": true,
                 "specs_title": "Technische Daten",
                 "shipping_title": "Versand & Rückgabe",
-                "shipping_text": "<p>Versand aus Deutschland, meist innerhalb von 1 Werktag. Lieferung innerhalb Deutschlands in 2–4 Werktagen nach Versand.</p><p>14 Tage Widerrufsrecht, die Rücksendung ist für dich kostenlos. Details in der <a href=\"/policies/refund-policy\">Widerrufsbelehrung</a>.</p>"
+                "shipping_text": "<p>Versand aus Deutschland, meist innerhalb von 1 Werktag. Lieferung innerhalb Deutschlands in 2–4 Werktagen nach Versand. Wir liefern nach Deutschland und in alle Länder der EU.</p><p>Versandkosten Deutschland: 5,99 €, ab 50 € Bestellwert kostenlos. Express: 9,99 €. In andere EU-Länder: 13,99 €. Alle Details in den <a href=\"/policies/shipping-policy\">Versandinformationen</a>.</p><p>14 Tage Widerrufsrecht, die Rücksendung ist für dich kostenlos. Details in der <a href=\"/policies/refund-policy\">Widerrufsbelehrung</a>.</p>"
               },
               "blocks": {}
             }
@@ -660,7 +660,7 @@
           "type": "question",
           "settings": {
             "question": "Wie schnell ist meine Bestellung da?",
-            "answer": "<p>Wir versenden aus Deutschland, meist innerhalb von 1 Werktag. Innerhalb Deutschlands dauert die Lieferung danach 2–4 Werktage.</p>"
+            "answer": "<p>Wir versenden aus Deutschland, meist innerhalb von 1 Werktag. Innerhalb Deutschlands dauert die Lieferung danach 2–4 Werktage. Versand in Deutschland kostet 5,99 €, ab 50 € Bestellwert ist er kostenlos. Wir liefern auch in alle Länder der EU (13,99 €).</p>"
           }
         },
         "q7": {

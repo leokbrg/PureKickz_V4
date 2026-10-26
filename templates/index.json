@@ -29,7 +29,7 @@
         "c3": {
           "type": "check",
           "settings": {
-            "text": "2–4 Werktage Lieferzeit",
+            "text": "In Deutschland 2–4 Werktage Lieferzeit",
             "link": "/policies/shipping-policy"
           }
         },
@@ -302,7 +302,7 @@
           "type": "promise",
           "settings": {
             "title": "Versand aus Deutschland",
-            "text": "Meist innerhalb von 1 Werktag verschickt, Lieferung in 2–4 Werktagen.",
+            "text": "Meist innerhalb von 1 Werktag verschickt, in Deutschland in 2–4 Werktagen da. Ab 50 € versandkostenfrei.",
             "link": "/policies/shipping-policy"
           }
         },
