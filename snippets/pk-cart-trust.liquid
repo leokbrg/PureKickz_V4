@@ -1,0 +1,92 @@
+{%- doc -%}
+  PUREKICKZ Trust direkt unter „Zur Kasse“: Häkchen-Zeile + Zahlungsarten-Icons.
+  Einstellungen: Theme-Einstellungen → PUREKICKZ Warenkorb. Zeilen mit [[...]] werden ausgeblendet.
+{%- enddoc -%}
+
+{%- liquid
+  assign trust_lines = settings.pk_cart_trust | newline_to_br | split: '<br />'
+  assign show_payments = false
+  if settings.pk_cart_payments and shop.enabled_payment_types.size > 0
+    assign show_payments = true
+  endif
+-%}
+
+{%- if settings.pk_cart_trust != blank or show_payments -%}
+  <div class="pk-cart-trust">
+    {%- if settings.pk_cart_trust != blank -%}
+      <ul class="pk-cart-trust__list" role="list">
+        {%- for line in trust_lines -%}
+          {%- assign item = line | strip -%}
+          {%- if item == blank or item contains '[[' -%}{%- continue -%}{%- endif -%}
+          <li>
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m3.5 8.5 3 3 6-7"/></svg>
+            <span>{{ item }}</span>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if show_payments -%}
+      <ul class="pk-cart-trust__payments" role="list" aria-label="Zahlungsarten">
+        {%- for type in shop.enabled_payment_types -%}
+          <li>{{ type | payment_type_svg_tag: class: 'pk-cart-trust__payment' }}</li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .pk-cart-trust {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding-top: 4px;
+  }
+
+  .pk-cart-trust__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px 16px;
+  }
+
+  .pk-cart-trust__list li {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8125rem;
+    color: rgba(25, 25, 23, 0.72);
+  }
+
+  .pk-cart-trust__list svg {
+    flex: none;
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: var(--pk-ink);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .pk-cart-trust__payments {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .pk-cart-trust__payment {
+    display: block;
+    width: 34px;
+    height: 22px;
+  }
+{% endstylesheet %}

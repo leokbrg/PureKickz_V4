@@ -278,6 +278,10 @@
       {{ content_for_additional_checkout_buttons }}
     </div>
   {% endif %}
+
+  {%- unless cart == empty -%}
+    {% render 'pk-cart-trust' %}
+  {%- endunless -%}
 </div>
 
 {% stylesheet %}

@@ -2116,5 +2116,28 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "PUREKICKZ Warenkorb",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Kurze Versprechen und Zahlungsarten direkt unter dem Button „Zur Kasse“ (Warenkorb-Drawer und Warenkorbseite)."
+      },
+      {
+        "type": "textarea",
+        "id": "pk_cart_trust",
+        "label": "Versprechen (eine Zeile pro Punkt)",
+        "info": "Zeilen mit [[...]] werden für Kunden ausgeblendet. Leer = keine Zeile.",
+        "default": "Versand aus Deutschland\n14 Tage Widerrufsrecht\nSichere Bezahlung"
+      },
+      {
+        "type": "checkbox",
+        "id": "pk_cart_payments",
+        "label": "Zahlungsarten-Icons zeigen",
+        "info": "Automatisch aus den aktiven Zahlungsarten in Shopify.",
+        "default": true
+      }
+    ]
   }
 ]
