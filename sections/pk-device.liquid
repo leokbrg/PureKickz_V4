@@ -164,39 +164,48 @@
     }
   }
 
-  /* Randlos: Foto ohne Rahmen bis an die Kanten der Section */
+  /* Randlos: Foto ohne Rahmen bis an die Kanten der Section, immer im eigenen Hochformat
+     (kein Heranzoomen). Am Desktop steht es als hohes Plakat an der linken Bildschirmkante. */
   .pk-device--bleed .pk-device__visual {
     margin-top: calc(var(--pk-pad-top, 112px) * -0.6);
     margin-inline: calc(var(--page-margin) * -1);
+    aspect-ratio: 2 / 3;
+    max-height: 82vh;
     border-radius: 0;
     background: none;
   }
 
   .pk-device--bleed .pk-device__img {
-    object-position: 50% 22%;
+    object-position: 50% 30%;
   }
 
   @media screen and (min-width: 990px) {
+    .pk-device--bleed {
+      --pk-device-h: clamp(620px, 88vh, 880px);
+      padding-block: 0;
+    }
+
     .pk-device--bleed .pk-device__inner {
       max-width: none;
       padding-inline: 0;
-      grid-template-columns: minmax(0, 46%) minmax(0, 1fr);
+      grid-template-columns: calc(var(--pk-device-h) * 2 / 3) minmax(0, 1fr);
       gap: 0;
-      align-items: center;
     }
 
     .pk-device--bleed .pk-device__visual {
       align-self: stretch;
       aspect-ratio: auto;
+      min-height: var(--pk-device-h);
       max-height: none;
-      min-height: min(88vh, 860px);
-      margin: calc(var(--pk-pad-top, 112px) * -1) 0 calc(var(--pk-pad-bottom, 112px) * -1);
+      margin: 0;
     }
 
     .pk-device--bleed .pk-device__body {
+      justify-self: center;
       width: 100%;
-      max-width: calc(640px + 2 * clamp(40px, 6vw, 112px));
-      padding-inline: clamp(40px, 6vw, 112px) var(--page-margin);
+      max-width: calc(680px + 2 * clamp(40px, 5vw, 96px));
+      padding: calc(var(--pk-pad-top, 112px) * 0.7) clamp(40px, 5vw, 96px)
+        calc(var(--pk-pad-bottom, 112px) * 0.7);
     }
   }
 
