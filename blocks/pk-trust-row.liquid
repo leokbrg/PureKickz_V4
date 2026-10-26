@@ -1,5 +1,6 @@
 {%- comment -%}
-  PUREKICKZ Trust-Zeile direkt unter dem Kaufbutton: kurze Versprechen + Zahlungsarten-Icons.
+  PUREKICKZ Trust-Zeile direkt unter dem Kaufbutton: kurze Versprechen + Zahlungsarten-Icons,
+  darunter leise Kontaktzeile (E-Mail, Impressum) – zeigt, dass hier jemand erreichbar ist.
 {%- endcomment -%}
 
 <div class="pk-trust-row" {{ block.shopify_attributes }}>
@@ -27,6 +28,21 @@
         <li>{{ type | payment_type_svg_tag: class: 'pk-trust-row__payment' }}</li>
       {%- endfor -%}
     </ul>
+  {%- endif -%}
+
+  {%- if block.settings.email != blank or block.settings.imprint_link != blank -%}
+    <p class="pk-trust-row__contact">
+      {%- if block.settings.email != blank -%}
+        <span>Fragen?</span>
+        <a href="mailto:{{ block.settings.email }}">{{ block.settings.email }}</a>
+      {%- endif -%}
+      {%- if block.settings.email != blank and block.settings.imprint_link != blank -%}
+        <span aria-hidden="true">·</span>
+      {%- endif -%}
+      {%- if block.settings.imprint_link != blank -%}
+        <a href="{{ block.settings.imprint_link }}">Impressum</a>
+      {%- endif -%}
+    </p>
   {%- endif -%}
 </div>
 
@@ -76,6 +92,31 @@
     display: block;
     width: 38px;
     height: 24px;
+  }
+
+  .pk-trust-row__contact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px 8px;
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--pk-muted);
+  }
+
+  .pk-trust-row__contact a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    color: var(--pk-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--pk-line);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  .pk-trust-row__contact a:hover {
+    text-decoration-color: currentColor;
   }
 {% endstylesheet %}
 
@@ -149,6 +190,23 @@
       "label": "Zahlungsarten-Icons zeigen",
       "info": "Automatisch aus den aktiven Zahlungsarten in Shopify.",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Kontaktzeile"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "E-Mail",
+      "info": "Leer = ausgeblendet.",
+      "default": "info@purekickz.de"
+    },
+    {
+      "type": "url",
+      "id": "imprint_link",
+      "label": "Link zum Impressum",
+      "info": "Leer = ausgeblendet."
     }
   ],
   "presets": [
