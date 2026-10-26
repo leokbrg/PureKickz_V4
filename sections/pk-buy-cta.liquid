@@ -13,7 +13,7 @@
 -%}
 
 <div
-  class="pk-sec pk-sec--{{ section.settings.surface }} pk-sec--edge-{{ section.settings.edge | default: 'hard' }} pk-cta"
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-sec--edge-{{ section.settings.edge | default: 'hard' }} pk-cta pk-cta--{{ section.settings.image_anchor | default: 'float' }}"
   style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
 >
   <div class="pk-sec__inner pk-cta__inner">
@@ -207,8 +207,26 @@
     }
   }
 
+  /* Am unteren Rand angesetzt: Foto, das unten abgeschnitten ist (z. B. Hand mit Unterarm),
+     läuft über die Section-Kante hinaus – die Schnittkante wird zur Section-Kante.
+     Am Handy steht das Bild deshalb unter dem Kaufbutton. */
+  .pk-cta--bottom .pk-cta__visual {
+    order: 2;
+    align-self: end;
+    margin-top: 24px;
+    margin-bottom: calc(var(--pk-pad-bottom, 112px) * -0.6);
+  }
+
+  @media screen and (min-width: 990px) {
+    .pk-cta--bottom .pk-cta__visual {
+      order: 0;
+      margin-top: 0;
+      margin-bottom: calc(var(--pk-pad-bottom, 112px) * -1);
+    }
+  }
+
   @media (prefers-reduced-motion: no-preference) {
-    .pk-motion .pk-cta__img {
+    .pk-motion .pk-cta--float .pk-cta__img {
       animation: pk-cta-float 7s ease-in-out infinite alternate;
     }
 
@@ -283,6 +301,17 @@
       "id": "image_mobile",
       "label": "Bild Handy (optional)",
       "info": "Leer lassen, um das Bild oben auch am Handy zu zeigen."
+    },
+    {
+      "type": "select",
+      "id": "image_anchor",
+      "label": "Bild-Inszenierung",
+      "info": "„Am unteren Rand“ für Fotos, die unten abgeschnitten sind (z. B. Hand mit Unterarm): Das Bild wächst aus der Section-Kante, am Handy unter dem Kaufbutton.",
+      "options": [
+        { "value": "float", "label": "Schwebend" },
+        { "value": "bottom", "label": "Am unteren Rand angesetzt" }
+      ],
+      "default": "float"
     },
     {
       "type": "text",
