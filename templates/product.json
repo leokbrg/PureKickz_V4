@@ -116,9 +116,14 @@
                   },
                   "blocks": {}
                 },
-                "ag_product_reviews_app_summary_block_dV6D39": {
-                  "type": "shopify://apps/ag-product-reviews/blocks/app-summary-block/c4e1e9ca-4d46-4e76-bc39-7e42417cb327",
-                  "settings": {}
+                "pk_rating": {
+                  "type": "pk-rating",
+                  "settings": {
+                    "show": false,
+                    "min_count": 3,
+                    "link": ""
+                  },
+                  "blocks": {}
                 },
                 "price_tVjtKg": {
                   "type": "price",
@@ -145,7 +150,7 @@
               },
               "block_order": [
                 "pk_title",
-                "ag_product_reviews_app_summary_block_dV6D39",
+                "pk_rating",
                 "price_tVjtKg"
               ]
             },
@@ -248,7 +253,9 @@
                 "text_2": "14 Tage Widerruf, Rücksendung kostenlos",
                 "icon_3": "lock",
                 "text_3": "Sichere Bezahlung",
-                "show_payment_icons": true
+                "show_payment_icons": true,
+                "email": "info@purekickz.de",
+                "imprint_link": "/policies/legal-notice"
               },
               "blocks": {}
             },
@@ -469,6 +476,7 @@
         "surface": "dark",
         "edge": "hard",
         "image": "shopify://shop_images/schwarze-buehne-frontal.jpg",
+        "image_layout": "bleed",
         "eyebrow": "Das Gerät",
         "heading": "Gebaut, um die Arbeit zu machen.",
         "text": "<p>Ein Motor, ein Knopf, drei Aufsätze.</p>",

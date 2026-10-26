@@ -1,0 +1,155 @@
+{%- comment -%}
+  PUREKICKZ Sterne unter dem Produkttitel. Liest die Shopify-Standardwerte der Bewertungs-App
+  (reviews.rating, reviews.rating_count). Erscheint nur, wenn eingeschaltet und genug echte
+  Bewertungen vorliegen – sonst rendert der Block nichts.
+{%- endcomment -%}
+
+{%- liquid
+  assign product = closest.product
+  assign rating = product.metafields.reviews.rating.value
+  assign count = product.metafields.reviews.rating_count.value | default: 0
+  assign show = false
+  if block.settings.show and rating != blank and count >= block.settings.min_count
+    assign show = true
+  endif
+-%}
+
+{%- if show -%}
+  {%- liquid
+    assign scale = rating.scale_max | default: 5 | round
+    assign value = rating.rating | times: 1.0
+    assign percent = value | divided_by: scale | times: 100 | round: 1
+    assign value_text = value | round: 1 | append: '' | replace: '.', ','
+    if count == 1
+      assign count_label = '1 Bewertung'
+    else
+      assign count_label = count | append: ' Bewertungen'
+    endif
+    assign label = value_text | append: ' von ' | append: scale | append: ' Sternen, ' | append: count_label
+  -%}
+  {%- capture inner -%}
+    <span class="pk-rating__stars" style="--pk-rating: {{ percent }}%;" aria-hidden="true">
+      {%- for i in (1..5) -%}
+        <svg viewBox="0 0 20 20" focusable="false"><path d="m10 1.6 2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.8 1-5.9L1.5 7.8l5.9-.8z"/></svg>
+      {%- endfor -%}
+      <span class="pk-rating__fill">
+        {%- for i in (1..5) -%}
+          <svg viewBox="0 0 20 20" focusable="false"><path d="m10 1.6 2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.8 1-5.9L1.5 7.8l5.9-.8z"/></svg>
+        {%- endfor -%}
+      </span>
+    </span>
+    <span class="pk-rating__value" aria-hidden="true">{{ value_text }}</span>
+    <span class="pk-rating__count" aria-hidden="true">{{ count_label }}</span>
+    <span class="visually-hidden">{{ label }}</span>
+  {%- endcapture -%}
+
+  {%- if block.settings.link != blank -%}
+    <a class="pk-rating" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>{{ inner }}</a>
+  {%- else -%}
+    <p class="pk-rating" {{ block.shopify_attributes }}>{{ inner }}</p>
+  {%- endif -%}
+{%- endif -%}
+
+{% stylesheet %}
+  .pk-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    color: var(--pk-ink);
+    text-decoration: none;
+    font-size: 0.875rem;
+    line-height: 1;
+  }
+
+  a.pk-rating {
+    min-height: 44px;
+  }
+
+  .pk-rating__stars {
+    position: relative;
+    display: inline-flex;
+    gap: 2px;
+  }
+
+  .pk-rating__stars svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+    fill: var(--pk-line);
+  }
+
+  .pk-rating__fill {
+    position: absolute;
+    inset: 0;
+    display: inline-flex;
+    gap: 2px;
+    width: var(--pk-rating);
+    overflow: hidden;
+  }
+
+  .pk-rating__fill svg {
+    flex: none;
+    fill: var(--pk-ink);
+  }
+
+  .pk-rating__value {
+    font-family: var(--font-heading--family);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pk-rating__count {
+    color: var(--pk-muted);
+  }
+
+  a.pk-rating .pk-rating__count {
+    text-decoration: underline;
+    text-decoration-color: var(--pk-line);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s ease, color 0.2s ease;
+  }
+
+  a.pk-rating:hover .pk-rating__count {
+    color: var(--pk-ink);
+    text-decoration-color: currentColor;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "PK Sterne",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Zeigt Durchschnitt und Anzahl aus der Bewertungs-App. Nur einschalten, wenn die Bewertungen von echten Käufern dieses Shops stammen."
+    },
+    {
+      "type": "checkbox",
+      "id": "show",
+      "label": "Sterne anzeigen",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "min_count",
+      "label": "Erst ab so vielen Bewertungen zeigen",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "link",
+      "label": "Sprungziel beim Klick",
+      "info": "Z. B. #bewertungen für die Bewertungs-Section auf derselben Seite. Leer = kein Link."
+    }
+  ],
+  "presets": [
+    {
+      "name": "PK Sterne"
+    }
+  ]
+}
+{% endschema %}
