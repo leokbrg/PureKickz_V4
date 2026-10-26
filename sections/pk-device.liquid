@@ -1,10 +1,12 @@
 {%- comment -%}
   PUREKICKZ Das Gerät: schwarze Bühne mit großem Foto links und Faktenraster (2×2, feine Linien).
+  „Randlos“: Foto füllt am Desktop die linke Seite von oben bis unten bis zur Bildschirmkante,
+  am Handy die volle Breite oben – kein Bildkasten auf der Fläche.
   Reine Zahlen zählen beim Erscheinen hoch. Nur echte Werte eintragen.
 {%- endcomment -%}
 
 <div
-  class="pk-sec pk-sec--{{ section.settings.surface }} pk-sec--edge-{{ section.settings.edge | default: 'hard' }} pk-device"
+  class="pk-sec pk-sec--{{ section.settings.surface }} pk-sec--edge-{{ section.settings.edge | default: 'hard' }} pk-device pk-device--{{ section.settings.image_layout | default: 'card' }}"
   style="--pk-pad-top: {{ section.settings.padding_top }}px; --pk-pad-bottom: {{ section.settings.padding_bottom }}px;"
 >
   <div class="pk-sec__inner pk-device__inner">
@@ -12,10 +14,10 @@
       {%- if section.settings.image != blank -%}
         {{
           section.settings.image
-          | image_url: width: 1200
+          | image_url: width: 1600
           | image_tag:
-            widths: '500, 800, 1000, 1200',
-            sizes: '(min-width: 990px) 40vw, 90vw',
+            widths: '500, 800, 1000, 1200, 1600',
+            sizes: '(min-width: 990px) 46vw, 100vw',
             loading: 'lazy',
             class: 'pk-device__img'
         }}
@@ -162,6 +164,42 @@
     }
   }
 
+  /* Randlos: Foto ohne Rahmen bis an die Kanten der Section */
+  .pk-device--bleed .pk-device__visual {
+    margin-top: calc(var(--pk-pad-top, 112px) * -0.6);
+    margin-inline: calc(var(--page-margin) * -1);
+    border-radius: 0;
+    background: none;
+  }
+
+  .pk-device--bleed .pk-device__img {
+    object-position: 50% 22%;
+  }
+
+  @media screen and (min-width: 990px) {
+    .pk-device--bleed .pk-device__inner {
+      max-width: none;
+      padding-inline: 0;
+      grid-template-columns: minmax(0, 46%) minmax(0, 1fr);
+      gap: 0;
+      align-items: center;
+    }
+
+    .pk-device--bleed .pk-device__visual {
+      align-self: stretch;
+      aspect-ratio: auto;
+      max-height: none;
+      min-height: min(88vh, 860px);
+      margin: calc(var(--pk-pad-top, 112px) * -1) 0 calc(var(--pk-pad-bottom, 112px) * -1);
+    }
+
+    .pk-device--bleed .pk-device__body {
+      width: 100%;
+      max-width: calc(640px + 2 * clamp(40px, 6vw, 112px));
+      padding-inline: clamp(40px, 6vw, 112px) var(--page-margin);
+    }
+  }
+
   @media (prefers-reduced-motion: no-preference) {
     .pk-motion .pk-device__visual .pk-device__img {
       transform: scale(1.06);
@@ -208,6 +246,17 @@
       "type": "image_picker",
       "id": "image",
       "label": "Bild (Hochformat)"
+    },
+    {
+      "type": "select",
+      "id": "image_layout",
+      "label": "Bild-Inszenierung",
+      "info": "Randlos: Das Foto füllt am Desktop die linke Seite bis zur Bildschirmkante, am Handy die ganze Breite. Ideal, wenn der Bildhintergrund nicht zur Fläche passt.",
+      "options": [
+        { "value": "bleed", "label": "Randlos" },
+        { "value": "card", "label": "Bild als Karte" }
+      ],
+      "default": "bleed"
     },
     {
       "type": "text",
